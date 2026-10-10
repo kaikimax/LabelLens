@@ -1,208 +1,258 @@
-# ExpenseGuard — Specification
+# LabelLens — Specification
 
 **Status:** v1 draft · **Author:** Oussama Zaam · **Date:** 2026-10-10
 
 ## 1. Problem
 
-Finance teams check expense reports by hand: they re-type receipt data and compare every line against a policy document nobody remembers. It's slow, it's inconsistent, and violations still slip through.
+Packaged food labels are hard to read and harder to compare. Nutrition tables are printed small, on curved or shiny packaging, often in French and Arabic. Ingredient lists hide allergens and additives under technical names.
 
-ExpenseGuard takes a receipt (image or PDF) and returns:
-1. the structured data on it (merchant, date, amount, currency, category, line items), and
-2. a list of policy violations, each with the exact policy clause it breaks and how confident the system is.
+LabelLens takes photos of a food package and returns:
+1. the nutrition table and ingredients, as structured data,
+2. the Nutri-Score grade (A–E), computed with the official formula,
+3. the allergens and additives found in the ingredients,
+4. a short, sourced explanation of each additive.
+
+**The real point of the project is section 8: an evaluation harness that measures every AI step and blocks regressions in CI.** The harness is generic. Food labels are the first domain plugged into it.
 
 ## 2. Goals and non-goals
 
 **Goals (v1)**
-- Extract receipt fields reliably enough to measure, and measure it (see section 8).
-- Flag violations of the Atlas Meridian expense policy (`docs/expense-policy.md`), citing the clause.
-- Keep every LLM call observable: tokens, cost, latency, model.
-- Deployed with a public demo, CI/CD, and reproducible locally with `docker compose up`.
+- Extract label data from photos and measure how accurately it does so.
+- Compute Nutri-Score deterministically, and verify the formula against thousands of reference products.
+- Tag allergens and additives with a fine-tuned small model, and compare it honestly against a large prompted model.
+- Explain additives with RAG, citing the source entry, and measure whether explanations stay grounded.
+- Make every LLM call observable: tokens, cost, latency, model.
+- Deploy with a public demo and CI/CD, reproducible locally with `docker compose up`.
 
 **Non-goals (v1)**
-- Multi-tenant SaaS, billing, real authentication. A single demo user with an API key is enough.
-- Full expense report workflow (submission, approval chains, reimbursement).
-- Mobile app.
-- Fine-tuning any model.
-- Supporting any policy other than the one in `docs/`. Uploading a new policy can be v2.
+- Barcode scanning or product lookup. Photos are the input; that's what makes extraction worth measuring.
+- Dietary advice, health recommendations, or personalized nutrition. The app reports label information only.
+- User accounts. A single API key protects the API.
+- Mobile app. The web UI works on a phone browser, which is enough to photograph a product.
+- Nutri-Score for beverages, cheese, and fats/oils/nuts. These have special rules; v1 marks them `NOT_SCORED`. Adding them is listed in v2 ideas.
 
-## 3. Users and core flow
+## 3. Core flow
 
-**User:** a finance reviewer, or an employee checking a receipt before submitting it.
+1. User uploads 2–3 photos of a product: front (optional), nutrition table, ingredients list.
+2. **Extraction** (vision LLM, structured output) → `LabelData`: product name, brand, per-100g nutrients, ingredients text, detected language, and a declared category (general food / beverage / cheese / fat).
+3. **Scoring** (Java) → Nutri-Score points breakdown and grade, or `NOT_SCORED` with a reason.
+4. **Tagging** (fine-tuned small model) → allergens (EU list of 14) and additives (E-numbers).
+5. **Explanation** (RAG) → for each additive, a 2-sentence explanation grounded in the additives database, with the entry ID cited.
+6. UI shows all of it, with the points breakdown, so the grade is never a black box.
 
-1. User uploads a receipt and fills in the trip context: home city, destination city, trip dates, number of attendees (for meals), and business purpose.
-2. System stores the file and runs **extraction** → a typed `ReceiptData` object.
-3. System runs **policy checks** → a list of `Violation`s.
-4. User sees the extracted fields (editable), the violations with clause citations, and a final status: `COMPLIANT`, `NEEDS_REVIEW`, or `VIOLATION`.
-5. If the user corrects a field, the checks run again. Corrections are stored, because they're free labelled data for the eval set.
+## 4. Key design decision: which step uses what
 
-## 4. The key design decision: rules vs. LLM
+| Step | Handled by | Why |
+|---|---|---|
+| Reading the label | Vision LLM + JSON schema validation | Photos of real packaging are where a vision model earns its cost. |
+| Nutri-Score | **Plain Java** | It's a published formula. An LLM doing this arithmetic would be a liability: untestable and non-deterministic. |
+| Allergen and additive tagging | **Fine-tuned small model** | Narrow, high-volume classification with thousands of free labelled examples. A candidate for fine-tuning, if the eval says so. |
+| Additive explanations | Chat model + RAG over the additives database | Needs fluent text, but must not invent facts. Retrieval supplies the facts; eval checks the model sticks to them. |
+| Unit conversion, validation (e.g. sugars ≤ carbohydrates, salt = sodium × 2.5) | **Plain Java** | Sanity checks that catch extraction errors before they reach the score. |
 
-Not everything should go through the LLM. Splitting the work is the core design choice of the project, and the main thing to explain in interviews.
-
-| Check type | Example | Handled by | Why |
-|---|---|---|---|
-| **Numeric limits** | Meal over 400 MAD/day in Casablanca (§3.1), hotel over nightly cap (§5.1), receipt missing above 100 MAD (§2.1) | **Deterministic Java rules** | Exact, testable, free, explainable. An LLM doing arithmetic is a liability. |
-| **Date/time rules** | Submitted after 90 days (§2.4), weekend expense (§6.5) | **Deterministic Java rules** | Same reasons. |
-| **Duplicates** | Same merchant + date + amount (§2.5) | **SQL query** | It's a database lookup. |
-| **Judgment calls** | Is this a personal expense (§1.3)? Is "Spotify Premium" a software subscription bought outside IT (§6.2)? Does the description justify a 450 MAD taxi (§4.4)? | **LLM + RAG** over the policy | Needs reading comprehension and the relevant clause text. |
-| **Field extraction** | Merchant, total, currency, line items, alcohol lines | **Vision LLM** with structured output | This is where an LLM is the right tool. |
-
-The rule engine owns anything with a number in the policy. The LLM owns extraction and fuzzy interpretation. Every violation, from either path, carries a `clauseId` (e.g. `3.5`) that links to the policy text.
+Rule of thumb applied throughout: **anything with a formula or a threshold is code; the model only reads, classifies, and explains.**
 
 ## 5. Architecture
 
 ```
-            ┌─────────────────────── Spring Boot app ───────────────────────┐
- Upload ──▶ │ ReceiptController                                             │
- (htmx UI   │   │                                                           │
-  or REST)  │   ├─▶ StorageService ──────────────▶ Azure Blob Storage       │
-            │   │                                                           │
-            │   ├─▶ ExtractionService ── Spring AI ──▶ Azure OpenAI (vision)│
-            │   │     └ JSON-schema validation + 1 retry on bad output      │
-            │   │                                                           │
-            │   └─▶ PolicyCheckService                                      │
-            │         ├ RuleEngine (Java, one class per rule)               │
-            │         ├ DuplicateCheck (SQL)                                │
-            │         └ LlmJudge ─ PolicyRetriever ─▶ pgvector (clauses)    │
-            │                    └──────────────────▶ Azure OpenAI (chat)   │
-            │                                                               │
-            │ LlmCallRecorder (tokens, cost, latency) ─▶ Postgres + App Insights │
-            └───────────────────────────────────────────────────────────────┘
-                                    │
-                         Azure Database for PostgreSQL (+ pgvector)
+            ┌──────────────────────── Spring Boot app ─────────────────────────┐
+ Photos ──▶ │ ProductController                                                │
+ (htmx UI   │   ├─▶ StorageService ─────────────────────▶ Azure Blob Storage   │
+  or REST)  │   ├─▶ ExtractionService ── Spring AI ─────▶ Azure OpenAI (vision)│
+            │   │     └ schema validation + sanity checks + 1 retry            │
+            │   ├─▶ NutriScoreCalculator (pure Java, no I/O)                   │
+            │   ├─▶ TaggingService ─────────────────────▶ fine-tuned model     │
+            │   └─▶ ExplanationService ─ AdditiveRetriever ─▶ pgvector         │
+            │                          └─────────────────▶ Azure OpenAI (chat) │
+            │ LlmCallRecorder (tokens, cost, latency) ─▶ Postgres + App Insights│
+            └──────────────────────────────────────────────────────────────────┘
+
+ eval-core/   (generic harness, no food-specific code)  ◀── eval-food/ (datasets + scorers wiring)
+ training/    (Python: data prep + fine-tune job)
 ```
 
-**Policy ingestion** runs once at startup (or via a CLI command): split `expense-policy.md` into one chunk per numbered clause, embed each chunk, and store it with its `clauseId`. Chunking by clause instead of fixed token windows is deliberate: the policy is already structured, and it makes citations exact.
+**Repository layout**
+
+```
+labellens/
+  app/          Spring Boot service
+  eval-core/    Generic eval harness (Java library)
+  eval-food/    Food datasets, case definitions, baseline.json
+  training/     Python: Open Food Facts prep, fine-tune launch, data cards
+  docs/         SPEC.md, DATA_PLAN.md, decisions/
+```
 
 ## 6. Data model
 
 ```
-receipt
-  id               UUID PK
-  file_url         TEXT
-  file_sha256      TEXT          -- exact-duplicate detection
-  uploaded_at      TIMESTAMPTZ
-  status           TEXT          -- PENDING | EXTRACTED | CHECKED | FAILED
-  home_city        TEXT
-  destination_city TEXT
-  trip_start       DATE
-  trip_end         DATE
-  attendees        INT
-  business_purpose TEXT
+product
+  id                UUID PK
+  created_at        TIMESTAMPTZ
+  status            TEXT        -- PENDING | EXTRACTED | DONE | FAILED
+  photo_urls        TEXT[]
 
-extraction
-  id               UUID PK
-  receipt_id       UUID FK
-  merchant         TEXT
-  expense_date     DATE
-  total_amount     NUMERIC(12,2)
-  currency         CHAR(3)
-  total_mad        NUMERIC(12,2)
-  category         TEXT          -- MEAL | LODGING | AIRFARE | TRAIN | TAXI | CAR_RENTAL | FUEL | PARKING | PHONE | SOFTWARE | BOOKS | GIFT | OTHER
-  line_items       JSONB         -- [{description, amount, isAlcohol}]
-  tip_amount       NUMERIC(12,2)
-  model            TEXT
-  corrected_by_user BOOLEAN
-  created_at       TIMESTAMPTZ
+label_extraction
+  id                UUID PK
+  product_id        UUID FK
+  name, brand       TEXT
+  category          TEXT        -- GENERAL | BEVERAGE | CHEESE | FAT
+  energy_kj_100g    NUMERIC(8,2)
+  sugars_100g       NUMERIC(6,2)
+  sat_fat_100g      NUMERIC(6,2)
+  salt_100g         NUMERIC(6,3)
+  fibre_100g        NUMERIC(6,2)
+  protein_100g      NUMERIC(6,2)
+  fvl_percent       NUMERIC(5,2) NULL   -- fruit/vegetables/legumes, often absent from labels
+  ingredients_text  TEXT
+  language          TEXT        -- fr | ar | en | mixed
+  sanity_warnings   JSONB
+  model             TEXT
 
-violation
-  id               UUID PK
-  receipt_id       UUID FK
-  clause_id        TEXT          -- e.g. "3.5"
-  source           TEXT          -- RULE | LLM | DUPLICATE
-  severity         TEXT          -- BLOCKING | REVIEW
-  message          TEXT
-  confidence       NUMERIC(3,2)  -- 1.00 for rules
-  excess_amount_mad NUMERIC(12,2) NULL
+nutri_score
+  product_id        UUID FK
+  grade             CHAR(1) NULL
+  status            TEXT        -- SCORED | NOT_SCORED
+  points_breakdown  JSONB       -- every component, so the UI can explain the grade
+  algorithm_version TEXT
 
-policy_chunk
-  id               UUID PK
-  clause_id        TEXT
-  title            TEXT
-  content          TEXT
-  embedding        VECTOR(1536)  -- dimension depends on embedding model
+tag
+  product_id        UUID FK
+  kind              TEXT        -- ALLERGEN | ADDITIVE
+  code              TEXT        -- e.g. "en:gluten", "en:e330"
+  confidence        NUMERIC(3,2)
+  model             TEXT
+
+additive_entry
+  id                TEXT PK     -- e.g. "en:e330"
+  name              TEXT
+  function_class    TEXT
+  content           TEXT
+  embedding         VECTOR(1536)
 
 llm_call
-  id               UUID PK
-  receipt_id       UUID FK NULL
-  purpose          TEXT          -- EXTRACTION | JUDGE | EMBEDDING
-  model            TEXT
-  input_tokens     INT
-  output_tokens    INT
-  cost_usd         NUMERIC(10,6)
-  latency_ms       INT
-  success          BOOLEAN
-  created_at       TIMESTAMPTZ
+  id, product_id, purpose (EXTRACTION | TAGGING | EXPLANATION | EMBEDDING | JUDGE),
+  model, input_tokens, output_tokens, cost_usd, latency_ms, success, created_at
 ```
 
-Migrations are managed with Flyway.
+Migrations managed with Flyway.
 
 ## 7. API
 
 | Method | Path | Purpose |
 |---|---|---|
-| `POST` | `/api/receipts` | Multipart upload: file + trip context. Returns `202` with the receipt id; processing is async. |
-| `GET` | `/api/receipts/{id}` | Receipt, extraction, violations, status. |
-| `PATCH` | `/api/receipts/{id}/extraction` | User corrects fields; checks re-run. |
-| `GET` | `/api/receipts` | Paginated list. |
-| `GET` | `/api/policy/clauses/{clauseId}` | Clause text, for citation links. |
-| `GET` | `/api/metrics/llm` | Aggregated cost/latency per purpose and model. |
-| `GET` | `/actuator/health` | Health check for Container Apps. |
+| `POST` | `/api/products` | Multipart upload of 1–3 photos. Returns the product with all results. Synchronous in v1. |
+| `GET` | `/api/products/{id}` | Full result. |
+| `GET` | `/api/products` | Paginated list. |
+| `GET` | `/api/additives/{id}` | Additive entry, for citation links. |
+| `GET` | `/api/metrics/llm` | Cost and latency aggregated by purpose and model. |
+| `GET` | `/api/eval/latest` | The latest committed eval report, rendered in the UI. |
+| `GET` | `/actuator/health` | Health check. |
 
-Errors use RFC 9457 problem details (`application/problem+json`). Every request requires an `X-API-Key` header except health and the UI.
+Errors use RFC 9457 problem details. Synchronous processing is a deliberate v1 simplification; the README says so.
 
-Async processing: v1 uses Spring's `@Async` with a bounded thread pool. A real queue (Azure Service Bus) is out of scope; the README will say why.
+## 8. Evaluation (centrepiece)
 
-## 8. Evaluation
+### 8.1 The generic harness (`eval-core`)
 
-This section is what makes the project credible. Without it, the project is a ChatGPT wrapper.
+Domain-agnostic building blocks, so the same harness can evaluate any extract → compute → classify → explain pipeline:
 
-**Extraction eval**
-- Dataset: 50 receipts in `eval/receipts/`. Roughly 35 from the public SROIE dataset, 15 photographed by me (Moroccan receipts, French/Arabic text, MAD, crumpled, bad lighting).
-- Labels: `eval/labels.json` with the expected `merchant`, `date`, `total`, `currency`, `category`.
-- Metrics per field: exact match for date/currency/category; total within 0.01; merchant by normalized string similarity ≥ 0.85.
-- Report: accuracy per field, overall, cost per receipt, p50/p95 latency.
+| Concept | What it is |
+|---|---|
+| `Dataset<I, E>` | A versioned list of cases: an input `I` and an expected output `E`, with tags for breakdowns (e.g. `lang=ar`, `photo=blurry`). |
+| `Pipeline<I, O>` | Anything under test: one model call, one service, or the whole flow. |
+| `Scorer<E, O>` | Compares expected vs actual. Built-ins: `ExactMatch`, `NumericTolerance`, `TextErrorRate`, `SetPrecisionRecall` (with per-label results), `ValidatedLlmJudge`. |
+| `Report` | Metrics overall and per tag, plus cost and latency per case. Written as JSON and Markdown. |
+| `Gate` | Compares a report against `baseline.json` and fails the build if a headline metric drops beyond a threshold. |
 
-**Policy check eval**
-- 30 hand-written scenarios in `eval/policy-cases.json`. Each is a `ReceiptData` + trip context + the expected set of `clauseId`s that should fire.
-- At least 1/3 must be compliant cases, to measure false positives.
-- Metrics: precision and recall on violations, split by `source` (RULE vs LLM).
-- Rule checks must hit 100%. Anything less is a bug, not an accuracy issue.
+Food-specific code lives only in `eval-food`. Adding a new domain means a new dataset and a mapping, not a new harness.
 
-**CI gating**
-- Rule tests run on every push (fast, free).
-- The LLM eval runs on PRs that touch prompts, models or `ai/` code, and on a nightly schedule. A PR fails if any metric drops more than 3 points below `eval/baseline.json`.
+### 8.2 What is evaluated, and how
+
+| # | Step | Test set | Metrics | Notes |
+|---|---|---|---|---|
+| E1 | **Extraction** | 40 products I photograph and label by hand | Accuracy per nutrient within rounding tolerance; text error rate on ingredients | Broken down by language (fr/ar) and photo quality. |
+| E2a | **Nutri-Score formula** | ~5,000 Open Food Facts products with a stored grade | Agreement with reference grade | Should be ~100%. Each mismatch is investigated: bug or category edge case. |
+| E2b | **End-to-end grade** | The same 40 photographed products | Grade agreement; how often an extraction error flips the grade | Measures **error propagation** from extraction into the score. |
+| E3 | **Tagging** | 500 held-out OFF products + my 40 | Precision/recall/F1 per allergen and per additive | **Allergen recall is the headline metric**: a missed allergen is worse than a false alarm. |
+| E4a | **Explanation citations** | Every additive in E3's test set | % of explanations citing the correct entry ID | Fully automatic. |
+| E4b | **Explanation groundedness** | Sample of 100 explanations | % with no claim missing from the retrieved entry | Judged by an LLM; the judge is validated first against 30 hand-labelled cases, and its agreement rate is reported. |
+
+### 8.3 The fine-tuning experiment
+
+Same E3 test set, three configurations:
+
+| Configuration | Allergen recall | Additive F1 | Cost / 1k products | p95 latency |
+|---|---|---|---|---|
+| Large model, prompt only (baseline) | | | | |
+| Small model, prompt only | | | | |
+| Fine-tuned small model | | | | |
+
+The result is reported whatever it is. If fine-tuning doesn't beat the baseline, the README explains why.
+
+### 8.4 Leakage and label quality
+
+- OFF data is split by barcode, so no product appears in both training and test sets.
+- My 40 photographed products are never used for training.
+- **Known weakness:** some OFF allergen and additive tags come from OFF's own ingredient parser, not from humans. A model trained on them may learn to imitate the parser. That's why the hand-checked set is reported separately, and why it's the number I trust most.
+
+### 8.5 In CI
+
+| When | What runs | Cost |
+|---|---|---|
+| Every push | Unit tests, Nutri-Score formula tests (E2a), harness tests | Free |
+| PRs touching prompts, models or AI code | Eval subset: 10 photos, 100 tagging cases | ~cents |
+| Nightly / manual | Full eval, report committed to `eval-food/reports/` | ~$1–2 |
+
+The `Gate` fails a PR if any headline metric drops more than 3 points below baseline.
 
 ## 9. Non-functional targets
 
 | Target | Value |
 |---|---|
-| End-to-end processing time | p95 < 15 s per receipt |
-| Cost | < $0.01 per receipt (to be confirmed on day 8) |
-| Extraction accuracy (overall) | ≥ 90% on the eval set; record whatever the real number is honestly |
-| Max upload size | 10 MB; JPEG, PNG, PDF only |
-| Malformed LLM output | Validate → 1 retry with the error fed back → mark `FAILED` and surface it |
-| Secrets | None in the repo. Azure via OIDC in CI, managed identity at runtime where possible. |
+| End-to-end processing | p95 < 20 s per product |
+| Cost | Measured and reported; target < $0.02 per product |
+| Upload | Up to 3 images, 10 MB each, JPEG/PNG |
+| Malformed LLM output | Validate → 1 retry with the error fed back → `FAILED`, shown to the user |
+| Secrets | None in the repo. OIDC from GitHub Actions to Azure. |
+| Disclaimer | Visible in the UI: label information only, not dietary or medical advice. |
+| Data licence | Open Food Facts data is under ODbL; attribution in README and UI. |
 
 ## 10. Tech stack
 
-Java 21 · Spring Boot 3 · Spring AI (Azure OpenAI starter) · PostgreSQL + pgvector · Flyway · Thymeleaf + htmx · JUnit 5 + Testcontainers · Docker · GitHub Actions · Azure Container Apps, Azure Database for PostgreSQL Flexible Server, Blob Storage, Application Insights.
+Java 21 · Spring Boot 3 · Spring AI (Azure OpenAI) · PostgreSQL + pgvector · Flyway · Thymeleaf + htmx · JUnit 5 + Testcontainers · Docker · GitHub Actions · Azure Container Apps, Azure Database for PostgreSQL Flexible Server, Blob Storage, Application Insights, Azure OpenAI fine-tuning (Developer tier deployments) · Python (training data prep only).
 
-## 11. Risks
+## 11. Plan (2 weeks)
+
+| Day | Work |
+|---|---|
+| 1 | Spec, data plan, photograph the first 20 products. |
+| 2 | Spring Boot skeleton, Flyway, Testcontainers. Check Azure model quota. Photo upload + extraction. |
+| 3 | Nutri-Score calculator + E2a against OFF reference data. |
+| 4 | `eval-core` harness: Dataset, Scorer, Report, Gate. Wire E1 and E2b. |
+| 5 | Photograph and label the remaining 20 products. Prompt-only tagging + E3 baseline. |
+| 6–7 | `training/`: OFF data prep, split, fine-tune job. Run the three-way comparison. |
+| 8 | Additive RAG + E4a/E4b, including judge validation. |
+| 9 | Cost/latency tracking, sanity checks, error handling. |
+| 10–11 | UI, Docker, GitHub Actions (CI + eval gate + deploy), Azure deployment. |
+| 12 | README with eval tables, architecture diagram, decisions; demo video. |
+| 13–14 | Buffer. |
+
+## 12. Risks
 
 | Risk | Mitigation |
 |---|---|
-| Azure OpenAI quota or model not available in region | Check on day 2 before writing extraction code. Spring AI lets me swap provider by config. |
-| Overlap with my employer's T&E product | Built on personal time and hardware, no company code or data, fictional policy. Contract checked. |
-| Running out of the $100 credit | Budget alert at $25; stop Postgres when idle; scale-to-zero app. |
-| Scope creep (auth, multi-policy, queue) | Non-goals listed in section 2. Anything new goes in `docs/v2-ideas.md`. |
-| SROIE receipts are Malaysian, not Moroccan | That's why 15 receipts are my own. Report accuracy for both subsets separately. |
+| Vision or fine-tuning not available in my Azure region | Check day 2. Spring AI allows swapping provider by config. |
+| Fine-tuned deployment costs | Developer tier only (no hourly hosting fee, 24 h lifetime); redeploy for each eval run. |
+| $100 credit runs out | Budget alert at $25, stop Postgres when idle, scale-to-zero app, eval subsets in CI. |
+| OFF labels are noisy | Hand-checked set reported separately (8.4). |
+| Nutri-Score algorithm version mismatch with OFF data | Verify which version OFF's stored grade uses before running E2a. |
+| Scope creep | Non-goals in section 2; new ideas go in `docs/v2-ideas.md`. |
 
-## 12. Definition of done
+## 13. Definition of done
 
-- [ ] Live demo URL works and the app scales back to zero.
-- [ ] `docker compose up` runs the full app locally.
-- [ ] CI: build, unit tests, Testcontainers integration tests, image push, deploy.
-- [ ] Eval results committed and shown in the README with the real numbers.
-- [ ] README: problem, architecture diagram, rules-vs-LLM decision, eval table, cost per 1,000 receipts, what I'd do next.
-- [ ] 2-minute demo video linked from the README.
+- [ ] Live demo works and scales to zero.
+- [ ] `docker compose up` runs everything locally.
+- [ ] CI: build, tests, eval gate, image push, deploy.
+- [ ] All eval tables in section 8 filled with real numbers, committed.
+- [ ] README: problem, architecture, design decisions, eval results, fine-tuning verdict, cost per 1,000 products, "applying the harness to other domains" section.
+- [ ] 2-minute demo video.
