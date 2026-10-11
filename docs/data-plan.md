@@ -1,138 +1,148 @@
 # LabelLens — Data Plan
 
-Two sources of data, with different jobs:
+The project uses two sources of data:
 
-| Source | Size | Used for | Trust level |
-|---|---|---|---|
-| **My photographed products** | 40 | Extraction eval (E1), end-to-end grade (E2b), hand-checked tagging eval (E3) | Highest: I verify every value against the package. Never used for training. |
-| **Open Food Facts (OFF) export** | ~5,000 for formula checks; ~3,000 train + 500 test for tagging | Nutri-Score formula check (E2a), fine-tuning, tagging eval (E3) | Medium: volunteer-entered, some tags parser-generated. |
+| Source | How many | Used for |
+|---|---|---|
+| **My own photos** | 40 products | Testing the AI on real photos. **Never used for training.** I trust these most, because I check every value myself. |
+| **Open Food Facts** | ~5,000 + ~3,500 products | Checking the Nutri-Score formula, training the allergen model, and testing it. |
 
-## 1. Photographing products
+---
 
-### What to photograph
-Aim for **40 products**, spread so the breakdowns mean something:
+## Part 1 — Photographing products
+
+### Which products
+40 products, mixed so the results say something useful:
 
 | Mix | Target |
 |---|---|
-| Label language | ≥ 15 with Arabic text on the nutrition table or ingredients, ≥ 15 French-only |
-| Packaging | ≥ 10 curved (bottles, cans, cups), ≥ 10 shiny/plastic, the rest flat cardboard |
-| Category | ≥ 30 general foods (biscuits, cereals, jams, yogurts, snacks, sauces, pasta); ≤ 10 beverages/cheese/oils, to test the `NOT_SCORED` path |
-| Allergens | ≥ 10 with milk, ≥ 10 with gluten, ≥ 3 with nuts or peanuts, ≥ 5 with none |
-| Additives | ≥ 15 with 3+ E-numbers, ≥ 5 with none |
+| Language | At least 15 with Arabic on the label, at least 15 French only |
+| Packaging | At least 10 round (bottles, cans, yogurt pots), at least 10 shiny plastic, the rest flat cardboard |
+| Type | At least 30 normal foods (biscuits, cereals, jam, yogurt, snacks, pasta, sauces); up to 10 drinks, cheese or oil, to test the "not scored" case |
+| Allergens | At least 10 with milk, 10 with gluten, 3 with nuts or peanuts, 5 with no allergens at all |
 
-Good sources: your own kitchen, a family member's, and one Marjane/Carrefour/BIM trip. Photograph in the shop only if allowed; buying cheap items is simpler.
+Where to find them: your kitchen, family, one supermarket trip.
 
 ### How to photograph
-- 3 photos per product: front, nutrition table, ingredients list.
-- Mostly normal phone photos as a real user would take them. **Do not** retake bad ones for 10 of the 40: blur, glare and angle are part of the test.
-- Name files `p001_front.jpg`, `p001_nutrition.jpg`, `p001_ingredients.jpg`.
-- Strip location metadata before committing: `exiftool -all= *.jpg`.
+- 2 photos per product: the nutrition table, and the ingredients list. A third photo of the front is optional.
+- Take them like a normal person would, with your phone, no special effort.
+- For 10 of the 40, **keep the bad photos** (a bit blurry, some glare, at an angle). The test should include real-life photos, not only perfect ones.
+- File names: `p001_nutrition.jpg`, `p001_ingredients.jpg`, `p002_nutrition.jpg`…
+- Before putting photos on GitHub, remove the hidden location data from them: `exiftool -all= *.jpg`.
 
-### Labelling (`eval-food/data/photos/labels.json`)
-About 2–3 minutes per product. One entry per product:
+### Typing the correct answers
+For each product, type what's printed on the package into `eval-food/data/photos/labels.json`. About 2–3 minutes per product.
 
 ```json
 {
   "id": "p001",
-  "tags": ["lang=fr+ar", "packaging=curved", "photo=blurry"],
-  "barcode": "6111000000000",
-  "name": "…",
-  "category": "GENERAL",
-  "nutrients_per_100g": {
-    "energy_kj": 1980, "sugars": 28.0, "sat_fat": 6.5,
-    "salt": 0.45, "fibre": 2.1, "protein": 6.8
+  "situations": ["arabic", "round-packaging", "blurry"],
+  "barcode": "6111234567890",
+  "name": "Biscuits au chocolat",
+  "type": "GENERAL",
+  "per_100g": {
+    "energy_kj": 1980,
+    "sugars": 28.0,
+    "saturated_fat": 6.5,
+    "salt": 0.45,
+    "fibre": 2.1,
+    "protein": 6.8
   },
-  "ingredients_text": "Farine de blé, sucre, huile de palme, …",
-  "allergens": ["en:gluten", "en:milk"],
-  "additives": ["en:e322", "en:e500"],
-  "expected_grade": "D"
+  "ingredients_text": "Farine de blé, sucre, huile de palme, ...",
+  "allergens": ["gluten", "milk"],
+  "may_contain": ["nuts"],
+  "correct_grade": "D",
+  "grade_source": "printed on package"
 }
 ```
 
 Rules:
-- Copy values **exactly as printed**, per 100 g. If only "per portion" is printed, convert and add the tag `per_portion_converted`.
-- `expected_grade`: compute it once with a reference Nutri-Score calculator, or take it from the package if printed. Note the source in a `grade_source` field.
-- Allergens and additives: tag what is in the ingredients text, including "may contain traces of" as a separate field `traces` (excluded from v1 metrics, but recorded).
-- Record the barcode: it lets you check your photo products against OFF later and makes sure none of them leak into training.
+- Copy numbers **exactly as printed**, per 100 g. If the package only gives values "per portion", convert them and add `"per-portion-converted"` to `situations`.
+- `type`: `GENERAL`, `DRINK`, `CHEESE` or `OIL`.
+- `allergens`: only what the ingredients list contains. "May contain traces of…" goes in `may_contain`, which isn't scored in v1.
+- `correct_grade`: if the grade is printed on the package, use it. Otherwise, calculate it once with an online Nutri-Score calculator and write which one in `grade_source`.
+- Always write the barcode. It's how you make sure these products never end up in the training data.
 
-## 2. Open Food Facts export
+**Do 5 products first, then check the format with me before doing the other 35.**
+
+---
+
+## Part 2 — Open Food Facts data
+
+### What it is
+Open Food Facts is a free database of over 3 million food products, filled in by volunteers (like Wikipedia, for food). Each product has its ingredients, nutrition values, allergens and Nutri-Score. Free to use, as long as you credit it.
 
 ### Getting it
-- Download the OFF product export (Parquet or JSONL; prefer Parquet, it's much smaller to filter). OFF also publishes it as a dataset on Hugging Face.
-- Licence: database under ODbL, images under CC BY-SA. Attribution goes in the README and UI footer.
-- Never commit the full export. Commit only the filtered, versioned subsets with a data card (see section 4).
+- Download the full product file from the Open Food Facts website (the Parquet format is the smallest; it's also on Hugging Face).
+- It's big. Never put the full file on GitHub. Only put the small filtered files you create.
 
-### Fields to keep
+### Which columns to keep
 
-| Field | Used for |
+| Column | Why |
 |---|---|
-| `code` | Barcode: dedup and train/test split |
-| `product_name`, `brands`, `countries_tags`, `lang` | Filtering, breakdowns |
-| `categories_tags` | Detecting beverages/cheese/fats for the `NOT_SCORED` rule |
-| `ingredients_text`, `ingredients_text_fr`, `ingredients_text_ar` | Tagging input |
-| `allergens_tags`, `traces_tags` | Tagging labels |
-| `additives_tags` | Tagging labels |
-| `nutriments`: `energy-kj_100g`, `sugars_100g`, `saturated-fat_100g`, `salt_100g`, `fiber_100g`, `proteins_100g`, fruit/vegetable estimate | Formula check |
-| `nutriscore_grade`, `nutriscore_score` (and the version fields; see below) | Reference grade |
-| `states_tags`, `data_quality_errors_tags` | Quality filtering |
+| `code` | The barcode, used to split products into groups |
+| `product_name`, `countries_tags` | To filter and to understand the data |
+| `categories_tags` | To spot drinks, cheese and oils |
+| `ingredients_text` (and `_fr`, `_ar` versions) | The input for allergen finding |
+| `allergens_tags` | The correct allergens |
+| Nutrition columns: energy, sugars, saturated fat, salt, fibre, proteins (per 100 g) | Input for the Nutri-Score check |
+| `nutriscore_grade` | The correct grade |
 
-**Check before E2a:** OFF has migrated to the 2023 Nutri-Score algorithm. Confirm which fields hold the 2023 grade versus the older one, and compare against the same version you implement.
+**Check first:** the Nutri-Score formula was updated in 2023. Find out which version the Open Food Facts grade uses, and code that same version.
 
-### Filtering
+### Keeping only good products
 Keep a product only if:
-- it has a non-empty ingredients text of at least 20 characters,
-- `states_tags` marks ingredients as completed,
-- it has no `data_quality_errors_tags` related to nutrition or ingredients,
-- for the formula subset: all six core nutrients are present and a reference grade exists.
+- the ingredients text is at least 20 characters long,
+- for the Nutri-Score check: all six nutrition values and a grade are filled in.
 
-Prefer French-language products and Moroccan ones (`en:morocco`) where possible, so the training text resembles your test labels. Expect few Moroccan products with complete data; mix in French ones.
+Prefer French and Moroccan products, so the text looks like the labels you'll photograph.
 
-### Splits
+### Splitting into groups
 
-| Subset | Size | Purpose |
+| Group | Size | Used for |
 |---|---|---|
-| `formula_check` | ~5,000 | E2a. Not used for any model. |
-| `tagging_train` | ~3,000 | Fine-tuning |
-| `tagging_val` | ~300 | Choosing the fine-tuning epoch / checkpoint |
-| `tagging_test` | 500 | E3. Touched only for final numbers. |
+| Formula check | ~5,000 | Test 2a. No AI involved. |
+| Training | ~3,000 | Fine-tuning (the "practice questions") |
+| Testing | 500 | Test 3 (the "exam"). Never used for training. |
 
-- Split **by barcode**, deterministically (hash of the barcode), so reruns produce the same split.
-- Remove any barcode that appears among your 40 photographed products from all OFF subsets.
-- Remove near-duplicates: products whose normalized ingredients text is identical, keeping one, so the test set doesn't contain copies of training examples under different barcodes.
+How to split without mistakes:
+- Decide the group from the barcode (for example, the last digit decides). Re-running the script always gives the same groups.
+- Remove from all groups any barcode among your 40 photographed products.
+- If two products have exactly the same ingredients text, keep only one. Otherwise, the exam could contain a copy of a practice question under a different barcode.
 
-### Fine-tuning format
-One JSONL line per product, chat format:
+### Training file format
+Azure wants one line per example, like this:
 
 ```json
 {"messages": [
-  {"role": "system", "content": "Extract allergens and additives from the ingredients list. Answer with JSON: {\"allergens\": [...], \"additives\": [...]} using Open Food Facts tag codes."},
-  {"role": "user", "content": "Farine de blé, sucre, lait écrémé en poudre, émulsifiant: lécithine de soja, …"},
-  {"role": "assistant", "content": "{\"allergens\": [\"en:gluten\", \"en:milk\", \"en:soybeans\"], \"additives\": [\"en:e322\"]}"}
+  {"role": "system", "content": "List the allergens in this ingredients text. Answer in JSON: {\"allergens\": [...]}"},
+  {"role": "user", "content": "Farine de blé, sucre, lait écrémé en poudre, lécithine de soja"},
+  {"role": "assistant", "content": "{\"allergens\": [\"gluten\", \"milk\", \"soy\"]}"}
 ]}
 ```
 
-Keep the system prompt identical between training and inference, and identical for the prompt-only baselines, so the comparison is fair.
+Each line says: "here's the instruction, here's an ingredients text, here's the correct answer." The model learns from 3,000 of these.
 
-## 3. Additives knowledge base (RAG)
+**Use exactly the same instruction** (the `system` line) when training and when testing the non-fine-tuned models. Otherwise the comparison isn't fair.
 
-- Source: the OFF additives taxonomy, which gives each E-number's name, function class, and links to official evaluations.
-- One chunk per additive, keyed by its tag ID (e.g. `en:e330`), so citation correctness (E4a) can be checked automatically.
-- Store name, function class, and a short description. If an entry has no description, the explanation must say so rather than invent one; that behaviour is part of the groundedness eval.
+---
 
-## 4. Data cards
+## Part 3 — A short note for each data file
 
-Every committed subset gets a short `DATA_CARD.md` next to it:
-- source and export date,
-- filters applied and counts after each filter,
-- split method and seed,
-- known issues (e.g. parser-generated tags, language mix),
-- licence.
+Next to each data file you create, add a small `DATA_CARD.md`:
+- where the data comes from and the download date,
+- what you filtered out, and how many products were left after each step,
+- how you split the groups,
+- known problems (for example: "some allergen tags in Open Food Facts were added automatically, not by people"),
+- the licence (Open Food Facts: ODbL, credit required).
 
-This takes 10 minutes per subset and is one of the clearest signals of seriousness in an ML repo.
+10 minutes per file, and it shows you take data seriously.
 
-## 5. Day 1 checklist
+---
 
-- [ ] Photograph the first 20 products (3 photos each).
-- [ ] Label 5 of them in `labels.json` to test the format before doing all 40.
-- [ ] Download the OFF Parquet export and check its size and fields.
-- [ ] Confirm which OFF fields hold the 2023 Nutri-Score grade.
+## Day 1 checklist
+
+- [ ] Photograph 20 products (2 photos each).
+- [ ] Type in 5 of them in `labels.json` and send me one to check.
+- [ ] Download the Open Food Facts file and look at the columns.
+- [ ] Find out which Nutri-Score version Open Food Facts uses.
