@@ -1,0 +1,16 @@
+# Local PostgreSQL for development. Start it with:  docker compose up -d
+# Stop it with:  docker compose down   (add -v to also delete the data)
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: labellens
+      POSTGRES_USER: labellens
+      POSTGRES_PASSWORD: labellens   # local-only password; Azure uses its own
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

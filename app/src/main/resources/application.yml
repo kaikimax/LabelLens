@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: labellens
+
+  # Values like ${DB_URL:...} read an environment variable, or use the default after ":".
+  # The defaults match compose.yaml, so locally you don't set anything.
+  # On Azure, the real values come from environment variables (never written in this file).
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/labellens}
+    username: ${DB_USER:labellens}
+    password: ${DB_PASSWORD:labellens}
+
+  jpa:
+    # Don't keep database sessions open while writing the HTTP response.
+    # Forces us to load everything we need inside the service. A common best practice.
+    open-in-view: false
+    hibernate:
+      # Flyway creates the tables. Hibernate only checks that the Java classes match them,
+      # and refuses to start if they don't.
+      ddl-auto: validate
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 31MB
+
+  mvc:
+    problemdetails:
+      enabled: true
+
+labellens:
+  storage:
+    local-dir: ${PHOTO_DIR:./uploads}

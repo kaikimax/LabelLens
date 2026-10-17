@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "nutriscore_version": "2023",
+  "products": [
+    {
+      "id": "p001",
+      "photos": {
+        "nutrition": "p001_back.jpg",
+        "ingredients": "p001_back.jpg",
+        "front": "p001_front.jpg"
+      },
+      "situations": ["arabic", "round-packaging", "light-reflexion"],
+      "barcode": "6111184001562",
+      "name": "Sel de Table",
+      "brand": "Star",
+      "type": "GENERAL",
+      "per_100g": {
+        "energy_kj": 0.0,
+        "sugars": 0.0,
+        "saturated_fat": 0.0,
+        "salt": 99.0,
+        "fibre": null,
+        "protein": 0.0
+      },
+      "ingredients_text": "Sel, iodate de potassium et anti-agglomérant : E536" ,
+      "ingredients_language": "fr",
+      "allergens": [],
+      "may_contain": [],
+      "correct_grade": "",
+      "grade_source": "",
+      "notes": ""
+    },
+    {
+      "id": "p002",
+      "photos": {
+        "nutrition": "p002_back.jpg",
+        "ingredients": "p002_back.jpg",
+        "front": "p002_front.jpg"
+      },
+      "situations": ["arabic", "round-packaging", "small-text"],
+      "barcode": "6111184001562",
+      "name": "Sel de Table",
+      "brand": "Star",
+      "type": "GENERAL",
+      "per_100g": {
+        "energy_kj": 0.0,
+        "sugars": 0.0,
+        "saturated_fat": 0.0,
+        "salt": 99.0,
+        "fibre": null,
+        "protein": 0.0
+      },
+      "ingredients_text": "Sel, iodate de potassium et anti-agglomérant : E536" ,
+      "ingredients_language": "fr",
+      "allergens": [],
+      "may_contain": [],
+      "correct_grade": "",
+      "grade_source": "",
+      "notes": ""
+    }
+  ]
+}

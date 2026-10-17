@@ -1,0 +1,21 @@
+# Build output
+target/
+
+# Python
+.venv/
+__pycache__/
+
+# Big data files: never in Git
+*.parquet
+*.jsonl.gz
+
+# Photos uploaded to the running app (not the test photos in eval-food/)
+uploads/
+
+# Secrets
+.env
+
+# IDE
+.idea/
+*.iml
+.vscode/
