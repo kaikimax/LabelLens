@@ -6,7 +6,7 @@ spring:
   # The defaults match compose.yaml, so locally you don't set anything.
   # On Azure, the real values come from environment variables (never written in this file).
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/labellens}
+    url: ${DB_URL:jdbc:postgresql://localhost:5433/labellens}
     username: ${DB_USER:labellens}
     password: ${DB_PASSWORD:labellens}
 

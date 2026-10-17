@@ -30,38 +30,88 @@ Where to find them: your kitchen, family, one supermarket trip.
 - File names: `p001_nutrition.jpg`, `p001_ingredients.jpg`, `p002_nutrition.jpg`…
 - Before putting photos on GitHub, remove the hidden location data from them: `exiftool -all= *.jpg`.
 
+### Where the files go
+
+```
+eval-food/
+  data/
+    photos/
+      labels.json          ← the correct answers, one entry per product
+      images/
+        p001_nutrition.jpg
+        p001_ingredients.jpg
+        p001_front.jpg
+        p002_nutrition.jpg
+        ...
+```
+
 ### Typing the correct answers
-For each product, type what's printed on the package into `eval-food/data/photos/labels.json`. About 2–3 minutes per product.
+For each product, add one entry to the `products` list in `labels.json`. About 2–3 minutes per product. The template file has one example entry: replace it with your first real product.
 
 ```json
 {
-  "id": "p001",
-  "situations": ["arabic", "round-packaging", "blurry"],
-  "barcode": "6111234567890",
-  "name": "Biscuits au chocolat",
-  "type": "GENERAL",
-  "per_100g": {
-    "energy_kj": 1980,
-    "sugars": 28.0,
-    "saturated_fat": 6.5,
-    "salt": 0.45,
-    "fibre": 2.1,
-    "protein": 6.8
-  },
-  "ingredients_text": "Farine de blé, sucre, huile de palme, ...",
-  "allergens": ["en:gluten", "en:milk"],
-  "may_contain": ["en:nuts"],
-  "correct_grade": "D",
-  "grade_source": "printed on package"
+  "version": 1,
+  "nutriscore_version": "2023",
+  "products": [
+    {
+      "id": "p001",
+      "photos": {
+        "nutrition": "p001_nutrition.jpg",
+        "ingredients": "p001_ingredients.jpg",
+        "front": "p001_front.jpg"
+      },
+      "situations": ["arabic", "round-packaging", "blurry"],
+      "barcode": "6111234567890",
+      "name": "Biscuits au chocolat",
+      "brand": "Example Brand",
+      "type": "GENERAL",
+      "per_100g": {
+        "energy_kj": 1980,
+        "fat": 19.0,
+        "saturated_fat": 6.5,
+        "carbohydrates": 68.0,
+        "sugars": 28.0,
+        "fibre": 2.1,
+        "protein": 6.8,
+        "salt": 0.45
+      },
+      "ingredients_text": "Farine de blé, sucre, huile de palme, ...",
+      "ingredients_language": "fr",
+      "allergens": ["en:gluten", "en:milk", "en:soybeans"],
+      "may_contain": ["en:nuts"],
+      "correct_grade": "D",
+      "grade_source": "printed on package",
+      "notes": ""
+    }
+  ]
 }
 ```
 
-Rules:
-- Copy numbers **exactly as printed**, per 100 g. If the package only gives values "per portion", convert them and add `"per-portion-converted"` to `situations`.
-- `type`: `GENERAL`, `DRINK`, `CHEESE` or `OIL`.
-- `allergens`: only what the ingredients list contains, using the tags from the 14-allergen table in Part 2. "May contain traces of…" goes in `may_contain`, which isn't scored in v1.
-- `correct_grade`: if the grade is printed on the package, use it. Otherwise, calculate it once with an online Nutri-Score calculator and write which one in `grade_source`.
-- Always write the barcode. It's how you make sure these products never end up in the training data.
+### Field by field
+
+| Field | What to write | Allowed values |
+|---|---|---|
+| `id` | `p001`, `p002`… in order. Never reuse a number, even if you delete a product. | |
+| `photos` | The file names in `images/`. `front` is `null` if you didn't take one. | |
+| `situations` | Everything that makes this product harder or special. Used to split the scores. | `arabic`, `french-only`, `round-packaging`, `shiny-packaging`, `flat-packaging`, `blurry`, `glare`, `angled`, `per-portion-converted`, `printed-as-less-than` |
+| `barcode` | The digits under the barcode, as text (keep leading zeros). | |
+| `name`, `brand` | As printed on the front. | |
+| `type` | The product category. | `GENERAL`, `DRINK`, `CHEESE`, `OIL` |
+| `per_100g` | The eight values, as printed, per 100 g (or 100 ml for drinks): energy, fat, saturated fat, carbohydrates, sugars, fibre, protein, salt. **Energy in kJ**, not kcal. If a value isn't printed at all, write `null`, not `0`. `fat` and `carbohydrates` aren't used by Nutri-Score, but the app's sanity checks need them (see PLAN.md, day 3). | numbers or `null` |
+| `ingredients_text` | The full ingredients list, copied exactly, in the main language on the package. Keep percentages and punctuation. | |
+| `ingredients_language` | The language you copied. | `fr`, `ar`, `en` |
+| `allergens` | Allergens in the ingredients list. Empty list `[]` if there are none. | the 14 tags from Part 2 |
+| `may_contain` | Allergens in "may contain traces of…". Not scored in v1. | the 14 tags from Part 2 |
+| `correct_grade` | The Nutri-Score. `null` for `DRINK`, `CHEESE`, `OIL`. | `A`–`E` or `null` |
+| `grade_source` | Where the grade came from. | `printed on package`, or the calculator you used |
+| `notes` | Anything odd, e.g. "salt printed twice with different values". | |
+
+### Tricky cases
+- **"< 0.5 g"**: write `0.5`, and add `printed-as-less-than` to `situations`.
+- **Only "per portion" printed**: convert to per 100 g (value ÷ portion weight × 100), and add `per-portion-converted`.
+- **French and Arabic both printed**: copy the French version into `ingredients_text` (most labels have it), and add `arabic` to `situations` so you can still split scores by labels with Arabic on them.
+- **`null` vs `0`**: `0` means "printed as 0 g." `null` means "not printed." The difference matters: the earlier Open Food Facts check showed fake zeros causing errors, and you don't want to create the same problem in your own data.
+- **Always write the barcode.** It's how you make sure these products never end up in the training data.
 
 **Do 5 products first, then check the format with me before doing the other 35.**
 
