@@ -19,11 +19,11 @@ Manual comparison of the AI's reading against my hand-typed answers in `labels.j
 | Carbohydrates / sugars | 62.9 / 60.0 | 62.9 / 60 ✓ |
 | Fibre | null | null ✓ |
 | Protein / salt | 0.47 / 0.05 | 0.47 / 0.05 ✓ |
-| Ingredients | `gélifiant: Pectine…` | `gélifiant : Pectine…` (space before colons) |
+| Ingredients | `gélifiant: Pectine…` | `gélifiant : Pectine…` ✓ (see below) |
 | Name / brand | Confiture de Fraises / EL BARAKA | مربى الفراولة / البركة |
 
 - Name and brand are in Arabic because only the back photo was sent, where they're printed in Arabic. Correct for what the model saw; not scored.
-- The ingredients only differ by spaces before colons. TODO: check the jar to see which version is printed.
+- **The model was right about the ingredients, and my answer key was wrong.** The jar prints a space before each colon (`gélifiant : Pectine`, `acidité : acide`); I left the spaces out when typing `labels.json`. Fixed in `labels.json`.
 
 **Cost:** 2,471 input tokens + 187 output tokens, about $0.001.
 
@@ -60,7 +60,7 @@ Manual comparison of the AI's reading against my hand-typed answers in `labels.j
 - **Run 1:** fat misread as 0 → saturated fat (2.1) > fat (0) and the energy is 27% off → **both checks would warn** (rules c and d).
 - **Run 2:** the saturated fat value moved into the fat field, and saturated fat became null → **no check can catch it** (rule c can't compare with null; energy only 8% off).
 - **Run 1 left ingredients null** when the ingredients photo wasn't sent: the "never guess" rule worked.
-- **Run 2's brand "Paysan Breton"** looks invented: Perly is a Jaouda product. TODO: check the pot. If it isn't printed, it's a hallucination despite the "never guess" rule.
+- **Run 2's brand "Paysan Breton" is invented.** It's printed nowhere on the pot: Perly is a Jaouda product, and Paysan Breton is a French dairy brand. A **confirmed hallucination**, despite the prompt's "never guess" rule.
 
 ---
 
@@ -72,9 +72,11 @@ Manual comparison of the AI's reading against my hand-typed answers in `labels.j
 
 3. **Sanity checks catch some misreads, not all.** They would have caught p009 run 1, but not p009 run 2 or p007. They're a safety net, not a measurement.
 
-4. **The model may invent text** (p009 brand, to confirm). The brand isn't scored, but the same behaviour on allergens would be dangerous, so it's worth testing explicitly on day 6.
+4. **The model invents text, even when told not to.** On p009 it gave a brand, "Paysan Breton", that appears nowhere on the package (confirmed). The brand isn't scored, but the same behaviour on allergens would be dangerous (an allergen invented or, worse, a real one replaced), so it must be tested explicitly on day 6.
 
-5. **Exact text comparison is too strict for ingredients.** A one-space difference (p004) would count a correct reading as wrong. The eval needs a comparison that ignores spacing and punctuation but not words.
+5. **The answer key can be wrong too.** On p004, the only "error" was mine: I typed `gélifiant:` where the jar prints `gélifiant :`. The model was right. So:
+   - **every mismatch must be checked against the package before blaming the model**, and fixes to `labels.json` must be recorded (Git history does this);
+   - a comparison that ignores spacing and punctuation but not words is still the right choice for ingredients: small typing differences like this one, on either side, shouldn't count as reading errors.
 
 6. **Product type is ambiguous for fresh cheeses** (p009 read as CHEESE once, GENERAL once). This depends on how the 2023 Nutri-Score classifies "fromage frais" / "fromage blanc", to settle on day 4 (also affects p005).
 
@@ -86,7 +88,7 @@ Not applied yet: without a measurement, there's no way to know whether a change 
 
 1. **Prompt: US-style tables.** Explain per-serving tables and give the Arabic words for serving size (حجم الحصة), calories (السعرات الحرارية) and sodium (الصوديوم). Target: p007.
 2. **Prompt: row alignment.** Ask the model to read each row from its label to its value, especially in tables with Arabic labels on the right and numbers on the left. Target: p007, p009.
-3. **Brand: only from the photo.** Make explicit that name and brand must be read from the photos, never from knowledge of the product. Target: p009.
+3. **Brand: only from the photo.** Make explicit that name and brand must be read from the photos, never from knowledge of the product, and must be null if not visible. Target: p009 (confirmed hallucination).
 4. **Several runs per product** in the eval, reporting the share of runs where each field is correct.
 
 ---
