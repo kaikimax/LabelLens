@@ -72,14 +72,17 @@ per_100g: energy_kj, fat, saturated_fat, carbohydrates, sugars, fibre, protein, 
 ingredients_text, ingredients_language
 ```
 
+Two layers: what the model returns is the **printed** table (values + `basis` + `serving_size` + energy unit + salt or sodium). A Java converter then produces the per-100 g `LabelReading` above, which is what gets stored and compared with `labels.json`. US-style labels (per serving, kcal, sodium in mg) are common on imported products, so this isn't an edge case.
+
 `fat` and `carbohydrates` are new. Nutri-Score doesn't use them, but the sanity checks in step 5 need them. (DATA_PLAN.md and `labels.json` are updated to include them.)
 
 Every number can be `null`: "not printed" must stay different from 0.
 
 ### Step 4 — The instructions to the model (1 h)
 A prompt file in `app/src/main/resources/prompts/read-label.md` (not a Java string, so prompt changes show up clearly in Git history). It tells the model:
-- Values **per 100 g or 100 ml**. If only per portion is printed, return `null`, not a calculation. Conversions are done by Java, which can't get arithmetic wrong.
-- Energy in **kJ**.
+- Copy the values **exactly as printed, in the units printed**, and say what they refer to: `basis` = `100g`, `100ml` or `serving`, plus `serving_size` (e.g. 5 ml) when the basis is a serving. If both per 100 g and per serving are printed, take per 100 g.
+- Energy as printed, with its unit (`kJ` or `kcal`); sodium as printed if salt isn't printed.
+- **The model never converts anything.** Java converts to per 100 g, kcal to kJ (× 4.184) and sodium to salt (× 2.5). Code can't get arithmetic wrong; a model can.
 - `null` when a value isn't printed or can't be read. **Never guess.** A wrong number is worse than a missing one.
 - Copy the ingredients text **exactly**, in the main language on the label.
 - Answer with JSON matching the `LabelReading` format, nothing else.
@@ -94,7 +97,7 @@ In this order, in plain Java:
    - nothing above 100 g per 100 g;
    - `sugars` ≤ `carbohydrates`;
    - `saturated_fat` ≤ `fat`;
-   - **energy matches the macros**: protein × 17 + carbohydrates × 17 + fat × 37 + fibre × 8 should be within about 15% of `energy_kj`. This catches many misread numbers, since one wrong digit breaks the sum.
+   - **energy matches the macros**: protein × 17 + carbohydrates × 17 + fat × 37 + fibre × 8 should be within 20% of `energy_kj` (15% was too strict: real labels like p006 are 17% apart). This catches many misread numbers, since one wrong digit breaks the sum.
 3. Save warnings with the reading, so the UI and the eval can show them.
 
 Write these checks as small pure functions: no Spring, no database. They're the easiest code in the project to test fully.

@@ -2,6 +2,27 @@ spring:
   application:
     name: labellens
 
+  # Reads secrets from a local .env file (never committed; see .env.example).
+  # Two locations because "mvn -pl app spring-boot:run" runs from the app/ folder.
+  config:
+    import: "optional:file:.env[.properties],optional:file:../.env[.properties]"
+
+  # The AI model. Values come from environment variables or .env, never from this file.
+  # The defaults let the app and the tests start without them; a real call then fails
+  # with a clear error mentioning the missing variable.
+  ai:
+    openai:
+      # base-url: ${AZURE_OPENAI_ENDPOINT:https://set-AZURE_OPENAI_ENDPOINT.invalid}
+      base-url: ${AZURE_OPENAI_ENDPOINT:https://azure-endpoint-not-set.invalid}
+      api-key: ${AZURE_OPENAI_API_KEY:missing-AZURE_OPENAI_API_KEY}
+      max-retries: 1
+      timeout: 60s
+      chat:
+        # On Azure, this is the deployment name.
+        model: ${LABELLENS_READER_DEPLOYMENT:gpt-4.1-mini}
+        # 0 = as repeatable as possible: we want the same photo read the same way every time.
+        temperature: 0.0
+
   # Values like ${DB_URL:...} read an environment variable, or use the default after ":".
   # The defaults match compose.yaml, so locally you don't set anything.
   # On Azure, the real values come from environment variables (never written in this file).

@@ -8,6 +8,8 @@ services:
       POSTGRES_USER: labellens
       POSTGRES_PASSWORD: labellens   # local-only password; Azure uses its own
     ports:
+      # 5433 on your PC → 5432 inside the container.
+      # Not 5432 on the PC side, because a locally installed PostgreSQL may already use it.
       - "5433:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data

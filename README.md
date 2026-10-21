@@ -10,6 +10,8 @@ Full design: [docs/SPEC.md](docs/SPEC.md) · Data: [docs/DATA_PLAN.md](docs/DATA
 
 Requirements: Java 21, Maven, Docker Desktop (running).
 
+Copy `.env.example` to `.env` and fill in your Azure OpenAI endpoint and key (`.env` is never committed).
+
 ```bash
 docker compose up -d            # start PostgreSQL
 mvn -pl app spring-boot:run     # start the app on http://localhost:8080

@@ -33,6 +33,10 @@ public class Product {
     @Column(nullable = false, length = 20)
     private ProductStatus status;
 
+    /** Why processing failed, in words a human understands. Null unless status is FAILED. */
+    @Column(name = "failure_reason", length = 1000)
+    private String failureReason;
+
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("position")
     private List<ProductPhoto> photos = new ArrayList<>();
@@ -53,6 +57,20 @@ public class Product {
 
     public void addPhoto(int position, String storageKey, String contentType, long sizeBytes) {
         photos.add(new ProductPhoto(this, position, storageKey, contentType, sizeBytes));
+    }
+
+    public void markExtracted() {
+        this.status = ProductStatus.EXTRACTED;
+        this.failureReason = null;
+    }
+
+    public void markFailed(String reason) {
+        this.status = ProductStatus.FAILED;
+        this.failureReason = reason == null || reason.length() <= 1000 ? reason : reason.substring(0, 1000);
+    }
+
+    public String getFailureReason() {
+        return failureReason;
     }
 
     public UUID getId() {

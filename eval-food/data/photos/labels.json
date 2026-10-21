@@ -9,53 +9,691 @@
         "ingredients": "p001_back.jpg",
         "front": "p001_front.jpg"
       },
-      "situations": ["arabic", "round-packaging", "light-reflexion"],
+      "situations": ["arabic", "round-packaging", "glare"],
       "barcode": "6111184001562",
       "name": "Sel de Table",
       "brand": "Star",
       "type": "GENERAL",
       "per_100g": {
         "energy_kj": 0.0,
-        "sugars": 0.0,
+        "fat": 0.0,
         "saturated_fat": 0.0,
-        "salt": 99.0,
+        "carbohydrates": 0.0,
+        "sugars": 0.0,
         "fibre": null,
-        "protein": 0.0
+        "protein": 0.0,
+        "salt": 99.0
       },
-      "ingredients_text": "Sel, iodate de potassium et anti-agglomérant : E536" ,
+      "ingredients_text": "Sel, iodate de potassium et anti-agglomérant : E536",
       "ingredients_language": "fr",
       "allergens": [],
       "may_contain": [],
-      "correct_grade": "",
-      "grade_source": "",
+      "printed_grade": null,
       "notes": ""
     },
     {
       "id": "p002",
       "photos": {
-        "nutrition": "p002_back.jpg",
-        "ingredients": "p002_back.jpg",
+        "nutrition": "p002_nutrition.jpg",
+        "ingredients": "p002_ingredients.jpg",
         "front": "p002_front.jpg"
       },
-      "situations": ["arabic", "round-packaging", "small-text"],
-      "barcode": "6111184001562",
-      "name": "Sel de Table",
+      "situations": ["multi-languages", "round-packaging", "small-text"],
+      "barcode": "613668024501",
+      "name": "Peanut Butter",
+      "brand": "MISSISSIPPI Belle",
+      "type": "GENERAL",
+      "per_100g": {
+        "energy_kj": 2134.0,
+        "fat": 45.9,
+        "saturated_fat": 7.5,
+        "carbohydrates": 21.7,
+        "sugars": 10.3,
+        "fibre": null,
+        "protein": 22.8,
+        "salt": 1
+      },
+      "ingredients_text": "ARACHIDES grillées a sec (90%), sucre, huile végétale hydrogénée (colza, huile de coton), sel.",
+      "ingredients_language": "fr",
+      "allergens": ["en:peanuts"],
+      "may_contain": [],
+      "printed_grade": null,
+      "notes": ""
+    },
+    {
+      "id": "p003",
+      "photos": {
+        "nutrition": "p003_back.jpg",
+        "ingredients": "p003_back.jpg",
+        "front": "p003_front.jpg"
+      },
+      "situations": ["arabic", "round-packaging"],
+      "barcode": "6111184003023",
+      "name": "MAYONNAISE",
       "brand": "Star",
       "type": "GENERAL",
       "per_100g": {
-        "energy_kj": 0.0,
-        "sugars": 0.0,
-        "saturated_fat": 0.0,
-        "salt": 99.0,
+        "energy_kj": 1599.4,
+        "fat": 38.4,
+        "saturated_fat": 6.3,
+        "carbohydrates": 9.58,
+        "sugars": 0.41,
         "fibre": null,
-        "protein": 0.0
+        "protein": 0.95,
+        "salt": 1.75
       },
-      "ingredients_text": "Sel, iodate de potassium et anti-agglomérant : E536" ,
+      "ingredients_text": "ماء, زيت الصوجا (35), خل المائدة, اصفر البيض, مادة مثخنة: نشا معدل, خردل(ماء حبات الخردل, خل المائدة, ملح, زيت الصوجا, مثبت: صمغ الزنتان, مادة حافظة: ميتابيسلفيت البوتاسيوم و مضاد الأكسدة: حمض الستريك), ملح, مواد حافظة (بنزوات الصوديوم, سوربات البوتاسيوم), مثبت: صمغ الزنتان و مضاد الأكسدة: كالسيوم تنائي الصوديوم EDTA.",
+      "ingredients_language": "ar",
+      "allergens": ["en:eggs", "en:mustard", "en:sulphur-dioxide-and-sulphites"],
+      "may_contain": [],
+      "printed_grade": null,
+      "notes": ""
+    },
+    {
+      "id": "p004",
+      "photos": {
+        "nutrition": "p004_back.jpg",
+        "ingredients": "p004_back.jpg",
+        "front": "p004_front.jpg"
+      },
+      "situations": ["arabic", "round-packaging", "hand-in-photo"],
+      "barcode": "6111184001074",
+      "name": "Confiture de Fraises",
+      "brand": "EL BARAKA",
+      "type": "GENERAL",
+      "per_100g": {
+        "energy_kj": 1088.4,
+        "fat": 0.3,
+        "saturated_fat": 0.0,
+        "carbohydrates": 62.9,
+        "sugars": 60.0,
+        "fibre": null,
+        "protein": 0.47,
+        "salt": 0.05
+      },
+      "ingredients_text": "Fraises, Sucre, gélifiant : Pectine de fruits et correcteur d'acidité: acide citrique.",
       "ingredients_language": "fr",
       "allergens": [],
       "may_contain": [],
-      "correct_grade": "",
-      "grade_source": "",
+      "printed_grade": null,
+      "notes": ""
+    },
+    {
+      "id": "p005",
+      "photos": {
+        "nutrition": "p005_back.jpg",
+        "ingredients": "p005_back.jpg",
+        "front": "p005_front.jpg"
+      },
+      "situations": ["arabic", "round-packaging"],
+      "barcode": "6111246721261",
+      "name": "Fromage Blanc Nature",
+      "brand": "MILKY FOOD",
+      "type": "GENERAL",
+      "per_100g": {
+        "energy_kj": 662,
+        "fat": 11,
+        "saturated_fat": null,
+        "carbohydrates": 10,
+        "sugars": null,
+        "fibre": null,
+        "protein": 5.0,
+        "salt": null
+      },
+      "ingredients_text": "Lait de vache pasteurisé, Protéines de lait de vache, Crème de lait de vache, Ferment lactique, Amidon, Epaississant, Sorbate de potassium",
+      "ingredients_language": "fr",
+      "allergens": ["en:milk"],
+      "may_contain": [],
+      "printed_grade": null,
+      "notes": ""
+    },
+    {
+      "id": "p006",
+      "photos": {
+        "nutrition": "p006_back.jpg",
+        "ingredients": "p006_back.jpg",
+        "front": "p006_front.jpg"
+      },
+      "situations": ["arabic", "flat-packaging", "glare"],
+      "barcode": "",
+      "name": "SAUCE TOMATE",
+      "brand": "Olla",
+      "type": "GENERAL",
+      "per_100g": {
+        "energy_kj": 239,
+        "fat": 1,
+        "saturated_fat": 0.18,
+        "carbohydrates": 7.5,
+        "sugars": 2.0,
+        "fibre": 1.4,
+        "protein": 1.3,
+        "salt": 0.69
+      },
+      "ingredients_text": "Purée de Tomate (160 g pour produire 100 g de produit), Sucre, Amidon de Mais Modifié, Sel, Huile de Tournesol, arome légume naturel .7% de matiére sèche",
+      "ingredients_language": "fr",
+      "allergens": [],
+      "may_contain": [],
+      "printed_grade": null,
+      "notes": ""
+    },
+    {
+      "id": "p007",
+      "photos": {
+        "nutrition": "p007_back.jpg",
+        "ingredients": "p007_back.jpg",
+        "front": "p007_front.jpg"
+      },
+      "situations": ["arabic", "round-packaging", "hand-in-photo", "small-text", "per-portion-converted"],
+      "barcode": "011210008328",
+      "name": "TABASCO BRAND SRIRACHA",
+      "brand": "Mc.ILHENNY CO.",
+      "type": "GENERAL",
+      "per_100g": {
+        "energy_kj": 418.4,
+        "fat": 0.0,
+        "saturated_fat": 0.0,
+        "carbohydrates": 40,
+        "sugars": 20,
+        "fibre": 0.0,
+        "protein": 0.0,
+        "salt": 8.5
+      },
+      "ingredients_text": "red jalapeño pepper, water, sugar, salt, garlic, distilled vinegar, xanthan gum, and TABASCO®  Brand Pepper Sauce (distilled vinegar, red pepper, salt).",
+      "ingredients_language": "en",
+      "allergens": [],
+      "may_contain": [],
+      "printed_grade": null,
+      "notes": "US-style table per 5 ml serving, x20 to get per 100 ml. Energy printed as 5 kcal, converted to kJ. Salt computed from sodium 170 mg x 2.5. Values heavily rounded, so per-100 ml figures are approximate; the energy sanity check warning is expected."
+    },
+    {
+      "id": "p008",
+      "photos": {
+        "nutrition": "p008_back.jpg",
+        "ingredients": "p008_back.jpg",
+        "front": "p008_front.jpg"
+      },
+      "situations": ["arabic", "flat-packaging", "hand-in-photo"],
+      "barcode": "6111242105638",
+      "name": "حليب بدون لاكتوز",
+      "brand": "جودة",
+      "type": "DRINK",
+      "per_100g": {
+        "energy_kj": 243.7,
+        "fat": 3.0,
+        "saturated_fat": 1.3,
+        "carbohydrates": 4.7,
+        "sugars": 0.0,
+        "fibre": null,
+        "protein": 3.0,
+        "salt": 0.0
+      },
+      "ingredients_text": "lait entier sans lactose, vitamines : A et D3.",
+      "ingredients_language": "fr",
+      "allergens": ["en:milk"],
+      "may_contain": [],
+      "printed_grade": null,
+      "notes": "Values per 100 ml (drink). Lactose printed as '<0,1 g' (not a tracked field). Sugars printed as 0 although carbohydrates are 4.7 g; lactose-free milk normally has ~4.7 g sugars, so the label is probably wrong. Copied as printed."
+    },
+    {
+      "id": "p009",
+      "photos": {
+        "nutrition": "p009_nutrition.jpg",
+        "ingredients": "p009_ingredients.jpg",
+        "front": "p009_front.jpg"
+      },
+      "situations": ["arabic", "round-packaging", "blurry", "small-text"],
+      "barcode": "6111242100992",
+      "name": "Perly",
+      "brand": "Jaouda",
+      "type": "GENERAL",
+      "per_100g": {
+        "energy_kj": 406.8,
+        "fat": 3.0,
+        "saturated_fat": 2.1,
+        "carbohydrates": 9.4,
+        "sugars": 6.5,
+        "fibre": null,
+        "protein": 8.0,
+        "salt": 0.0
+      },
+      "ingredients_text": "lait écrémé, crème, sucre, ferments lactiques.",
+      "ingredients_language": "fr",
+      "allergens": ["en:milk"],
+      "may_contain": [],
+      "printed_grade": null,
+      "notes": ""
+    },
+    {
+      "id": "p010",
+      "photos": {
+        "nutrition": "p010_back.jpg",
+        "ingredients": "p010_back.jpg",
+        "front": "p010_front.jpg"
+      },
+      "situations": ["arabic", "round-packaging", "hand-in-photo"],
+      "barcode": "6221033171107",
+      "name": "HOT SAUCE",
+      "brand": "HEINZ",
+      "type": "GENERAL",
+      "per_100g": {
+        "energy_kj": 38.57,
+        "fat": 0.04,
+        "saturated_fat": 0.0,
+        "carbohydrates": 1.59,
+        "sugars": 0.0,
+        "fibre": 0.747,
+        "protein": 0.62,
+        "salt": 5.8
+      },
+      "ingredients_text": "Vinegar, Louisiana type Red Chili Pepper, Salt, Thickener (Xanthan Gum), Green Pepper Natural Identical Flavor, Natural Color (E120), Antioxidant (Ascorbic Acid).",
+      "ingredients_language": "en",
+      "allergens": ["en:celery"],
+      "may_contain": ["en:celery"],
+      "printed_grade": null,
+      "notes": "Energy was not mentionned in kj, only in calories. The one mentionned here is already converted"
+    },
+    {
+      "id": "p011",
+      "photos": {
+        "nutrition": "p011_back.jpg",
+        "ingredients": "p011_back.jpg",
+        "front": "p011_front.jpg"
+      },
+      "situations": ["arabic", "round-packaging", "hand-in-photo"],
+      "barcode": "6922532833212",
+      "name": "SOY SAUCE SUPERIOR LIGHT",
+      "brand": "Khayrat",
+      "type": "GENERAL",
+      "per_100g": {
+        "energy_kj": 97.0,
+        "fat": 0.0,
+        "saturated_fat": null,
+        "carbohydrates": 2.4,
+        "sugars": 2,
+        "fibre": null,
+        "protein": 3.3,
+        "salt": 6.46
+      },
+      "ingredients_text": "Eau, Soja (Sans Ogm), Sel, Farine de Blé, Glutamate Monosodique, Sorbate de Potassium (E202), Sucre",
+      "ingredients_language": "fr",
+      "allergens": ["en:soybeans", "en:gluten"],
+      "may_contain": [],
+      "printed_grade": null,
+      "notes": ""
+    },
+    {
+      "id": "p012",
+      "photos": {
+        "nutrition": "p012_nutrition.jpg",
+        "ingredients": "p012_ingredients.jpg",
+        "front": "p012_front.jpg"
+      },
+      "situations": ["arabic", "flat-packaging", "printed-as-less-than"],
+      "barcode": "6111248552276",
+      "name": "FILETS DE THON AU NATUREL",
+      "brand": "Mario",
+      "type": "GENERAL",
+      "per_100g": {
+        "energy_kj": 461,
+        "fat": 0.5,
+        "saturated_fat": 0.1,
+        "carbohydrates": 0.7,
+        "sugars": 0.1,
+        "fibre": null,
+        "protein": 26.4,
+        "salt": 2.7
+      },
+      "ingredients_text": "Thon, eau, sel.",
+      "ingredients_language": "fr",
+      "allergens": ["en:fish"],
+      "may_contain": [],
+      "printed_grade": null,
+      "notes": "Fat printed as '<0,5 g', saturated fat and sugars as '<0,1 g'."
+    },
+    {
+      "id": "p013",
+      "photos": {
+        "nutrition": "p013_nutrition.jpg",
+        "ingredients": "p013_ingredients.jpg",
+        "front": "p013_front.jpg"
+      },
+      "situations": ["arabic", "round-packaging", "glare", "shiny-packaging", "hand-in-photo", "printed-as-less-than"],
+      "barcode": "3250390001614",
+      "name": "PAQUITO Citron",
+      "brand": "Intermarché",
+      "type": "DRINK",
+      "per_100g": {
+        "energy_kj": 82,
+        "fat": 0.5,
+        "saturated_fat": 0.1,
+        "carbohydrates": 1.2,
+        "sugars": 1.0,
+        "fibre": 0.5,
+        "protein": 0.5,
+        "salt": 0.01
+      },
+      "ingredients_text": "Eau de source Saint Benoit 50%, jus de citron à base de concentré 35,5%, pulpes 5%, jus d'orange à base de concentré, acidifant : acide citrique, arômes naturels d'argumes, arôme naturel de citron vert, antioxydant : acide ascorbique.",
+      "ingredients_language": "fr",
+      "allergens": [],
+      "may_contain": [],
+      "printed_grade": null,
+      "notes": "Fat printed as '<0,5 g', Saturated Fat printed as '<0,1 g', Fiber printed as '<0,5 g', Protein printed as '<0,5 g', Salt printed as '<0,01 g'"
+    },{
+      "id": "p014",
+      "photos": {
+        "nutrition": "p014_back.jpg",
+        "ingredients": "p014_back.jpg",
+        "front": "p014_front.jpg"
+      },
+      "situations": ["arabic", "round-packaging", "hand-in-photo"],
+      "barcode": "6111099000254",
+      "name": "زيت الزيتون واد سوس",
+      "brand": "زيت الزيتون واد سوس",
+      "type": "OIL",
+      "per_100g": {
+        "energy_kj": 3765.6,
+        "fat": 100,
+        "saturated_fat": 14,
+        "carbohydrates": null,
+        "sugars": null,
+        "fibre": null,
+        "protein": null,
+        "salt": null
+      },
+      "ingredients_text": "Huile d'olive",
+      "ingredients_language": "fr",
+      "allergens": [],
+      "may_contain": [],
+      "printed_grade": null,
+      "notes": "Label in KCal only, already converted here. Contains: 73g Acides gras monoinsaturés, 11g acides gras polyinsaturés, 0g cholesterol"
+    },{
+      "id": "p015",
+      "photos": {
+        "nutrition": "p015_back.jpg",
+        "ingredients": "p015_back.jpg",
+        "front": "p015_front.jpg"
+      },
+      "situations": ["arabic", "round-packaging", "shiny-packaging", "hand-in-photo", "blurry"],
+      "barcode": "6111024001660",
+      "name": "HUILE DE TABLE SURCHOIX",
+      "brand": "Oléor",
+      "type": "OIL",
+      "per_100g": {
+        "energy_kj": 3700,
+        "fat": 100,
+        "saturated_fat": 14.6,
+        "carbohydrates": null,
+        "sugars": null,
+        "fibre": null,
+        "protein": null,
+        "salt": 0.0
+      },
+      "ingredients_text": "Huiles végétales (Soja,Tournesol,Colza) en proportions variables, Vitamine A, Vitamine D3, Provitamine A.",
+      "ingredients_language": "fr",
+      "allergens": [],
+      "may_contain": [],
+      "printed_grade": null,
+      "notes": "Contains: 24.1g Acides gras monoinsaturés, 61.3g acides gras polyinsaturés, 7.8g Oméga 3"
+    },
+    {
+      "id": "p016",
+      "photos": {
+        "nutrition": "p016_back.jpg",
+        "ingredients": "p016_back.jpg",
+        "front": "p016_front.jpg"
+      },
+      "situations": [],
+      "barcode": "",
+      "name": "",
+      "brand": "",
+      "type": "",
+      "per_100g": {
+        "energy_kj": null,
+        "fat": null,
+        "saturated_fat": null,
+        "carbohydrates": null,
+        "sugars": null,
+        "fibre": null,
+        "protein": null,
+        "salt": null
+      },
+      "ingredients_text": "",
+      "ingredients_language": "",
+      "allergens": [],
+      "may_contain": [],
+      "printed_grade": null,
+      "notes": ""
+    },
+    {
+      "id": "p017",
+      "photos": {
+        "nutrition": "p017_back.jpg",
+        "ingredients": "p017_back.jpg",
+        "front": "p017_front.jpg"
+      },
+      "situations": [],
+      "barcode": "",
+      "name": "",
+      "brand": "",
+      "type": "",
+      "per_100g": {
+        "energy_kj": null,
+        "fat": null,
+        "saturated_fat": null,
+        "carbohydrates": null,
+        "sugars": null,
+        "fibre": null,
+        "protein": null,
+        "salt": null
+      },
+      "ingredients_text": "",
+      "ingredients_language": "",
+      "allergens": [],
+      "may_contain": [],
+      "printed_grade": null,
+      "notes": ""
+    },
+    {
+      "id": "p018",
+      "photos": {
+        "nutrition": "p018_back.jpg",
+        "ingredients": "p018_back.jpg",
+        "front": "p018_front.jpg"
+      },
+      "situations": [],
+      "barcode": "",
+      "name": "",
+      "brand": "",
+      "type": "",
+      "per_100g": {
+        "energy_kj": null,
+        "fat": null,
+        "saturated_fat": null,
+        "carbohydrates": null,
+        "sugars": null,
+        "fibre": null,
+        "protein": null,
+        "salt": null
+      },
+      "ingredients_text": "",
+      "ingredients_language": "",
+      "allergens": [],
+      "may_contain": [],
+      "printed_grade": null,
+      "notes": ""
+    },
+    {
+      "id": "p019",
+      "photos": {
+        "nutrition": "p019_back.jpg",
+        "ingredients": "p019_back.jpg",
+        "front": "p019_front.jpg"
+      },
+      "situations": [],
+      "barcode": "",
+      "name": "",
+      "brand": "",
+      "type": "",
+      "per_100g": {
+        "energy_kj": null,
+        "fat": null,
+        "saturated_fat": null,
+        "carbohydrates": null,
+        "sugars": null,
+        "fibre": null,
+        "protein": null,
+        "salt": null
+      },
+      "ingredients_text": "",
+      "ingredients_language": "",
+      "allergens": [],
+      "may_contain": [],
+      "printed_grade": null,
+      "notes": ""
+    },
+    {
+      "id": "p020",
+      "photos": {
+        "nutrition": "p020_back.jpg",
+        "ingredients": "p020_back.jpg",
+        "front": "p020_front.jpg"
+      },
+      "situations": [],
+      "barcode": "",
+      "name": "",
+      "brand": "",
+      "type": "",
+      "per_100g": {
+        "energy_kj": null,
+        "fat": null,
+        "saturated_fat": null,
+        "carbohydrates": null,
+        "sugars": null,
+        "fibre": null,
+        "protein": null,
+        "salt": null
+      },
+      "ingredients_text": "",
+      "ingredients_language": "",
+      "allergens": [],
+      "may_contain": [],
+      "printed_grade": null,
+      "notes": ""
+    },
+    {
+      "id": "p021",
+      "photos": {
+        "nutrition": "p021_back.jpg",
+        "ingredients": "p021_back.jpg",
+        "front": "p021_front.jpg"
+      },
+      "situations": [],
+      "barcode": "",
+      "name": "",
+      "brand": "",
+      "type": "",
+      "per_100g": {
+        "energy_kj": null,
+        "fat": null,
+        "saturated_fat": null,
+        "carbohydrates": null,
+        "sugars": null,
+        "fibre": null,
+        "protein": null,
+        "salt": null
+      },
+      "ingredients_text": "",
+      "ingredients_language": "",
+      "allergens": [],
+      "may_contain": [],
+      "printed_grade": null,
+      "notes": ""
+    },
+    {
+      "id": "p022",
+      "photos": {
+        "nutrition": "p022_back.jpg",
+        "ingredients": "p022_back.jpg",
+        "front": "p022_front.jpg"
+      },
+      "situations": [],
+      "barcode": "",
+      "name": "",
+      "brand": "",
+      "type": "",
+      "per_100g": {
+        "energy_kj": null,
+        "fat": null,
+        "saturated_fat": null,
+        "carbohydrates": null,
+        "sugars": null,
+        "fibre": null,
+        "protein": null,
+        "salt": null
+      },
+      "ingredients_text": "",
+      "ingredients_language": "",
+      "allergens": [],
+      "may_contain": [],
+      "printed_grade": null,
+      "notes": ""
+    },
+    {
+      "id": "p023",
+      "photos": {
+        "nutrition": "p023_back.jpg",
+        "ingredients": "p023_back.jpg",
+        "front": "p023_front.jpg"
+      },
+      "situations": [],
+      "barcode": "",
+      "name": "",
+      "brand": "",
+      "type": "",
+      "per_100g": {
+        "energy_kj": null,
+        "fat": null,
+        "saturated_fat": null,
+        "carbohydrates": null,
+        "sugars": null,
+        "fibre": null,
+        "protein": null,
+        "salt": null
+      },
+      "ingredients_text": "",
+      "ingredients_language": "",
+      "allergens": [],
+      "may_contain": [],
+      "printed_grade": null,
+      "notes": ""
+    },
+    {
+      "id": "p024",
+      "photos": {
+        "nutrition": "p024_back.jpg",
+        "ingredients": "p024_back.jpg",
+        "front": "p024_front.jpg"
+      },
+      "situations": [],
+      "barcode": "",
+      "name": "",
+      "brand": "",
+      "type": "",
+      "per_100g": {
+        "energy_kj": null,
+        "fat": null,
+        "saturated_fat": null,
+        "carbohydrates": null,
+        "sugars": null,
+        "fibre": null,
+        "protein": null,
+        "salt": null
+      },
+      "ingredients_text": "",
+      "ingredients_language": "",
+      "allergens": [],
+      "may_contain": [],
+      "printed_grade": null,
       "notes": ""
     }
   ]

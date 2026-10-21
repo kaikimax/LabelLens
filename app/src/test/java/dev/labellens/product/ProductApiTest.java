@@ -2,6 +2,10 @@ package dev.labellens.product;
 
 import com.jayway.jsonpath.JsonPath;
 import dev.labellens.TestcontainersConfiguration;
+import dev.labellens.ai.AiCallRepository;
+import dev.labellens.ai.FakeAiConfiguration;
+import dev.labellens.ai.FakeVisionModel;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,6 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.UUID;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
@@ -19,31 +24,47 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Tests the whole chain: HTTP request → controller → service → real PostgreSQL → HTTP response.
+ * Tests the whole chain: HTTP request → controller → service → fake AI → real PostgreSQL → HTTP response.
  * MockMvc sends requests without starting a real web server (faster).
+ * The AI is FakeVisionModel: these tests never call Azure.
  */
 @SpringBootTest(properties = "labellens.storage.local-dir=target/test-uploads")
 @AutoConfigureMockMvc
-@Import(TestcontainersConfiguration.class)
+@Import({TestcontainersConfiguration.class, FakeAiConfiguration.class})
 class ProductApiTest {
 
     @Autowired
     MockMvc mvc;
 
-    // A few bytes are enough: day 2 checks the declared type, not the image content.
+    @Autowired
+    FakeVisionModel fakeModel;
+
+    @Autowired
+    AiCallRepository aiCalls;
+
+    @BeforeEach
+    void resetFakeModel() {
+        fakeModel.reset();
+    }
+
+    // A few bytes are enough: the fake model doesn't look at the image.
     static MockMultipartFile jpeg(String name) {
         return new MockMultipartFile("photos", name, "image/jpeg", new byte[]{1, 2, 3});
     }
 
     @Test
-    void uploadTwoPhotos_createsPendingProduct_thatCanBeReadBack() throws Exception {
+    void upload_isReadByTheAi_andTheReadingCanBeFetchedBack() throws Exception {
         String body = mvc.perform(multipart("/api/products")
                         .file(jpeg("back.jpg"))
                         .file(jpeg("front.jpg")))
                 .andExpect(status().isCreated())
                 .andExpect(header().exists("Location"))
-                .andExpect(jsonPath("$.status").value("PENDING"))
+                .andExpect(jsonPath("$.status").value("EXTRACTED"))
                 .andExpect(jsonPath("$.photos.length()").value(2))
+                .andExpect(jsonPath("$.reading.energyKj").value(1088.4))
+                .andExpect(jsonPath("$.reading.sugars").value(60.0))
+                .andExpect(jsonPath("$.reading.ingredientsLanguage").value("fr"))
+                .andExpect(jsonPath("$.model").value("fake-model"))
                 .andReturn().getResponse().getContentAsString();
 
         String id = JsonPath.read(body, "$.id");
@@ -51,8 +72,41 @@ class ProductApiTest {
         mvc.perform(get("/api/products/{id}", id))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(id))
+                .andExpect(jsonPath("$.status").value("EXTRACTED"))
+                .andExpect(jsonPath("$.reading.carbohydrates").value(62.9))
                 .andExpect(jsonPath("$.photos[0].position").value(1))
                 .andExpect(jsonPath("$.photos[1].position").value(2));
+
+        // Every AI call is recorded, with its token counts.
+        var calls = aiCalls.findByProductId(UUID.fromString(id));
+        assertThat(calls).hasSize(1);
+        assertThat(calls.getFirst().isSuccess()).isTrue();
+        assertThat(calls.getFirst().getInputTokens()).isEqualTo(1200);
+    }
+
+    @Test
+    void unusableAiAnswer_marksProductFailed_withAReason() throws Exception {
+        fakeModel.reply("I cannot read this label.", "Still cannot read it.");
+
+        String body = mvc.perform(multipart("/api/products").file(jpeg("blurry.jpg")))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.status").value("FAILED"))
+                .andExpect(jsonPath("$.failureReason").exists())
+                .andExpect(jsonPath("$.reading").doesNotExist())
+                .andReturn().getResponse().getContentAsString();
+
+        String id = JsonPath.read(body, "$.id");
+        assertThat(aiCalls.findByProductId(UUID.fromString(id))).hasSize(2);
+    }
+
+    @Test
+    void aiUnavailable_marksProductFailed_withoutCrashing() throws Exception {
+        fakeModel.failWith(new IllegalStateException("Connection refused"));
+
+        mvc.perform(multipart("/api/products").file(jpeg("a.jpg")))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.status").value("FAILED"))
+                .andExpect(jsonPath("$.failureReason").value(org.hamcrest.Matchers.containsString("Connection refused")));
     }
 
     @Test
