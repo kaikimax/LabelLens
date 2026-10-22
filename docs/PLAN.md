@@ -15,6 +15,8 @@ Day-by-day plan and decisions taken along the way. The overall timeline is in SP
 | 2026-10-17 | Azure OpenAI resource `labellens`, Spain Central, Standard S0 | Student subscription region policy. Fine-tuning is available from this resource. |
 | 2026-10-17 | Fixed model versions only; no `model-router`, no `gpt-chat-latest` | Those change model silently, so eval scores could move without any change on my side. |
 | 2026-10-17 | Models: see table below | |
+| 2026-10-22 | **Fromage blanc / fromage frais = `GENERAL`**, not `CHEESE` | Open Food Facts scores fromage blanc with the general-foods table (max 55 negative / 17 positive points) and no cheese rule. The cheese rules are for real cheeses. |
+| 2026-10-22 | **Peanut butter (and other nut/seed butters) = `OIL`** | Open Food Facts: "considered to be fat, oil, nuts or seeds for the calculation of the Nutri-Score" (separate table: energy from saturated fat, saturated fat/fat ratio). Not scored in v1. |
 
 ### Models
 

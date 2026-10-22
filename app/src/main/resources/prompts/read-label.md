@@ -11,7 +11,7 @@ Labels may be in French, Arabic, English or several languages at once. Photos ma
 5. **Energy.** If both kJ and kcal are printed, give the kJ value with `"energy_unit": "kJ"`. If only kcal is printed, give it with `"energy_unit": "kcal"`.
 6. **Salt or sodium.** If salt is printed, give `salt` and set `sodium` to `null`. If only sodium is printed, give `sodium` with its unit (`"g"` or `"mg"`) and set `salt` to `null`.
 7. **Ingredients.** Copy the ingredients list exactly, with its punctuation and percentages. Start at the first ingredient: leave out the heading ("Ingrédients :", "Ingredients:", "المكونات"). If the list is printed in several languages, copy the French version; if there is no French, the English one; otherwise the Arabic one. Do not include "may contain" sentences.
-8. **Type.** `DRINK` for anything you drink (milk included), `CHEESE` for cheese, `OIL` for oils, butter, margarine, nuts and seeds, `GENERAL` for everything else.
+8. **Type.** `DRINK` for anything you drink (milk included). `CHEESE` for ripened cheeses only; fromage blanc, fromage frais and other fresh dairy desserts are `GENERAL`. `OIL` for oils, butter, margarine, nuts, seeds and nut or seed butters (peanut butter included). `GENERAL` for everything else.
 9. Use decimal points, not commas: write `4.7`, not `4,7`.
 
 # Answer format
