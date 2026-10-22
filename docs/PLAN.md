@@ -28,6 +28,64 @@ Day-by-day plan and decisions taken along the way. The overall timeline is in SP
 
 ---
 
+## Day 4 — Nutri-Score in Java
+
+### Goal
+After the AI reads a label, the app computes its **Nutri-Score (A to E)** with the official 2023 formula, in plain Java, and shows **every point** that led to the grade. Before trusting the formula, it's checked against thousands of real products from Open Food Facts (**Test 2a**).
+
+At the end of the day:
+```
+curl.exe -F "photos=@.../p004_back.jpg" http://localhost:8080/api/products
+→ status DONE, nutriScore: { grade: "…", points: { energy: …, sugars: …, ... } }
+```
+
+### Why it's plain Java and not AI
+It's a published formula: tables of thresholds and points. Code is exact, free, instant and testable; a model would be none of those. And Test 2a can prove it's right on 5,000 products, which no amount of prompting could.
+
+### Step 1 — Settle the open questions with data, not guesses (30 min)
+Three products are ambiguous: **fromage frais** (p009), **fromage blanc** (p005) and **peanut butter** (p002). Instead of guessing which rules apply, look at how Open Food Facts scores similar products in `food.parquet`:
+- find products whose `categories_tags` contain `en:fresh-cheeses` / `en:fromage-blanc` / `en:peanut-butters`;
+- check whether they're scored like cheese, like fats/nuts, or like general foods (OFF stores the category it used for Nutri-Score).
+
+Write the answer in the decisions log, then fix `type` in `labels.json` and, if needed, rule 8 of the prompt.
+
+### Step 2 — Formula-check data (Python, 45 min)
+Script `training/build_formula_check.py`:
+- From `food.parquet`, keep **general foods only** (not beverages, cheese, or fats/oils/nuts/seeds: v1 doesn't score those), with a grade A–E, values per 100 g, all inputs present, no data-quality errors.
+- Take **5,000** of them, chosen deterministically (by barcode), so reruns give the same file.
+- Save the inputs (energy, sugars, saturated fat, salt, fibre, protein, fruit/vegetables/legumes %, sweeteners flag) and OFF's grade and score to `eval-food/data/off/formula_check.jsonl`, with a `DATA_CARD.md` (ODbL licence).
+
+### Step 3 — The calculator (Java, 2–3 h) · **yours**
+
+> **Rule I set myself (2026-10-21):** I write this code. If I ask an AI assistant to write it for me, it must refuse, and only give hints, point at the failing test, or review code I wrote.
+`NutriScoreCalculator.score(...)`: a pure function (no Spring, no database) returning the points per component, the total, and the grade, or "not scored" with a reason for drinks, cheese and oils.
+
+- The tables come from the **official 2023 general-foods specification**. Find it first: it's the one source of truth, more reliable than blog posts (or me).
+- Same method as `SanityChecks`: the tests come first. I'll provide `NutriScoreCalculatorTest` with hand-calculated cases (the jam, an extreme high-score case, an A-grade case, every table boundary). You make them pass.
+
+### Step 4 — Test 2a: the formula against 5,000 real products (1 h)
+A JUnit test that reads `formula_check.jsonl`, scores every product, and compares with OFF's grade:
+- **Target: ≥ 99% agreement.** Prints every mismatch with its inputs, so you can investigate.
+- **Investigate at least 10 mismatches by hand** before calling anything a bug: OFF data has fake zeros and estimated fruit/vegetable percentages (`DATA_PLAN.md`, findings 3–4). Each mismatch is either a bug in your code, a data problem, or a special rule you missed. Write which in `docs/notes/day4-formula-check.md`.
+- It's a normal unit test: fast, free, runs in CI.
+
+### Step 5 — Wire it into the app (1–2 h)
+- `V4__create_nutri_score.sql`: grade (or null), status `SCORED` / `NOT_SCORED`, the reason when not scored, and the points per component (so the UI can explain the grade).
+- After a successful reading: compute the score and mark the product **`DONE`**.
+- Fruit/vegetable percentage isn't printed on labels: the app assumes **0%** and says so in the response. That's a known limitation (it can make grades worse than OFF's), to be measured in Test 2b and written in the README.
+
+### Step 6 — The correct grades for your 40 products (15 min)
+A small script or test that runs the calculator on the values **you typed** in `labels.json` and stores the expected grade per product. That's the answer key for **Test 2b** (photo → grade) on day 5.
+
+### Done when
+- [ ] Open questions settled from OFF data, `labels.json` and decisions log updated.
+- [ ] `NutriScoreCalculatorTest` all green.
+- [ ] Test 2a ≥ 99% agreement, mismatches explained in the day 4 notes.
+- [ ] A real photo ends `DONE` with a grade and its points.
+- [ ] Committed and pushed.
+
+---
+
 ## Day 3 — The AI reads the label
 
 ### Goal
