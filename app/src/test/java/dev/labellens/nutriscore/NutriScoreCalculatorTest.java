@@ -1,6 +1,6 @@
 package dev.labellens.nutriscore;
 
-import org.junit.jupiter.api.Disabled;
+// import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * every input and every point of the official computation (links in each test).
  * They are the reference: if your code disagrees, your code is wrong.
  */
-@Disabled("Implement NutriScoreCalculator.score(), then remove this line")
+// @Disabled("Implement NutriScoreCalculator.score(), then remove this line")
 class NutriScoreCalculatorTest {
 
     private static NutriScoreInput general(Double energyKj, Double sugars, Double saturatedFat, Double salt,
