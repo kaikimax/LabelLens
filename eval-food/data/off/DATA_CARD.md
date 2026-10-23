@@ -1,6 +1,6 @@
 # Data card: formula_check.jsonl
 
-**Built:** 2026-10-22 by `training/build_formula_check.py`
+**Built:** 2026-10-23 by `training/build_formula_check.py`
 **Source:** Open Food Facts product export (`food.parquet`), file `food.parquet`
 **Licence:** Open Database License (ODbL). Contains data from Open Food Facts (https://world.openfoodfacts.org). This file is an adapted database and is shared under the ODbL.
 
@@ -15,15 +15,15 @@ Test 2a: check the Java Nutri-Score calculator (2023, general foods) against Ope
 | 2. not obsolete, no data-quality errors | 4,609,648 |
 | 3. with a grade A-E | 1,343,632 |
 | 4. values per 100 g | 375,856 |
-| 5. general foods only | 284,106 |
-| 6. all six inputs present | 70,139 |
+| 5. general foods only | 273,920 |
+| 6. all six inputs present | 67,210 |
 
-Excluded categories (other Nutri-Score rules or special cases): en:animal-fats, en:beverages, en:butters, en:cheeses, en:fats, en:margarines, en:meat-based-products, en:meats, en:nut-butters, en:nuts, en:nuts-and-their-products, en:oilseed-purees, en:olive-oils, en:peanut-butters, en:seeds, en:vegetable-fats, en:vegetable-oils.
+Excluded categories (other Nutri-Score rules or special cases): en:animal-fats, en:beverages, en:butters, en:cheeses, en:coconut-products, en:creams, en:dairy-drinks, en:drinkable-yogurts, en:fats, en:fermented-milk-drinks, en:margarines, en:meat-based-products, en:meat-preparations, en:meats, en:meats-and-their-products, en:milks, en:nut-butters, en:nuts, en:nuts-and-their-products, en:oilseed-purees, en:olive-oils, en:peanut-butters, en:prepared-meats, en:seeds, en:vegetable-fats, en:vegetable-oils.
 
 ## Sample
 5,000 products, chosen deterministically (smallest MD5 hash of the barcode), so rerunning the script gives the same file.
 
-Grades: A: 1,068, B: 499, C: 1,221, D: 1,113, E: 1,099
+Grades: A: 1,110, B: 481, C: 1,210, D: 1,088, E: 1,111
 
 ## Fields
 - `energy_kj`, `sugars`, `saturated_fat`, `salt`, `fibre`, `protein`: per 100 g, from OFF `nutriments`.

@@ -19,3 +19,5 @@ uploads/
 .idea/
 *.iml
 .vscode/
+
+run_commands.txt

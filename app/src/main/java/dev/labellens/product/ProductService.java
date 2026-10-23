@@ -1,6 +1,11 @@
 package dev.labellens.product;
 
 import dev.labellens.ai.ImageInput;
+import dev.labellens.nutriscore.NutriScoreCalculator;
+import dev.labellens.nutriscore.NutriScoreEntity;
+import dev.labellens.nutriscore.NutriScoreFromReading;
+import dev.labellens.nutriscore.NutriScoreRepository;
+import dev.labellens.nutriscore.NutriScoreResult;
 import dev.labellens.reading.LabelReader;
 import dev.labellens.reading.LabelReadingEntity;
 import dev.labellens.reading.LabelReadingRepository;
@@ -27,30 +32,34 @@ public class ProductService {
 
     private final ProductRepository repository;
     private final LabelReadingRepository readingRepository;
+    private final NutriScoreRepository nutriScoreRepository;
     private final PhotoStorage storage;
     private final LabelReader reader;
     private final TransactionTemplate transaction;
 
     public ProductService(ProductRepository repository,
                           LabelReadingRepository readingRepository,
+                          NutriScoreRepository nutriScoreRepository,
                           PhotoStorage storage,
                           LabelReader reader,
                           TransactionTemplate transaction) {
         this.repository = repository;
         this.readingRepository = readingRepository;
+        this.nutriScoreRepository = nutriScoreRepository;
         this.storage = storage;
         this.reader = reader;
         this.transaction = transaction;
     }
 
     /**
-     * Saves the photos, asks the AI to read the label, saves the result.
+     * Saves the photos, asks the AI to read the label, computes the Nutri-Score, saves everything.
      *
-     * Three separate steps on purpose, NOT one big transaction: the AI call takes several
+     * Separate steps on purpose, NOT one big transaction: the AI call takes several
      * seconds, and a transaction would hold a database connection open the whole time.
      *   1. transaction: save the product as PENDING (so it exists even if step 2 crashes)
      *   2. no transaction: call the AI
-     *   3. transaction: save the reading and mark the product EXTRACTED or FAILED
+     *   3. no transaction: compute the Nutri-Score (plain Java)
+     *   4. transaction: save the reading and the score, mark the product DONE or FAILED
      */
     public ProductResponse create(List<MultipartFile> photos) {
         validate(photos);
@@ -76,17 +85,27 @@ public class ProductService {
         // Step 2.
         ReadOutcome outcome = reader.read(created.id(), created.images());
 
-        // Step 3.
+        // Step 3. Nutri-Score: plain Java, instant, no AI. Only computed if the reading succeeded.
+        NutriScoreResult nutriScore = outcome.success()
+                ? NutriScoreCalculator.score(NutriScoreFromReading.toInput(outcome.reading()))
+                : null;
+
+        // Step 4.
         transaction.executeWithoutResult(status -> {
             Product p = repository.findById(created.id()).orElseThrow();
             if (outcome.success()) {
                 readingRepository.save(LabelReadingEntity.from(p.getId(), outcome));
-                p.markExtracted();
+                nutriScoreRepository.save(NutriScoreEntity.from(
+                        p.getId(), nutriScore, NutriScoreFromReading.fruitVegAssumedZero()));
+                // DONE even when "not scored" (drinks, oils...): processing is complete either way.
+                p.markDone();
             } else {
                 p.markFailed(outcome.failureReason());
             }
         });
 
+        // Not "return get(...)" directly: a call from inside the same class skips @Transactional
+        // (Spring's proxy is bypassed), so get() would run without a database session.
         return transaction.execute(status -> get(created.id()));
     }
 
@@ -98,7 +117,13 @@ public class ProductService {
     @Transactional(readOnly = true)
     public ProductResponse get(UUID id) {
         Product product = repository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
-        return ProductResponse.from(product, readingRepository.findById(id).orElse(null));
+        return toResponse(product);
+    }
+
+    private ProductResponse toResponse(Product product) {
+        return ProductResponse.from(product,
+                readingRepository.findById(product.getId()).orElse(null),
+                nutriScoreRepository.findById(product.getId()).orElse(null));
     }
 
     @Transactional(readOnly = true)
@@ -106,7 +131,7 @@ public class ProductService {
         Page<Product> result = repository.findAll(
                 PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt")));
         List<ProductResponse> items = result.getContent().stream()
-                .map(p -> ProductResponse.from(p, readingRepository.findById(p.getId()).orElse(null)))
+                .map(this::toResponse)
                 .toList();
         return new PageResponse<>(
                 items,

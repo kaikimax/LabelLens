@@ -1,22 +1,38 @@
 # Day 4 — Test 2a: Nutri-Score calculator vs Open Food Facts
 
-**Date:** 2026-10-22 · **Calculator:** `NutriScoreCalculator` (2023, general foods; tables from the [Scientific Committee's 2022 update report](https://mpc.gouvernement.lu/dam-assets/le-minist%C3%A8re/consodur/2022-main-algorithm-report-update-final.pdf)) · **Data:** `eval-food/data/off/formula_check.jsonl`, 5,000 general foods (see its `DATA_CARD.md`) · **Test:** `FormulaCheckTest`
+**Dates:** 2026-10-22 (first run), 2026-10-23 (after fixing the data filter) · **Calculator:** `NutriScoreCalculator` (2023, general foods; tables from the [Scientific Committee's 2022 update report](https://mpc.gouvernement.lu/dam-assets/le-minist%C3%A8re/consodur/2022-main-algorithm-report-update-final.pdf)) · **Data:** `eval-food/data/off/formula_check.jsonl`, 5,000 general foods (see its `DATA_CARD.md`) · **Test:** `FormulaCheckTest`
 
 ---
 
 ## Results
 
-| Measure | Result |
-|---|---|
-| Same grade (strict) | **4,905 / 5,000 (98.10%)** |
-| Same score (strict) | 4,815 / 5,000 (96.30%) |
-| Mismatches explained by the fruit/vegetable input | 50 |
-| Unexplained mismatches | 45 |
-| **Agreement once fruit/vegetable data is set aside** | **99.10%** (threshold: 99%) ✓ |
+| Measure | Run 1 (10-22) | Run 2 (10-23, meat tags) | **Run 3 (10-23, milk tag)** |
+|---|---|---|---|
+| Same grade (strict) | 98.10% | 98.22% | **4,956 / 5,000 (99.12%)** |
+| Same score (strict) | 96.30% | 97.02% | 4,904 / 5,000 (98.08%) |
+| Mismatches explained by the fruit/vegetable input | 50 | 54 | 35 |
+| Unexplained mismatches | 45 | 35 | **9** |
+| **Agreement once fruit/vegetable data is set aside** | 99.10% | 99.30% | **99.82%** (threshold: 99%) ✓ |
 
-The unit tests (`NutriScoreCalculatorTest`, 5 real products from grade A to E plus the protein and not-scored rules) all pass.
+Between runs, **only the data filter changed, never the calculator.** Each run rebuilds the 5,000-product sample, so the runs don't check exactly the same products. The trend is still clear: every fix to the *data* removed mismatches, and none needed a fix to the *formula*.
 
-**Conclusion: the calculator's tables and rules agree with Open Food Facts.** Every mismatch investigated comes from the input data or from a rule that's out of scope for v1, not from the formula.
+The unit tests (`NutriScoreCalculatorTest`: 5 real products from grade A to E, plus the protein and not-scored rules) all pass.
+
+**Conclusion: the calculator's tables and rules agree with Open Food Facts.** The remaining mismatches come from the input data or from rules that are out of scope for v1.
+
+---
+
+## What the data filter got wrong, and how it was fixed
+
+`build_formula_check.py` keeps only general foods by excluding OFF categories that use other rules. Test 2a showed that the first filter was too narrow:
+
+| Fix | Evidence | Effect |
+|---|---|---|
+| Added `en:meats-and-their-products`, `en:meat-preparations`, `en:prepared-meats` | Product `1916287787710`: OFF categories "Meats and their products", "Meat preparations" | Red-meat cases mostly gone (run 2) |
+| Added `en:milks` | Product `4056489155041` (Milbona whole milk): categories "Milks", "Whole milks". The 2023 rules score milk as a **drink** | 278,376 → 273,920 general foods; the milk/yogurt-drink pattern is gone (run 3) |
+| Added `en:dairy-drinks`, `en:fermented-milk-drinks`, `en:drinkable-yogurts`, `en:creams`, `en:coconut-products` | Guessed tag names, not confirmed | Unknown: a tag that doesn't exist changes nothing |
+
+**Lesson:** the test found errors in the *answer key's selection*, not in the code under test. That's the same lesson as day 3 (the answer key can be wrong), seen from the other side.
 
 ---
 
@@ -27,61 +43,42 @@ The fruit/vegetable % in the Open Food Facts export often isn't the value OFF us
 - `00109123`: the export has **no** fruit/vegetable value, but OFF's score (−4) only works out with 5 fruit/vegetable points (more than 80%).
 - `0200030414277`: the export says **60.8%** (2 points), but OFF's score (20) only works out with **0** points. OFF probably computed the grade at a different time than the stored estimate.
 
-No choice of field fixes this: the right value just isn't reliably in the export. So for each mismatch, the test retries the calculator with each possible fruit/vegetable point value (0, 1, 2, 5). If one gives exactly OFF's score, the mismatch is classified as **explained by the fruit/vegetable input** (50 cases). The strict 98.10% is still reported.
+No choice of field fixes this: the right value just isn't reliably in the export. So for each mismatch, the test retries the calculator with each possible fruit/vegetable point value (0, 1, 2, 5). If one gives exactly OFF's score, the mismatch is classified as **explained by the fruit/vegetable input** (35 cases in run 3). The strict 99.12% is still reported.
 
-**Caveat:** this classification is lenient, since it accepts any of 4 values. A real formula error could in theory be hidden if a fruit/vegetable difference happened to offset it exactly. That's unlikely to explain 50 cases, but it's a limit of this check.
+**Caveat:** this classification is lenient. Example from run 3: `0060383037642` has every value at 0. The score matches (0), but OFF says **B** and the calculator says **A**. A score of 0 is a B only in the *beverages* algorithm, so this is a drink that slipped through the filter, not a fruit/vegetable problem. It still lands in "explained" because the score matches. So the 35 "explained" cases aren't all fruit/vegetable cases, and the classifier should also require the *grade* to match. That's a small fix for later.
 
 ---
 
-## The unexplained mismatches (45)
+## The 9 unexplained mismatches (run 3)
 
-The first 18 were checked by hand. All fit one of four patterns.
+| Product | OFF | Calculator | Likely cause |
+|---|---|---|---|
+| `2846721024608` | C (5) | A (0) | **Red meat.** 22 g protein; with protein capped at 2: 7 − 2 = 5 ✓ |
+| `7804684740183` | C (6) | B (1) | **Red meat.** 20 g protein; with the cap: 8 − 2 = 6 ✓ |
+| `0855002003005` | C (3) | B (2) | **Red meat.** With the cap: 5 − 2 = 3 ✓ (already in run 1) |
+| `0855002003364` | C (4) | B (2) | **Red meat.** With the cap: 6 − 2 = 4 ✓ (already in run 1) |
+| `4056489104254` | D (11) | C (9) | **Coconut product** (61.6 g saturated fat, 100% "fruit"), scored with the fats rules. The `en:coconut-products` guess didn't catch it |
+| `0072250017671` | B (1) | A (0) | **Salt exactly 1.4 g**, on a threshold. OFF most likely computed salt from sodium with decimal noise (1.40000001 > 1.4). The calculator follows the spec ("above the threshold") |
+| `3023290076989` | C (5) | B (1) | Probably a **drink** (171 kJ, 5.9 g sugars, 3.8 g protein): the dairy-drink pattern again. Not confirmed |
+| `5601082042602` | C (4) | A (−1) | **51 g fibre** per 100 g is suspicious. The 5-point gap equals the fibre points exactly, so OFF probably didn't count the fibre (bad value or different category). Not confirmed |
+| `4075600113661` | B (1) | A (0) | 1-point gap, cause unknown. Not investigated |
 
-### 1. Red meat: protein points capped at 2 (7 cases)
-
-The 2023 rules cap protein at 2 points for red meat products, a rule v1 doesn't implement. With that cap, **every one of these matches OFF exactly**:
-
-| Product | Protein | Calculator | With protein capped at 2 | OFF |
-|---|---|---|---|---|
-| `1916287787710` | 20 g | 7 − 7 = 0 | 7 − 2 = **5** | 5 ✓ |
-| `2846721024608` | 22 g | 7 − 7 = 0 | 7 − 2 = **5** | 5 ✓ |
-| `3154230809869` | 21 g | 9 − 7 = 2 | 9 − 2 = **7** | 7 ✓ |
-| `3352180003317` | 19 g | 9 − 7 = 2 | 9 − 2 = **7** | 7 ✓ |
-| `3800791002460` | 23.6 g | 7 − 7 = 0 | 7 − 2 = **5** | 5 ✓ |
-| `0855002003005` | 9 g | 5 − 3 = 2 | 5 − 2 = **3** | 3 ✓ |
-| `0855002003364` | 11 g | 6 − 4 = 2 | 6 − 2 = **4** | 4 ✓ |
-
-**Confirmed on Open Food Facts for `1916287787710`:** categories "Meats and their products", "Meat preparations".
-
-**Root cause, in the data script:** `build_formula_check.py` excludes `en:meats` and `en:meat-based-products`, but OFF also uses `en:meats-and-their-products` and `en:meat-preparations`. These products slipped through. **To fix:** add those tags to `EXCLUDED_CATEGORIES` and rebuild the data.
-
-### 2. Dairy drinks and yogurts scored as beverages (about 7 cases)
-
-`0021130071890`, `20411992`, `4056489155041`, `4056489598565`, `20069063`, `3023290076989`, `0025293001497`: low energy (about 170–280 kJ), a few grams of sugar, about 3–4 g of protein. They look like drinkable yogurts and milk drinks, which the 2023 rules score with the **beverages** algorithm (where only water gets an A). They're missing the `en:beverages` category in OFF, so the filter didn't exclude them.
-
-Not yet confirmed: the OFF page for `0021130071890` was temporarily unavailable when checked.
-
-### 3. Cream and coconut fat, scored as fats (3 cases)
-
-`26290515` (6.6 g saturated fat), `4068262049836` (7.7 g), `4056489104254` (61.6 g saturated fat, 100% "fruit": a coconut product). These belong to the **fats, oils, nuts and seeds** category, which has its own rules (saturated fat ratio). Their categories don't match the excluded tags.
-
-### 4. A value exactly on a threshold (1 case)
-
-`0072250017671`: salt exactly **1.4 g**. The calculator gives 6 salt points (1.4 is not above 1.4); OFF's score only works out with 7. OFF most likely computed salt from sodium, with tiny decimal noise (1.40000001 > 1.4). The calculator follows the specification ("above the threshold"), so this is a data-precision difference, not a bug.
+**4 of 9 are red meat that no category tag caught**, probably because those products have no meat category at all in OFF. More tags won't fix that; only implementing the rule would.
 
 ---
 
 ## What this means for the app
 
-- **The formula is right**, and that's now measured on 5,000 real products instead of claimed.
-- **The app only scores `GENERAL` products**, so patterns 2 and 3 matter in the app too: a drinkable yogurt typed as `GENERAL` would get the wrong rules. That depends on the AI choosing the right `type` (prompt rule 8), which the day 5 eval should measure.
-- **The red meat rule is a known gap.** A meat product photographed in the app will get too good a grade. Two options for later: implement the cap with a `RED_MEAT` type, or mark meat products "not scored". To decide when meat products enter the test set.
-- **Fruit/vegetable % is never printed on labels**, so the app assumes 0% (step 5). Pattern 1 of the fruit/vegetable mismatches shows this can change grades by up to 5 points for fruit-based products. Test 2b will measure how often it changes the grade on the 40 photographed products.
+- **The formula is right**, and that's now measured on 5,000 real products instead of claimed: 99.82%, and every remaining gap has a named cause or is a single product.
+- **The app only scores `GENERAL` products**, so the drink and fat patterns matter in the app too: a drinkable yogurt typed as `GENERAL` would get the wrong rules. That depends on the AI choosing the right `type` (prompt rule 8), which the day 5 eval should measure.
+- **The red meat rule is a known gap.** A meat product photographed in the app will get too good a grade (by up to 5 points). Two options for later: implement the cap with a `RED_MEAT` type, or mark meat products "not scored". To decide when meat products enter the test set.
+- **The app works end to end:** product p004 (strawberry jam), photographed, read by `gpt-4.1-mini` and scored by the calculator, gets **D (18)**. That's the same as the expected grade computed from the hand-typed values (`LabelsExpectedGradesTest`).
+- **Fruit/vegetable % is never printed on labels**, so the app assumes 0% and says so (`fruitVegAssumedZero: true`). For fruit-based products like jam, the official grade may be better. Test 2b will measure how often this changes the grade on the photographed products.
 
 ---
 
 ## Next steps
 
-1. Add `en:meats-and-their-products` and `en:meat-preparations` to the excluded categories, rebuild `formula_check.jsonl`, and rerun Test 2a. The red meat cases should disappear.
-2. Confirm pattern 2 on one product once the OFF page is available again.
-3. Investigate the remaining 27 unexplained mismatches in `app/target/formula-check-report.txt` (not yet reviewed).
+1. Make the "explained by fruit/vegetable" classification also require the grade to match (see the caveat above).
+2. Optional: find the real OFF tag for coconut products (check `4056489104254` on openfoodfacts.org).
+3. Decide on red meat (cap rule or "not scored") before photographing meat products.

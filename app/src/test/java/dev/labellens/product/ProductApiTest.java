@@ -59,12 +59,20 @@ class ProductApiTest {
                         .file(jpeg("front.jpg")))
                 .andExpect(status().isCreated())
                 .andExpect(header().exists("Location"))
-                .andExpect(jsonPath("$.status").value("EXTRACTED"))
+                .andExpect(jsonPath("$.status").value("DONE"))
                 .andExpect(jsonPath("$.photos.length()").value(2))
                 .andExpect(jsonPath("$.reading.energyKj").value(1088.4))
                 .andExpect(jsonPath("$.reading.sugars").value(60.0))
                 .andExpect(jsonPath("$.reading.ingredientsLanguage").value("fr"))
                 .andExpect(jsonPath("$.model").value("fake-model"))
+                // Jam: energy 3 + sugars 15 + saturated fat 0 + salt 0 = 18 negative points;
+                // protein not counted (18 >= 11); no fibre; fruit/veg assumed 0 → score 18 → D.
+                .andExpect(jsonPath("$.nutriScore.scored").value(true))
+                .andExpect(jsonPath("$.nutriScore.grade").value("D"))
+                .andExpect(jsonPath("$.nutriScore.score").value(18))
+                .andExpect(jsonPath("$.nutriScore.points.sugars").value(15))
+                .andExpect(jsonPath("$.nutriScore.points.proteinCounted").value(false))
+                .andExpect(jsonPath("$.nutriScore.fruitVegAssumedZero").value(true))
                 .andReturn().getResponse().getContentAsString();
 
         String id = JsonPath.read(body, "$.id");
@@ -72,7 +80,8 @@ class ProductApiTest {
         mvc.perform(get("/api/products/{id}", id))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(id))
-                .andExpect(jsonPath("$.status").value("EXTRACTED"))
+                .andExpect(jsonPath("$.status").value("DONE"))
+                .andExpect(jsonPath("$.nutriScore.grade").value("D"))
                 .andExpect(jsonPath("$.reading.carbohydrates").value(62.9))
                 .andExpect(jsonPath("$.photos[0].position").value(1))
                 .andExpect(jsonPath("$.photos[1].position").value(2));
@@ -85,6 +94,18 @@ class ProductApiTest {
     }
 
     @Test
+    void drink_isDone_butNotScored() throws Exception {
+        fakeModel.reply(FakeVisionModel.JAM_JSON.replace("\"type\": \"GENERAL\"", "\"type\": \"DRINK\""));
+
+        mvc.perform(multipart("/api/products").file(jpeg("milk.jpg")))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.status").value("DONE"))
+                .andExpect(jsonPath("$.nutriScore.scored").value(false))
+                .andExpect(jsonPath("$.nutriScore.notScoredReason").isNotEmpty())
+                .andExpect(jsonPath("$.nutriScore.grade").doesNotExist());
+    }
+
+    @Test
     void unusableAiAnswer_marksProductFailed_withAReason() throws Exception {
         fakeModel.reply("I cannot read this label.", "Still cannot read it.");
 
@@ -93,6 +114,7 @@ class ProductApiTest {
                 .andExpect(jsonPath("$.status").value("FAILED"))
                 .andExpect(jsonPath("$.failureReason").exists())
                 .andExpect(jsonPath("$.reading").doesNotExist())
+                .andExpect(jsonPath("$.nutriScore").doesNotExist())
                 .andReturn().getResponse().getContentAsString();
 
         String id = JsonPath.read(body, "$.id");

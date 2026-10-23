@@ -44,6 +44,14 @@ EXCLUDED_CATEGORIES = {
     "en:peanut-butters", "en:nuts-and-their-products", "en:oilseed-purees",
     # red meat (special protein rule in 2023)
     "en:meats", "en:meat-based-products",
+    # Added after Test 2a (2026-10-23): seen on product 1916287787710, which slipped through.
+    "en:meats-and-their-products", "en:meat-preparations", "en:prepared-meats",
+    # Added after Test 2a: dairy drinks (scored as beverages) and creams (scored as fats).
+    # Unconfirmed tag names: excluding a tag that doesn't exist changes nothing, so it's safe.
+    "en:dairy-drinks", "en:fermented-milk-drinks", "en:drinkable-yogurts",
+    "en:creams", "en:coconut-products",
+    # Confirmed 2026-10-23 on 4056489155041 (Milbona whole milk): Nutri-Score 2023 scores milk as a drink.
+    "en:milks"
 }
 
 # OFF nutrient name -> our name. All six are required.

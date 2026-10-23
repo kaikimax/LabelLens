@@ -59,8 +59,9 @@ public class Product {
         photos.add(new ProductPhoto(this, position, storageKey, contentType, sizeBytes));
     }
 
-    public void markExtracted() {
-        this.status = ProductStatus.EXTRACTED;
+    /** Label read and Nutri-Score computed (or deliberately not scored, e.g. drinks). */
+    public void markDone() {
+        this.status = ProductStatus.DONE;
         this.failureReason = null;
     }
 
