@@ -1,9 +1,9 @@
 package dev.labellens.nutriscore;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 // import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * The specification for NutriScoreCalculator, written as tests.
@@ -134,13 +134,21 @@ class NutriScoreCalculatorTest {
         assertThat(withNulls.grade()).isEqualTo(withZeros.grade());
     }
 
-    // ---- TODO (Oussama): boundary tests ------------------------------------------------
-    // Once you have the official tables, add tests for values exactly ON a threshold and
-    // just above it, for at least salt, sugars and energy. Example shape:
-    //
-    //   @Test
-    //   void salt_exactlyOnThreshold_vs_justAbove() { ... }
-    //
-    // These catch the most common bug in this kind of code: ">" written instead of ">=".
-    // Check in the specification which one each table uses.
+    @Test
+    void foodLabeledAsLowerCaseDrink() {
+        var r = NutriScoreCalculator.score(
+                    new NutriScoreInput("Drink", 1000.0, 10.0, 5.0, 1.0, 1.0, 5.0, 0.0));
+
+        assertThat(r.scored()).isFalse();
+        assertThat(r.grade()).isNull();
+    }
+
+    @Test
+    void foodLabeledAsEmptyString() {
+        var r = NutriScoreCalculator.score(
+                    new NutriScoreInput("", 1000.0, 10.0, 5.0, 1.0, 1.0, 5.0, 0.0));
+
+        assertThat(r.scored()).isFalse();
+        assertThat(r.grade()).isNull();
+    }
 }
