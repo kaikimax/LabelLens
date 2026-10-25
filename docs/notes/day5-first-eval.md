@@ -124,7 +124,7 @@ On the package, the sentence follows the ingredients with no line break. **A pro
 3. **Per-portion tables:** when the table is per serving, report `basis: serving` and the serving size, never per-100 g values. Expected to fix p007 (confirmed cause: `basis: "100g"`, `serving_size: null`).
 5. **Salt or sodium, never both:** if the label prints only sodium, salt must be `null`. Expected to fix p007's salt.
 
-And one **code** change (no prompt involved): a sanity check that warns when both salt and sodium are given and disagree (salt ≠ sodium × 2.5). It would have flagged p007.
+And one **code** change (no prompt involved), **done after this run:** sanity rule f in `SanityChecks` warns when both salt and sodium are given and disagree (salt ≠ sodium × 2.5, within 0.1 g or 20%). On p007 it now reports *"salt (0.00 g) doesn't match sodium (170 mg = about 0.43 g salt)"*. It flags the problem; it doesn't change the value or the grade.
 4. **Misaligned tables:** match each value to its label by order in the list, not by vertical position. Expected to help p003.
 
 Rule for later: **one change per eval run**, so each score change can be attributed to one cause.

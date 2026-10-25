@@ -73,7 +73,7 @@ public class LabelReader {
             if (lastProblem == null) {
                 PrintedLabel printed = parse(reply.text());
                 LabelReading reading = LabelConverter.toPer100g(printed);
-                return ReadOutcome.extracted(reading, SanityChecks.check(reading), reply.text(), reply.model());
+                return ReadOutcome.extracted(reading, SanityChecks.check(reading, printed), reply.text(), reply.model());
             }
 
             feedback = "IMPORTANT: your previous answer was rejected because: " + lastProblem
