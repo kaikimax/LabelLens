@@ -59,7 +59,7 @@ public class LabelReader {
                 reply = model.ask(request, images);
             } catch (RuntimeException e) {
                 // Network error, wrong key, quota... Retrying the same request won't help.
-                String reason = "AI call failed: " + e.getMessage();
+                String reason = "AI call failed: " + describe(e);
                 callLog.record(new AiCallRecord(productId, PURPOSE, model.name(), null, null,
                         millisSince(start), false, reason));
                 return ReadOutcome.failed(reason, lastRaw, model.name());
@@ -118,6 +118,21 @@ public class LabelReader {
             }
         }
         return t;
+    }
+
+    /**
+     * The exception's message plus its causes: "Request failed" alone says nothing,
+     * the cause underneath usually does (HTTP status, timeout, content filter...).
+     */
+    static String describe(Throwable e) {
+        StringBuilder sb = new StringBuilder(firstLine(e.getMessage()));
+        Throwable cause = e.getCause();
+        for (int depth = 0; cause != null && cause != e && depth < 5; depth++) {
+            sb.append(" <- ").append(cause.getClass().getSimpleName()).append(": ").append(firstLine(cause.getMessage()));
+            cause = cause.getCause();
+        }
+        String text = sb.toString();
+        return text.length() > 500 ? text.substring(0, 500) + "..." : text;
     }
 
     /** Jackson error messages span several lines; the first one says what's wrong. */

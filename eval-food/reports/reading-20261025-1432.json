@@ -1,0 +1,125 @@
+{
+  "suite" : "reading",
+  "startedAt" : "2026-10-25T14:32:00.603090700Z",
+  "runsPerCase" : 1,
+  "info" : {
+    "model" : "gpt-4.1-mini-2025-04-14",
+    "prompt" : "read-label.md, sha256 bfb11e26a742",
+    "answer key" : "labels.json, sha256 8a29d53b1553",
+    "skipped" : "none",
+    "est. cost" : "$0.0014 total, $0.0014 per run (list price)"
+  },
+  "metrics" : {
+    "answered" : 100.0,
+    "energy_kj" : 100.0,
+    "fat" : 100.0,
+    "saturated_fat" : 100.0,
+    "carbohydrates" : 100.0,
+    "sugars" : 0.0,
+    "fibre" : 100.0,
+    "protein" : 0.0,
+    "salt" : 0.0,
+    "type" : 0.0,
+    "ingredients" : 0.0,
+    "grade" : 0.0,
+    "energy_kj[arabic]" : 100.0,
+    "fat[arabic]" : 100.0,
+    "saturated_fat[arabic]" : 100.0,
+    "carbohydrates[arabic]" : 100.0,
+    "sugars[arabic]" : 0.0,
+    "fibre[arabic]" : 100.0,
+    "protein[arabic]" : 0.0,
+    "salt[arabic]" : 0.0,
+    "type[arabic]" : 0.0,
+    "ingredients[arabic]" : 0.0,
+    "grade[arabic]" : 0.0,
+    "energy_kj[round-packaging]" : 100.0,
+    "fat[round-packaging]" : 100.0,
+    "saturated_fat[round-packaging]" : 100.0,
+    "carbohydrates[round-packaging]" : 100.0,
+    "sugars[round-packaging]" : 0.0,
+    "fibre[round-packaging]" : 100.0,
+    "protein[round-packaging]" : 0.0,
+    "salt[round-packaging]" : 0.0,
+    "type[round-packaging]" : 0.0,
+    "ingredients[round-packaging]" : 0.0,
+    "grade[round-packaging]" : 0.0
+  },
+  "runs" : [ {
+    "caseId" : "p003",
+    "tags" : [ "arabic", "round-packaging" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 6506,
+    "inputTokens" : 2499,
+    "outputTokens" : 268,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "1599.4",
+      "actual" : "1599.4",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "38.4",
+      "actual" : "38.4",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "6.3",
+      "actual" : "6.3",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "9.58",
+      "actual" : "9.58",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : false,
+      "expected" : "0.41",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : false,
+      "expected" : "0.95",
+      "actual" : "0.41",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : false,
+      "expected" : "1.75",
+      "actual" : "0.95",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : false,
+      "expected" : "GENERAL",
+      "actual" : "OIL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : false,
+      "expected" : "ماء, زيت الصوجا (%35), خل المائدة, اصفر البيض, مادة مثخنة: نشا معدل, خردل(ماء حبات الخردل, خل المائدة, ملح, زيت الصوجا, مثبت: صمغ الزنتان, مادة حافظة: ميتابيسلفيت البوتاسيوم و مضاد الأكسدة: حمض الستريك), ملح, مواد حافظة (بنزوات الصوديوم, سوربات البوتاسيوم), مثبت: صمغ الزنتان و مضاد الأكسدة: كالسيوم تنائي الصوديوم EDTA.",
+      "actual" : "زيت الصويا (65%)، ذيل المادة، أصفر البيض، مادة مثبتة، نشا معدل، درزن الماء، ملح، زيت الصويا، مثبت، صمغ الزانثان، مادة حافظة ميتابيسلفيت الصوديوم ومضاد أكسدة: حمض الستريك، ملح، مادة حافظة (زيروزين الصوديوم بيرورات EDTA)، مثبت، صمغ الزانثان ومضاد الأكسدة: كالسيدوني ثاني الصوديوم",
+      "note" : null
+    }, {
+      "name" : "grade",
+      "passed" : false,
+      "expected" : "D (18)",
+      "actual" : "not scored: Oils are not included in v1",
+      "note" : "caused by: sugars 0.41 -> null, protein 0.95 -> 0.41, salt 1.75 -> 0.95, type GENERAL -> OIL"
+    } ]
+  } ]
+}

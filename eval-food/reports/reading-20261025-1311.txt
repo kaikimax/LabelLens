@@ -1,0 +1,87 @@
+EVAL REPORT: reading
+================================================================================
+Started:        2026-10-25T13:11:04.477868600Z (took 12 min 16 s)
+Cases:          15, 3 run(s) each
+model:          gpt-4.1-mini-2025-04-14
+prompt:         read-label.md, sha256 bfb11e26a742
+answer key:     labels.json, sha256 8594be295847
+skipped:        p016: no type (template not filled in yet); p017: no type (template not filled in yet); p018: no type (template not filled in yet); p019: no type (template not filled in yet); p020: no type (template not filled in yet); p021: no type (template not filled in yet); p022: no type (template not filled in yet); p023: no type (template not filled in yet); p024: no type (template not filled in yet)
+est. cost:      $0.0987 total, $0.0022 per run (list price)
+
+Counting rule: a run with no usable answer counts as WRONG for every check.
+
+SCORES
+--------------------------------------------------------------------------------
+answered           42 / 45   93.3%
+energy_kj          39 / 45   86.7%
+fat                39 / 45   86.7%
+saturated_fat      42 / 45   93.3%
+carbohydrates      36 / 45   80.0%
+sugars             36 / 45   80.0%
+fibre              42 / 45   93.3%
+protein            39 / 45   86.7%
+salt               39 / 45   86.7%
+type               42 / 45   93.3%
+ingredients        30 / 45   66.7%
+grade              19 / 24   79.2%
+
+Stability: 143 / 147 (case, check) pairs gave the same answer in every run (97.3%)
+
+BY SITUATION (percent; number of cases in brackets; few cases = unreliable)
+--------------------------------------------------------------------------------
+arabic (14)            energy_kj 85.7% | fat 85.7% | saturated_fat 92.9% | carbohydrates 78.6% | sugars 78.6% | fibre 92.9% | protein 85.7% | salt 85.7% | type 92.9% | ingredients 71.4% | grade 79.2%
+blurry (2)             energy_kj 100.0% | fat 50.0% | saturated_fat 100.0% | carbohydrates 50.0% | sugars 50.0% | fibre 100.0% | protein 50.0% | salt 100.0% | type 100.0% | ingredients 100.0% | grade 100.0%
+flat-packaging (3)     energy_kj 100.0% | fat 100.0% | saturated_fat 100.0% | carbohydrates 100.0% | sugars 100.0% | fibre 100.0% | protein 100.0% | salt 100.0% | type 100.0% | ingredients 66.7% | grade 100.0%
+glare (3)              energy_kj 100.0% | fat 100.0% | saturated_fat 100.0% | carbohydrates 100.0% | sugars 100.0% | fibre 100.0% | protein 100.0% | salt 100.0% | type 100.0% | ingredients 33.3% | grade 100.0%
+hand-in-photo (8)      energy_kj 87.5% | fat 100.0% | saturated_fat 100.0% | carbohydrates 75.0% | sugars 75.0% | fibre 100.0% | protein 87.5% | salt 87.5% | type 100.0% | ingredients 75.0% | grade 77.8%
+multi-languages (1)    energy_kj 100.0% | fat 100.0% | saturated_fat 100.0% | carbohydrates 100.0% | sugars 100.0% | fibre 100.0% | protein 100.0% | salt 100.0% | type 100.0% | ingredients 0.0% | grade -
+per-portion-converted (1) energy_kj 0.0% | fat 100.0% | saturated_fat 100.0% | carbohydrates 0.0% | sugars 0.0% | fibre 100.0% | protein 100.0% | salt 0.0% | type 100.0% | ingredients 100.0% | grade 33.3%
+printed-as-less-than (2) energy_kj 100.0% | fat 100.0% | saturated_fat 100.0% | carbohydrates 100.0% | sugars 100.0% | fibre 100.0% | protein 100.0% | salt 100.0% | type 100.0% | ingredients 50.0% | grade 100.0%
+round-packaging (12)   energy_kj 83.3% | fat 83.3% | saturated_fat 91.7% | carbohydrates 75.0% | sugars 75.0% | fibre 91.7% | protein 83.3% | salt 83.3% | type 91.7% | ingredients 66.7% | grade 72.2%
+shiny-packaging (2)    energy_kj 100.0% | fat 100.0% | saturated_fat 100.0% | carbohydrates 50.0% | sugars 50.0% | fibre 100.0% | protein 50.0% | salt 100.0% | type 100.0% | ingredients 50.0% | grade -
+small-text (3)         energy_kj 66.7% | fat 66.7% | saturated_fat 100.0% | carbohydrates 66.7% | sugars 66.7% | fibre 100.0% | protein 100.0% | salt 66.7% | type 100.0% | ingredients 66.7% | grade 66.7%
+
+COMPARED WITH THE BASELINE
+--------------------------------------------------------------------------------
+No baseline yet.
+
+DISAGREEMENTS (review each one: AI error, answer-key error, or comparison rule?)
+--------------------------------------------------------------------------------
+p002
+  ingredients    expected ARACHIDES grillées a sec (90%), sucre, huile végétale hydrogénée (colza, huile de coton), sel. | got Dry roasted PEANUTS (90%), sugar, hydrogenated vegetable oil (rapeseed, cottonseed), salt. (x3) | wrong in 3/3 runs
+p006
+  ingredients    expected Purée de Tomate (160 g pour produire 100 g de produit), Sucre, Amidon de Mais Modifié, Sel, Huile de Tournesol, arome légume naturel .7% de matiére sèche | got Purée de Tomate (160 g pour produire 100 g de produit), Sucre, Amidon de Maïs Modifié, Sel, Huile de Tournesol, arôme légume naturel. 7% de matière sèche. (x3) | wrong in 3/3 runs
+p007
+  energy_kj      expected 418.4 | got 20.92 (x3) | wrong in 3/3 runs
+  carbohydrates  expected 40.0 | got 1.0 (x3) | wrong in 3/3 runs
+  sugars         expected 20.0 | got 0.0 (x3) | wrong in 3/3 runs
+  salt           expected 8.5 | got 0.0 (x2), 4.7 (x1) | wrong in 3/3 runs
+  grade          expected E (26) | got A (0) (x2), E (20) (x1) | wrong in 2/3 runs
+                 caused by: energy_kj 418.4 -> 20.92, sugars 20.0 -> 0.0, salt 8.5 -> 0.0
+p009
+  fat            expected 3.0 | got 0.0 (x2), 0.3 (x1) | wrong in 3/3 runs
+p010
+  ingredients    expected Vinegar, Louisiana type Red Chili Pepper, Salt, Thickener (Xanthan Gum), Green Pepper Natural Identical Flavor, Natural Color (E120), Antioxidant (Ascorbic Acid). | got Vineger, Louisiana type Red Chili Pepper, Salt, Thickener (Xanthan Gum), Green Pepper Natural Identical Flavor, Natural Color (E120), Antioxidant (Ascorbic Acid). (x2), Vineger, Louisiana type Red Chili Pepper, Salt, Thickener (Xanthan Gum), Green Pepper Natural Identical Flavor, Natural Color (E120), Antioxidant (Ascorbic Acid). May Contain Celery. (x1) | wrong in 3/3 runs
+p013
+  ingredients    expected Eau de source Saint Benoit 50%, jus de citron à base de concentré 35,5%, pulpes 5%, jus d'orange à base de concentré, acidifant : acide citrique, arômes naturels d'argumes, arôme naturel de citron vert, antioxydant : acide ascorbique. | got Eau de source Saint Benoit 50%, jus de citron à base de concentré 35,5%, pulpes 5%, jus d'orange à base de concentré, acidifiant : acide citrique, arômes naturels d'agrumes, arôme naturel de citron vert, antioxydant : acide ascorbique. (x3) | wrong in 3/3 runs
+p015
+  carbohydrates  expected null | got 0.0 (x3) | wrong in 3/3 runs
+  sugars         expected null | got 0.0 (x3) | wrong in 3/3 runs
+  protein        expected null | got 0.0 (x3) | wrong in 3/3 runs
+
+RUNS WITH NO USABLE ANSWER
+--------------------------------------------------------------------------------
+  p003 run 1: AI call failed: Request failed
+  p003 run 2: AI call failed: Request failed
+  p003 run 3: AI call failed: Request failed
+
+UNSTABLE (same input, different answers between runs)
+--------------------------------------------------------------------------------
+  p007   salt           expected 8.5 | got 0.0 (x2), 4.7 (x1)
+  p007   grade          expected E (26) | got A (0) (x2), E (20) (x1)
+  p009   fat            expected 3.0 | got 0.0 (x2), 0.3 (x1)
+  p010   ingredients    expected Vinegar, Louisiana type Red Chili Pepper, Salt, Thickener (Xanthan Gum), Green Pepper Natural Identical Flavor, Natural Color (E120), Antioxidant (Ascorbic Acid). | got Vineger, Louisiana type Red Chili Pepper, Salt, Thickener (Xanthan Gum), Green Pepper Natural Identical Flavor, Natural Color (E120), Antioxidant (Ascorbic Acid). (x2), Vineger, Louisiana type Red Chili Pepper, Salt, Thickener (Xanthan Gum), Green Pepper Natural Identical Flavor, Natural Color (E120), Antioxidant (Ascorbic Acid). May Contain Celery. (x1)
+
+COST
+--------------------------------------------------------------------------------
+Tokens: 212,916 in, 8,455 out | average 16.4 s per run | 0 infrastructure retries

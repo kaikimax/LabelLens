@@ -72,6 +72,13 @@
             <artifactId>testcontainers-postgresql</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- The generic eval harness (day 5). Only the eval tests use it. -->
+        <dependency>
+            <groupId>dev.labellens</groupId>
+            <artifactId>labellens-eval-core</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -81,6 +88,51 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <!-- Tests tagged "eval" call the real model (it costs money): never in the normal build. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <excludedGroups>eval</excludedGroups>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <!--
+          mvn -pl app test -Peval                         runs ONLY the eval, 3 runs per product
+          mvn -pl app test -Peval "-Deval.runs=1"         1 run per product (cheaper, less reliable)
+          mvn -pl app test -Peval "-Deval.only=p004,p007" only these products
+          mvn -pl app test -Peval "-Deval.saveBaseline=true"  also saves the scores as the new baseline
+        -->
+        <profile>
+            <id>eval</id>
+            <properties>
+                <eval.runs>3</eval.runs>
+                <eval.only></eval.only>
+                <eval.saveBaseline>false</eval.saveBaseline>
+                <eval.maxDrop>3</eval.maxDrop>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <groups>eval</groups>
+                            <!-- "none" is a tag nobody uses: it cancels the default exclusion of "eval". -->
+                            <excludedGroups>none</excludedGroups>
+                            <systemPropertyVariables>
+                                <eval.runs>${eval.runs}</eval.runs>
+                                <eval.only>${eval.only}</eval.only>
+                                <eval.saveBaseline>${eval.saveBaseline}</eval.saveBaseline>
+                                <eval.maxDrop>${eval.maxDrop}</eval.maxDrop>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

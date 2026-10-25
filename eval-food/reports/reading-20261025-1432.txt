@@ -1,0 +1,60 @@
+EVAL REPORT: reading
+================================================================================
+Started:        2026-10-25T14:32:00.603090700Z (took 0 min 6 s)
+Cases:          1, 1 run(s) each
+model:          gpt-4.1-mini-2025-04-14
+prompt:         read-label.md, sha256 bfb11e26a742
+answer key:     labels.json, sha256 8a29d53b1553
+skipped:        none
+est. cost:      $0.0014 total, $0.0014 per run (list price)
+
+Counting rule: a run with no usable answer counts as WRONG for every check.
+
+SCORES
+--------------------------------------------------------------------------------
+answered            1 / 1    100.0%
+energy_kj           1 / 1    100.0%
+fat                 1 / 1    100.0%
+saturated_fat       1 / 1    100.0%
+carbohydrates       1 / 1    100.0%
+sugars              0 / 1    0.0%
+fibre               1 / 1    100.0%
+protein             0 / 1    0.0%
+salt                0 / 1    0.0%
+type                0 / 1    0.0%
+ingredients         0 / 1    0.0%
+grade               0 / 1    0.0%
+
+Stability: 0 / 0 (case, check) pairs gave the same answer in every run (-)
+
+BY SITUATION (percent; number of cases in brackets; few cases = unreliable)
+--------------------------------------------------------------------------------
+arabic (1)             energy_kj 100.0% | fat 100.0% | saturated_fat 100.0% | carbohydrates 100.0% | sugars 0.0% | fibre 100.0% | protein 0.0% | salt 0.0% | type 0.0% | ingredients 0.0% | grade 0.0%
+round-packaging (1)    energy_kj 100.0% | fat 100.0% | saturated_fat 100.0% | carbohydrates 100.0% | sugars 0.0% | fibre 100.0% | protein 0.0% | salt 0.0% | type 0.0% | ingredients 0.0% | grade 0.0%
+
+COMPARED WITH THE BASELINE
+--------------------------------------------------------------------------------
+No baseline yet.
+
+DISAGREEMENTS (review each one: AI error, answer-key error, or comparison rule?)
+--------------------------------------------------------------------------------
+p003
+  sugars         expected 0.41 | got null (x1) | wrong in 1/1 runs
+  protein        expected 0.95 | got 0.41 (x1) | wrong in 1/1 runs
+  salt           expected 1.75 | got 0.95 (x1) | wrong in 1/1 runs
+  type           expected GENERAL | got OIL (x1) | wrong in 1/1 runs
+  ingredients    expected ماء, زيت الصوجا (%35), خل المائدة, اصفر البيض, مادة مثخنة: نشا معدل, خردل(ماء حبات الخردل, خل المائدة, ملح, زيت الصوجا, مثبت: صمغ الزنتان, مادة حافظة: ميتابيسلفيت البوتاسيوم و مضاد الأكسدة: حمض الستريك), ملح, مواد حافظة (بنزوات الصوديوم, سوربات البوتاسيوم), مثبت: صمغ الزنتان و مضاد الأكسدة: كالسيوم تنائي الصوديوم EDTA. | got زيت الصويا (65%)، ذيل المادة، أصفر البيض، مادة مثبتة، نشا معدل، درزن الماء، ملح، زيت الصويا، مثبت، صمغ الزانثان، مادة حافظة ميتابيسلفيت الصوديوم ومضاد أكسدة: حمض الستريك، ملح، مادة حافظة (زيروزين الصوديوم بيرورات EDTA)، مثبت، صمغ الزانثان ومضاد الأكسدة: كالسيدوني ثاني الصوديوم (x1) | wrong in 1/1 runs
+  grade          expected D (18) | got not scored: Oils are not included in v1 (x1) | wrong in 1/1 runs
+                 caused by: sugars 0.41 -> null, protein 0.95 -> 0.41, salt 1.75 -> 0.95, type GENERAL -> OIL
+
+RUNS WITH NO USABLE ANSWER
+--------------------------------------------------------------------------------
+None.
+
+UNSTABLE (same input, different answers between runs)
+--------------------------------------------------------------------------------
+None.
+
+COST
+--------------------------------------------------------------------------------
+Tokens: 2,499 in, 268 out | average 6.5 s per run | 0 infrastructure retries

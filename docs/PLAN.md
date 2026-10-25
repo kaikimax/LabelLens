@@ -17,6 +17,12 @@ Day-by-day plan and decisions taken along the way. The overall timeline is in SP
 | 2026-10-17 | Models: see table below | |
 | 2026-10-22 | **Fromage blanc / fromage frais = `GENERAL`**, not `CHEESE` | Open Food Facts scores fromage blanc with the general-foods table (max 55 negative / 17 positive points) and no cheese rule. The cheese rules are for real cheeses. |
 | 2026-10-22 | **Peanut butter (and other nut/seed butters) = `OIL`** | Open Food Facts: "considered to be fat, oil, nuts or seeds for the calculation of the Nutri-Score" (separate table: energy from saturated fat, saturated fat/fat ratio). Not scored in v1. |
+| 2026-10-25 | **Eval, numbers: a value is correct if within one printing step of the typed value.** Fat, carbohydrates, sugars, fibre, protein, saturated fat: ±0.1 g below 10 g, ±1 g from 10 g. Salt: ±0.01 g below 1 g, ±0.1 g from 1 g. The step is chosen from the **typed** (expected) value, never from the AI's answer. | The AI copies a printed number, so a correct reading is near-exact; the margins follow the EU rounding rules for labels. Every margin is smaller than the gap between two Nutri-Score points (salt 0.2 g, sugars ~3.4 g), so an accepted difference can't cost a point on its own. Taking the step from the AI's answer would let a bigger misread earn a bigger margin. |
+| 2026-10-25 | **Eval, energy: ±2%, no floor.** | Covers the kcal → kJ conversion (a kcal rounded to 1 is up to ~2.1 kJ off). Known limit: below ~100 kJ, 2% is under 2.1 kJ, so a correct kcal-only reading can fail; checked by hand in the report rather than adding a rule. |
+| 2026-10-25 | **Eval, missing values:** null = null is correct; printed but not read is wrong; not printed but the AI gave a value is wrong (invented). | "Not printed" is an answer, not a gap. An invented value is the hallucination seen on day 3. |
+| 2026-10-25 | **Eval, decimals:** every margin gets +1e-9. | `double` can't store 0.1 exactly: 4.7 − 4.6 = 0.10000000000000053, which would wrongly fail a ±0.1 margin. |
+| 2026-10-25 | **Eval, ingredients: case and spacing ignored, everything else strict.** Lowercase; whitespace runs → one space; spaces around `, ; : . ( ) %` removed; ends trimmed; then exact match. Empty text = null. A missing or extra ingredient, a missing accent, a different punctuation mark, a missing final period or a different number is wrong. | Spacing and case are typography ("gélifiant : pectine" vs "gélifiant: pectine" was an answer-key difference on day 3, not a misread). A similarity threshold was rejected: at 95% it lets a short missing ingredient ("sel") pass on a long list. |
+| 2026-10-25 | **Eval, unknown field name: throws.** | A typo in a field name would otherwise count every value as wrong and blame the AI. |
 
 ### Models
 
@@ -27,6 +33,79 @@ Day-by-day plan and decisions taken along the way. The overall timeline is in SP
 | Allergens, small model, instructions only | `gpt-4.1-nano` | Global Standard | Day 6 |
 | Allergens, small model, fine-tuned | `gpt-4.1-nano` + fine-tuning | Developer tier (no hourly fee, 24 h lifetime) | Days 7–8 |
 | Possible later comparison for reading | a newer model with image input (e.g. from the gpt-6 family) | Global Standard | After day 5, once the eval exists |
+
+---
+
+## Day 5 — The eval harness: measuring the AI
+
+### Goal
+Replace "I tried a few photos and it looked fine" with **numbers that anyone can rerun**: for every photographed product, the AI reads the photos several times, each answer is compared with the values typed in `labels.json`, and a report says how often each value is read correctly, split by situation (Arabic, blurry, round packaging…), and how often the final grade is right.
+
+At the end of the day:
+```
+mvn -pl app test -Peval
+→ eval-food/reports/reading-<date>.txt
+  sugars 93% · salt 87% · energy 96% … (arabic: salt 71%)
+  grade 12/14 correct; 2 changed by a misread value
+```
+
+### Why this is the core of the project
+A model's answers vary from one run to the next, and a prompt change that fixes one label can break three others. Without a fixed test set and a score, every change is a guess. This is the part to pitch: **the harness (`eval-core`) knows nothing about food.** Swap the test cases and the comparison, and it measures an AI that reads receipts instead.
+
+### Not today
+Allergens (day 6), CI (later), prompt improvements. **Measure first, then improve**: the first report is the baseline that every later change gets compared to.
+
+### Step 1 — `eval-core`, the generic harness (Java, mine)
+A new Maven module with no Spring and no food. Four jobs:
+1. **Load test cases**: an input plus the correct answer, with tags (the situations).
+2. **Run** the AI step on each input, **several times** (day 3 showed the same photo can give different answers).
+3. **Compare** with the correct answer using a pluggable comparison, and count.
+4. **Report** and compare with the **baseline** (the last accepted scores, `eval-food/baseline.json`). A score that drops by more than 3 points is a regression.
+
+A run that fails (no usable answer) counts as wrong for every value: the user got nothing.
+
+### Step 2 — The comparison rule (Java, 1–2 h) · **yours**
+When is a value read by the AI "correct"? This is the most important decision of the eval: too strict and rounding noise looks like failure; too loose and real misreads pass. **Write your answers in the decisions log first**, then implement them in `ReadingComparison` and test them in `ReadingComparisonTest`.
+
+Questions to answer:
+1. **Missing values.** Both `null`: correct? Expected `null` but the AI gave a number (it invented a value)? Expected a number but the AI gave `null` (it missed one)?
+2. **Numbers.** Exact match, or a tolerance? Absolute (± 0.1 g), relative (± 5%), or both? Think about small values: salt 0.05 vs 0.06 is 20% apart but harmless; salt 0.5 vs 1.5 is a real misread.
+3. **Energy.** When the label only prints kcal, Java converts (× 4.184), and the typed value may have been rounded differently. Does energy need its own tolerance?
+4. **Ingredients text.** Exact? Ignoring case, spaces and punctuation? Or "similar enough" (e.g. 90% similar)? `TextSimilarity` in `eval-core` gives a 0–1 similarity if you want it. Decide what a misread *means*: is one missing word a failure?
+5. **Type** (`GENERAL`/`DRINK`/…): exact match. Already done, unless you disagree.
+
+`name` and `brand` are not scored (DATA_PLAN: they're only there to recognise the product).
+
+### Step 3 — The food eval (Java, mine)
+- `LabelCases`: turns each `labels.json` product into a test case (its photos plus the typed values). Products with no `type` or missing photos are skipped and listed.
+- `LabelScorer`: one check per value (energy, fat, saturated fat, carbohydrates, sugars, fibre, protein, salt), plus `type`, `ingredients` and **`grade` (Test 2b)**. When the grade is wrong, the report names the misread values that caused it.
+- `ReadingEvalTest`: runs everything against the real model. **Never part of the normal build** (it costs money); it only runs with `-Peval`.
+
+### Step 4 — First real run, then read every disagreement (1–2 h)
+```
+mvn -pl app test -Peval
+```
+3 runs × each product. Then go through the "disagreements" section of the report, product by product, with the package in hand. Each one is one of:
+- **an AI error** → leave it; that's what the score is for;
+- **an error in `labels.json`** → fix the answer key (day 3 found one: p004);
+- **a comparison rule that's too strict or too loose** → revisit step 2.
+
+Write the findings in `docs/notes/day5-first-eval.md`.
+
+### Step 5 — Save the baseline
+When the answer key is clean:
+```
+mvn -pl app test -Peval "-Deval.saveBaseline=true"
+```
+Commit `eval-food/baseline.json` and the report.
+
+**Honest limit:** with 15 products, one product moves a score by about 7 points, so the 3-point regression rule is too sensitive for now. The numbers are internal until there are about 25 products or more; don't quote them in the README before that.
+
+### Done when
+- [ ] `eval-core` unit tests green.
+- [ ] Comparison rule decided (decisions log), implemented and tested.
+- [ ] First report produced; every disagreement classified (AI error / answer-key error / rule).
+- [ ] `day5-first-eval.md` written, baseline saved, committed.
 
 ---
 

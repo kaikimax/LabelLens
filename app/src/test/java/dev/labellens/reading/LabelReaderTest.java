@@ -124,4 +124,14 @@ class LabelReaderTest {
         assertThat(LabelReader.stripCodeFences("```json\n{\"a\": 1}\n```")).isEqualTo("{\"a\": 1}");
         assertThat(LabelReader.stripCodeFences("```\n{\"a\": 1}\n```")).isEqualTo("{\"a\": 1}");
     }
+
+    @Test
+    void aFailedCall_reportsTheCauseUnderneath() {
+        // Day 5: p003 failed 3 times with only "Request failed", which explained nothing.
+        var e = new RuntimeException("Request failed",
+                new IllegalStateException("HTTP 400 Bad Request\nbody: content_filter"));
+
+        assertThat(LabelReader.describe(e))
+                .isEqualTo("Request failed <- IllegalStateException: HTTP 400 Bad Request");
+    }
 }

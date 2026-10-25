@@ -1,0 +1,89 @@
+EVAL REPORT: reading
+================================================================================
+Started:        2026-10-25T14:40:51.271047600Z (took 7 min 34 s)
+Cases:          15, 3 run(s) each
+model:          gpt-4.1-mini-2025-04-14
+prompt:         read-label.md, sha256 bfb11e26a742
+answer key:     labels.json, sha256 5940a7adc544
+skipped:        p016: no type (template not filled in yet); p017: no type (template not filled in yet); p018: no type (template not filled in yet); p019: no type (template not filled in yet); p020: no type (template not filled in yet); p021: no type (template not filled in yet); p022: no type (template not filled in yet); p023: no type (template not filled in yet); p024: no type (template not filled in yet)
+est. cost:      $0.1185 total, $0.0026 per run (list price)
+
+Counting rule: a run with no usable answer counts as WRONG for every check.
+
+SCORES
+--------------------------------------------------------------------------------
+answered           43 / 45   95.6%
+energy_kj          40 / 45   88.9%
+fat                40 / 45   88.9%
+saturated_fat      43 / 45   95.6%
+carbohydrates      40 / 45   88.9%
+sugars             36 / 45   80.0%
+fibre              43 / 45   95.6%
+protein            39 / 45   86.7%
+salt               40 / 45   88.9%
+type               43 / 45   95.6%
+ingredients        37 / 45   82.2%
+grade              18 / 24   75.0%
+
+Stability: 143 / 147 (case, check) pairs gave the same answer in every run (97.3%)
+
+BY SITUATION (percent; number of cases in brackets; few cases = unreliable)
+--------------------------------------------------------------------------------
+arabic (14)            energy_kj 88.1% | fat 88.1% | saturated_fat 95.2% | carbohydrates 88.1% | sugars 78.6% | fibre 95.2% | protein 85.7% | salt 88.1% | type 95.2% | ingredients 88.1% | grade 75.0%
+blurry (2)             energy_kj 100.0% | fat 50.0% | saturated_fat 100.0% | carbohydrates 100.0% | sugars 50.0% | fibre 100.0% | protein 50.0% | salt 100.0% | type 100.0% | ingredients 100.0% | grade 100.0%
+flat-packaging (3)     energy_kj 100.0% | fat 100.0% | saturated_fat 100.0% | carbohydrates 100.0% | sugars 100.0% | fibre 100.0% | protein 100.0% | salt 100.0% | type 100.0% | ingredients 100.0% | grade 100.0%
+glare (3)              energy_kj 100.0% | fat 100.0% | saturated_fat 100.0% | carbohydrates 100.0% | sugars 100.0% | fibre 100.0% | protein 100.0% | salt 100.0% | type 100.0% | ingredients 100.0% | grade 100.0%
+hand-in-photo (8)      energy_kj 87.5% | fat 100.0% | saturated_fat 100.0% | carbohydrates 87.5% | sugars 75.0% | fibre 100.0% | protein 87.5% | salt 87.5% | type 100.0% | ingredients 91.7% | grade 66.7%
+multi-languages (1)    energy_kj 100.0% | fat 100.0% | saturated_fat 100.0% | carbohydrates 100.0% | sugars 100.0% | fibre 100.0% | protein 100.0% | salt 100.0% | type 100.0% | ingredients 0.0% | grade -
+per-portion-converted (1) energy_kj 0.0% | fat 100.0% | saturated_fat 100.0% | carbohydrates 0.0% | sugars 0.0% | fibre 100.0% | protein 100.0% | salt 0.0% | type 100.0% | ingredients 100.0% | grade 0.0%
+printed-as-less-than (2) energy_kj 100.0% | fat 100.0% | saturated_fat 100.0% | carbohydrates 100.0% | sugars 100.0% | fibre 100.0% | protein 100.0% | salt 100.0% | type 100.0% | ingredients 100.0% | grade 100.0%
+round-packaging (12)   energy_kj 86.1% | fat 86.1% | saturated_fat 94.4% | carbohydrates 86.1% | sugars 75.0% | fibre 94.4% | protein 83.3% | salt 86.1% | type 94.4% | ingredients 77.8% | grade 66.7%
+shiny-packaging (2)    energy_kj 100.0% | fat 100.0% | saturated_fat 100.0% | carbohydrates 100.0% | sugars 50.0% | fibre 100.0% | protein 50.0% | salt 100.0% | type 100.0% | ingredients 100.0% | grade -
+small-text (3)         energy_kj 66.7% | fat 66.7% | saturated_fat 100.0% | carbohydrates 66.7% | sugars 66.7% | fibre 100.0% | protein 100.0% | salt 66.7% | type 100.0% | ingredients 66.7% | grade 50.0%
+
+COMPARED WITH THE BASELINE
+--------------------------------------------------------------------------------
+No baseline yet.
+
+DISAGREEMENTS (review each one: AI error, answer-key error, or comparison rule?)
+--------------------------------------------------------------------------------
+p002
+  ingredients    expected ARACHIDES grillées a sec (90%), sucre, huile végétale hydrogénée (colza, huile de coton), sel. | got Dry roasted PEANUTS (90%), sugar, hydrogenated vegetable oil (rapeseed, cottonseed), salt. (x3) | wrong in 3/3 runs
+p003
+  sugars         expected 0.41 | got null (x1) | wrong in 1/1 runs
+  protein        expected 0.95 | got 0.41 (x1) | wrong in 1/1 runs
+  ingredients    expected ماء, زيت الصوجا (%35), خل المائدة, اصفر البيض, مادة مثخنة: نشا معدل, خردل(ماء حبات الخردل, خل المائدة, ملح, زيت الصوجا, مثبت: صمغ الزنتان, مادة حافظة: ميتابيسلفيت البوتاسيوم و مضاد الأكسدة: حمض الستريك), ملح, مواد حافظة (بنزوات الصوديوم, سوربات البوتاسيوم), مثبت: صمغ الزنتان و مضاد الأكسدة: كالسيوم تنائي الصوديوم EDTA. | got Huile de soja (35%), eau, jaune d'œuf, jaune d'œuf en poudre, jaune d'œuf déshydraté, jaune d'œuf en poudre, sel, stabilisant: gomme xanthane, épaississant: gomme guar, acidifiant: acide acétique, conservateur: sorbate de potassium, arôme naturel, antioxydant: tocophérols, correcteur d'acidité: acide citrique. (x1) | wrong in 1/1 runs
+  grade          expected D (18) | got not scored: sugar is not on the label (x1) | wrong in 1/1 runs
+                 caused by: sugars 0.41 -> null, protein 0.95 -> 0.41
+p007
+  energy_kj      expected 418.4 | got 20.92 (x2), 5.0 (x1) | wrong in 3/3 runs
+  carbohydrates  expected 40.0 | got 1.0 (x3) | wrong in 3/3 runs
+  sugars         expected 20.0 | got 0.0 (x3) | wrong in 3/3 runs
+  salt           expected 8.5 | got 0.0 (x2), 0.17 (x1) | wrong in 3/3 runs
+  grade          expected E (26) | got A (0) (x3) | wrong in 3/3 runs
+                 caused by: energy_kj 418.4 -> 20.92, sugars 20.0 -> 0.0, salt 8.5 -> 0.0
+                 caused by: energy_kj 418.4 -> 5.0, sugars 20.0 -> 0.0, salt 8.5 -> 0.0
+                 caused by: energy_kj 418.4 -> 20.92, sugars 20.0 -> 0.0, salt 8.5 -> 0.17
+p009
+  fat            expected 3.0 | got 0.0 (x2), 0.3 (x1) | wrong in 3/3 runs
+p010
+  ingredients    expected Vineger, Louisiana type Red Chili Pepper, Salt, Thickener (Xanthan Gum), Green Pepper Natural Identical Flavor, Natural Color (E120), Antioxidant (Ascorbic Acid). | got Vineger, Louisiana type Red Chili Pepper, Salt, Thickener (Xanthan Gum), Green Pepper Natural Identical Flavor, Natural Color (E120), Antioxidant (Ascorbic Acid). May Contain Celery. (x2), Vineger, Louisiana type Red Chili Pepper, Salt, Thickener (Xanthan Gum), Green Pepper Natural Identical Flavor, Natural Color (E120), Antioxidant (Ascorbic Acid). (x1) | wrong in 2/3 runs
+p015
+  sugars         expected null | got 0.0 (x3) | wrong in 3/3 runs
+  protein        expected null | got 0.0 (x3) | wrong in 3/3 runs
+
+RUNS WITH NO USABLE ANSWER
+--------------------------------------------------------------------------------
+  p003 run 1: Model answer still unusable after 2 attempts: the answer is not valid JSON in the expected format (Unexpected end-of-input: was expecting closing quote for a string value) | answer ended with: ... déshydraté, jaune d'œuf en poudre, jaune d'œuf déshydraté, jaune d'œuf en poudre, jaune d'œuf déshydraté, jaune d'œuf en poudre, jaune d'œuf déshydraté, jaune d'œuf en poudre, jaune d'œuf déshydraté,
+  p003 run 2: Model answer still unusable after 2 attempts: the answer is not valid JSON in the expected format (Unexpected end-of-input: was expecting closing quote for a string value) | answer ended with: ... déshydraté, jaune d'œuf en poudre, jaune d'œuf déshydraté, jaune d'œuf en poudre, jaune d'œuf déshydraté, jaune d'œuf en poudre, jaune d'œuf déshydraté, jaune d'œuf en poudre, jaune d'œuf déshydraté,
+
+UNSTABLE (same input, different answers between runs)
+--------------------------------------------------------------------------------
+  p007   energy_kj      expected 418.4 | got 20.92 (x2), 5.0 (x1)
+  p007   salt           expected 8.5 | got 0.0 (x2), 0.17 (x1)
+  p009   fat            expected 3.0 | got 0.0 (x2), 0.3 (x1)
+  p010   ingredients    expected Vineger, Louisiana type Red Chili Pepper, Salt, Thickener (Xanthan Gum), Green Pepper Natural Identical Flavor, Natural Color (E120), Antioxidant (Ascorbic Acid). | got Vineger, Louisiana type Red Chili Pepper, Salt, Thickener (Xanthan Gum), Green Pepper Natural Identical Flavor, Natural Color (E120), Antioxidant (Ascorbic Acid). May Contain Celery. (x2), Vineger, Louisiana type Red Chili Pepper, Salt, Thickener (Xanthan Gum), Green Pepper Natural Identical Flavor, Natural Color (E120), Antioxidant (Ascorbic Acid). (x1)
+
+COST
+--------------------------------------------------------------------------------
+Tokens: 232,206 in, 16,000 out | average 10.1 s per run | 0 infrastructure retries

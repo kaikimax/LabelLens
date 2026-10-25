@@ -1,0 +1,26 @@
+{
+  "suite" : "reading",
+  "startedAt" : "2026-10-25T14:37:03.056472Z",
+  "runsPerCase" : 1,
+  "info" : {
+    "model" : "(no successful call)",
+    "prompt" : "read-label.md, sha256 bfb11e26a742",
+    "answer key" : "labels.json, sha256 5940a7adc544",
+    "skipped" : "none",
+    "est. cost" : "$0.0082 total, $0.0082 per run (list price)"
+  },
+  "metrics" : {
+    "answered" : 0.0
+  },
+  "runs" : [ {
+    "caseId" : "p003",
+    "tags" : [ "arabic", "round-packaging" ],
+    "run" : 1,
+    "failure" : "Model answer still unusable after 2 attempts: the answer is not valid JSON in the expected format (Unexpected end-of-input: was expecting closing quote for a string value)",
+    "durationMs" : 25618,
+    "inputTokens" : 8392,
+    "outputTokens" : 3000,
+    "infraRetries" : 0,
+    "checks" : [ ]
+  } ]
+}

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  eval-core: a generic harness for measuring an AI step against an answer key.
+  It knows nothing about food labels, and has no Spring dependency on purpose:
+  measuring an AI that reads receipts or invoices would reuse it as is.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>dev.labellens</groupId>
+        <artifactId>labellens-parent</artifactId>
+        <version>0.1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>labellens-eval-core</artifactId>
+    <name>LabelLens eval-core</name>
+
+    <!-- Versions come from the Spring Boot parent (it manages Jackson, JUnit and AssertJ). -->
+    <dependencies>
+        <!-- Reads and writes the baseline and the JSON report -->
+        <dependency>
+            <groupId>tools.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>

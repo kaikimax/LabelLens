@@ -45,6 +45,12 @@ The score you're trying to beat, or trying not to fall below. Two meanings in th
 **Regression**
 When something that used to work gets worse. Example: you change the prompt, and salt is now read correctly 80% of the time instead of 90%.
 
+**Tolerance**
+How far a value can be from the correct one and still count as correct. Labels round numbers, so "exactly equal" would count rounding as a mistake. Choosing the tolerance is part of designing the eval (LabelLens: day 5, step 2).
+
+**Stability (run-to-run variance)**
+Ask the same model the same question twice and you can get two different answers. Stability is how often repeated runs agree. Low stability means a single run proves nothing, which is why the LabelLens eval runs each product several times.
+
 **Accuracy**
 Correct answers divided by total answers. Used for reading values: "sugar read correctly in 38 of 40 products = 95%."
 

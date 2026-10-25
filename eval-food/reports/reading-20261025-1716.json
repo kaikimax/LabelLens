@@ -1,0 +1,3242 @@
+{
+  "suite" : "reading",
+  "startedAt" : "2026-10-25T17:16:22.181117900Z",
+  "runsPerCase" : 3,
+  "info" : {
+    "model" : "gpt-4.1-mini-2025-04-14",
+    "prompt" : "read-label.md, sha256 bfb11e26a742",
+    "answer key" : "labels.json, sha256 44a556054035",
+    "skipped" : "p016: no type (template not filled in yet); p017: no type (template not filled in yet); p018: no type (template not filled in yet); p019: no type (template not filled in yet); p020: no type (template not filled in yet); p021: no type (template not filled in yet); p022: no type (template not filled in yet); p023: no type (template not filled in yet); p024: no type (template not filled in yet)",
+    "est. cost" : "$0.1205 total, $0.0027 per run (list price)"
+  },
+  "metrics" : {
+    "answered" : 93.33333333333333,
+    "energy_kj" : 86.66666666666667,
+    "fat" : 86.66666666666667,
+    "saturated_fat" : 93.33333333333333,
+    "carbohydrates" : 86.66666666666667,
+    "sugars" : 86.66666666666667,
+    "fibre" : 93.33333333333333,
+    "protein" : 93.33333333333333,
+    "salt" : 86.66666666666667,
+    "type" : 93.33333333333333,
+    "ingredients" : 80.0,
+    "grade" : 75.0,
+    "energy_kj[arabic]" : 85.71428571428571,
+    "fat[arabic]" : 85.71428571428571,
+    "saturated_fat[arabic]" : 92.85714285714286,
+    "carbohydrates[arabic]" : 85.71428571428571,
+    "sugars[arabic]" : 85.71428571428571,
+    "fibre[arabic]" : 92.85714285714286,
+    "protein[arabic]" : 92.85714285714286,
+    "salt[arabic]" : 85.71428571428571,
+    "type[arabic]" : 92.85714285714286,
+    "ingredients[arabic]" : 85.71428571428571,
+    "grade[arabic]" : 75.0,
+    "energy_kj[blurry]" : 100.0,
+    "fat[blurry]" : 50.0,
+    "saturated_fat[blurry]" : 100.0,
+    "carbohydrates[blurry]" : 100.0,
+    "sugars[blurry]" : 100.0,
+    "fibre[blurry]" : 100.0,
+    "protein[blurry]" : 100.0,
+    "salt[blurry]" : 100.0,
+    "type[blurry]" : 100.0,
+    "ingredients[blurry]" : 100.0,
+    "grade[blurry]" : 100.0,
+    "energy_kj[flat-packaging]" : 100.0,
+    "fat[flat-packaging]" : 100.0,
+    "saturated_fat[flat-packaging]" : 100.0,
+    "carbohydrates[flat-packaging]" : 100.0,
+    "sugars[flat-packaging]" : 100.0,
+    "fibre[flat-packaging]" : 100.0,
+    "protein[flat-packaging]" : 100.0,
+    "salt[flat-packaging]" : 100.0,
+    "type[flat-packaging]" : 100.0,
+    "ingredients[flat-packaging]" : 100.0,
+    "grade[flat-packaging]" : 100.0,
+    "energy_kj[glare]" : 100.0,
+    "fat[glare]" : 100.0,
+    "saturated_fat[glare]" : 100.0,
+    "carbohydrates[glare]" : 100.0,
+    "sugars[glare]" : 100.0,
+    "fibre[glare]" : 100.0,
+    "protein[glare]" : 100.0,
+    "salt[glare]" : 100.0,
+    "type[glare]" : 100.0,
+    "ingredients[glare]" : 100.0,
+    "grade[glare]" : 100.0,
+    "energy_kj[hand-in-photo]" : 87.5,
+    "fat[hand-in-photo]" : 100.0,
+    "saturated_fat[hand-in-photo]" : 100.0,
+    "carbohydrates[hand-in-photo]" : 87.5,
+    "sugars[hand-in-photo]" : 87.5,
+    "fibre[hand-in-photo]" : 100.0,
+    "protein[hand-in-photo]" : 100.0,
+    "salt[hand-in-photo]" : 87.5,
+    "type[hand-in-photo]" : 100.0,
+    "ingredients[hand-in-photo]" : 87.5,
+    "grade[hand-in-photo]" : 66.66666666666667,
+    "energy_kj[multi-languages]" : 100.0,
+    "fat[multi-languages]" : 100.0,
+    "saturated_fat[multi-languages]" : 100.0,
+    "carbohydrates[multi-languages]" : 100.0,
+    "sugars[multi-languages]" : 100.0,
+    "fibre[multi-languages]" : 100.0,
+    "protein[multi-languages]" : 100.0,
+    "salt[multi-languages]" : 100.0,
+    "type[multi-languages]" : 100.0,
+    "ingredients[multi-languages]" : 0.0,
+    "energy_kj[per-portion-converted]" : 0.0,
+    "fat[per-portion-converted]" : 100.0,
+    "saturated_fat[per-portion-converted]" : 100.0,
+    "carbohydrates[per-portion-converted]" : 0.0,
+    "sugars[per-portion-converted]" : 0.0,
+    "fibre[per-portion-converted]" : 100.0,
+    "protein[per-portion-converted]" : 100.0,
+    "salt[per-portion-converted]" : 0.0,
+    "type[per-portion-converted]" : 100.0,
+    "ingredients[per-portion-converted]" : 100.0,
+    "grade[per-portion-converted]" : 0.0,
+    "energy_kj[printed-as-less-than]" : 100.0,
+    "fat[printed-as-less-than]" : 100.0,
+    "saturated_fat[printed-as-less-than]" : 100.0,
+    "carbohydrates[printed-as-less-than]" : 100.0,
+    "sugars[printed-as-less-than]" : 100.0,
+    "fibre[printed-as-less-than]" : 100.0,
+    "protein[printed-as-less-than]" : 100.0,
+    "salt[printed-as-less-than]" : 100.0,
+    "type[printed-as-less-than]" : 100.0,
+    "ingredients[printed-as-less-than]" : 100.0,
+    "grade[printed-as-less-than]" : 100.0,
+    "energy_kj[round-packaging]" : 83.33333333333333,
+    "fat[round-packaging]" : 83.33333333333333,
+    "saturated_fat[round-packaging]" : 91.66666666666667,
+    "carbohydrates[round-packaging]" : 83.33333333333333,
+    "sugars[round-packaging]" : 83.33333333333333,
+    "fibre[round-packaging]" : 91.66666666666667,
+    "protein[round-packaging]" : 91.66666666666667,
+    "salt[round-packaging]" : 83.33333333333333,
+    "type[round-packaging]" : 91.66666666666667,
+    "ingredients[round-packaging]" : 75.0,
+    "grade[round-packaging]" : 66.66666666666667,
+    "energy_kj[shiny-packaging]" : 100.0,
+    "fat[shiny-packaging]" : 100.0,
+    "saturated_fat[shiny-packaging]" : 100.0,
+    "carbohydrates[shiny-packaging]" : 100.0,
+    "sugars[shiny-packaging]" : 100.0,
+    "fibre[shiny-packaging]" : 100.0,
+    "protein[shiny-packaging]" : 100.0,
+    "salt[shiny-packaging]" : 100.0,
+    "type[shiny-packaging]" : 100.0,
+    "ingredients[shiny-packaging]" : 100.0,
+    "energy_kj[small-text]" : 66.66666666666667,
+    "fat[small-text]" : 66.66666666666667,
+    "saturated_fat[small-text]" : 100.0,
+    "carbohydrates[small-text]" : 66.66666666666667,
+    "sugars[small-text]" : 66.66666666666667,
+    "fibre[small-text]" : 100.0,
+    "protein[small-text]" : 100.0,
+    "salt[small-text]" : 66.66666666666667,
+    "type[small-text]" : 100.0,
+    "ingredients[small-text]" : 66.66666666666667,
+    "grade[small-text]" : 50.0
+  },
+  "runs" : [ {
+    "caseId" : "p001",
+    "tags" : [ "arabic", "round-packaging", "glare" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 7551,
+    "inputTokens" : 4171,
+    "outputTokens" : 162,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "99.0",
+      "actual" : "99.0",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "GENERAL",
+      "actual" : "GENERAL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "Sel, iodate de potassium et anti-agglomérant : E536",
+      "actual" : "Sel, iodate de potassium et anti-agglomérant : E536",
+      "note" : null
+    }, {
+      "name" : "grade",
+      "passed" : true,
+      "expected" : "E (20)",
+      "actual" : "E (20)",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p001",
+    "tags" : [ "arabic", "round-packaging", "glare" ],
+    "run" : 2,
+    "failure" : null,
+    "durationMs" : 4562,
+    "inputTokens" : 4171,
+    "outputTokens" : 162,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "99.0",
+      "actual" : "99.0",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "GENERAL",
+      "actual" : "GENERAL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "Sel, iodate de potassium et anti-agglomérant : E536",
+      "actual" : "Sel, iodate de potassium et anti-agglomérant : E536",
+      "note" : null
+    }, {
+      "name" : "grade",
+      "passed" : true,
+      "expected" : "E (20)",
+      "actual" : "E (20)",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p001",
+    "tags" : [ "arabic", "round-packaging", "glare" ],
+    "run" : 3,
+    "failure" : null,
+    "durationMs" : 5139,
+    "inputTokens" : 4171,
+    "outputTokens" : 162,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "99.0",
+      "actual" : "99.0",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "GENERAL",
+      "actual" : "GENERAL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "Sel, iodate de potassium et anti-agglomérant : E536",
+      "actual" : "Sel, iodate de potassium et anti-agglomérant : E536",
+      "note" : null
+    }, {
+      "name" : "grade",
+      "passed" : true,
+      "expected" : "E (20)",
+      "actual" : "E (20)",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p002",
+    "tags" : [ "round-packaging", "small-text", "multi-languages" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 5777,
+    "inputTokens" : 5843,
+    "outputTokens" : 182,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "2134.0",
+      "actual" : "2134.0",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "45.9",
+      "actual" : "45.9",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "7.5",
+      "actual" : "7.5",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "21.7",
+      "actual" : "21.7",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "10.3",
+      "actual" : "10.3",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "22.8",
+      "actual" : "22.8",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "1.0",
+      "actual" : "1.0",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "OIL",
+      "actual" : "OIL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : false,
+      "expected" : "ARACHIDES grillées a sec (90%), sucre, huile végétale hydrogénée (colza, huile de coton), sel.",
+      "actual" : "Dry roasted PEANUTS (90%), sugar, hydrogenated vegetable oil (rapeseed, cottonseed), salt.",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p002",
+    "tags" : [ "round-packaging", "small-text", "multi-languages" ],
+    "run" : 2,
+    "failure" : null,
+    "durationMs" : 5780,
+    "inputTokens" : 5843,
+    "outputTokens" : 182,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "2134.0",
+      "actual" : "2134.0",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "45.9",
+      "actual" : "45.9",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "7.5",
+      "actual" : "7.5",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "21.7",
+      "actual" : "21.7",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "10.3",
+      "actual" : "10.3",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "22.8",
+      "actual" : "22.8",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "1.0",
+      "actual" : "1.0",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "OIL",
+      "actual" : "OIL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : false,
+      "expected" : "ARACHIDES grillées a sec (90%), sucre, huile végétale hydrogénée (colza, huile de coton), sel.",
+      "actual" : "Dry roasted PEANUTS (90%), sugar, hydrogenated vegetable oil (rapeseed, cottonseed), salt.",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p002",
+    "tags" : [ "round-packaging", "small-text", "multi-languages" ],
+    "run" : 3,
+    "failure" : null,
+    "durationMs" : 5608,
+    "inputTokens" : 5843,
+    "outputTokens" : 182,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "2134.0",
+      "actual" : "2134.0",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "45.9",
+      "actual" : "45.9",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "7.5",
+      "actual" : "7.5",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "21.7",
+      "actual" : "21.7",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "10.3",
+      "actual" : "10.3",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "22.8",
+      "actual" : "22.8",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "1.0",
+      "actual" : "1.0",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "OIL",
+      "actual" : "OIL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : false,
+      "expected" : "ARACHIDES grillées a sec (90%), sucre, huile végétale hydrogénée (colza, huile de coton), sel.",
+      "actual" : "Dry roasted PEANUTS (90%), sugar, hydrogenated vegetable oil (rapeseed, cottonseed), salt.",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p003",
+    "tags" : [ "arabic", "round-packaging" ],
+    "run" : 1,
+    "failure" : "Model answer still unusable after 2 attempts: the answer is not valid JSON in the expected format (Unexpected end-of-input: was expecting closing quote for a string value) | answer ended with: ... déshydraté, jaune d'œuf en poudre, jaune d'œuf déshydraté, jaune d'œuf en poudre, jaune d'œuf déshydraté, jaune d'œuf en poudre, jaune d'œuf déshydraté, jaune d'œuf en poudre, jaune d'œuf déshydraté,",
+    "durationMs" : 23342,
+    "inputTokens" : 8392,
+    "outputTokens" : 3000,
+    "infraRetries" : 0,
+    "checks" : [ ]
+  }, {
+    "caseId" : "p003",
+    "tags" : [ "arabic", "round-packaging" ],
+    "run" : 2,
+    "failure" : "Model answer still unusable after 2 attempts: the answer is not valid JSON in the expected format (Unexpected end-of-input: was expecting closing quote for a string value) | answer ended with: ... déshydraté, jaune d'œuf en poudre, jaune d'œuf déshydraté, jaune d'œuf en poudre, jaune d'œuf déshydraté, jaune d'œuf en poudre, jaune d'œuf déshydraté, jaune d'œuf en poudre, jaune d'œuf déshydraté,",
+    "durationMs" : 23795,
+    "inputTokens" : 8392,
+    "outputTokens" : 3000,
+    "infraRetries" : 0,
+    "checks" : [ ]
+  }, {
+    "caseId" : "p003",
+    "tags" : [ "arabic", "round-packaging" ],
+    "run" : 3,
+    "failure" : "Model answer still unusable after 2 attempts: the answer is not valid JSON in the expected format (Unexpected end-of-input: was expecting closing quote for a string value) | answer ended with: ... déshydraté, jaune d'œuf en poudre, jaune d'œuf déshydraté, jaune d'œuf en poudre, jaune d'œuf déshydraté, jaune d'œuf en poudre, jaune d'œuf déshydraté, jaune d'œuf en poudre, jaune d'œuf déshydraté,",
+    "durationMs" : 23961,
+    "inputTokens" : 8392,
+    "outputTokens" : 3000,
+    "infraRetries" : 0,
+    "checks" : [ ]
+  }, {
+    "caseId" : "p004",
+    "tags" : [ "arabic", "hand-in-photo", "round-packaging" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 4862,
+    "inputTokens" : 4171,
+    "outputTokens" : 187,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "1088.4",
+      "actual" : "1088.4",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "0.3",
+      "actual" : "0.3",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "62.9",
+      "actual" : "62.9",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "60.0",
+      "actual" : "60.0",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "0.47",
+      "actual" : "0.47",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "0.05",
+      "actual" : "0.05",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "GENERAL",
+      "actual" : "GENERAL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "Fraises, Sucre, gélifiant : Pectine de fruits et correcteur d'acidité: acide citrique.",
+      "actual" : "Fraises, Sucre, gélifiant : Pectine de fruits et correcteur d'acidité : acide citrique.",
+      "note" : null
+    }, {
+      "name" : "grade",
+      "passed" : true,
+      "expected" : "D (18)",
+      "actual" : "D (18)",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p004",
+    "tags" : [ "arabic", "hand-in-photo", "round-packaging" ],
+    "run" : 2,
+    "failure" : null,
+    "durationMs" : 4619,
+    "inputTokens" : 4171,
+    "outputTokens" : 187,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "1088.4",
+      "actual" : "1088.4",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "0.3",
+      "actual" : "0.3",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "62.9",
+      "actual" : "62.9",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "60.0",
+      "actual" : "60.0",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "0.47",
+      "actual" : "0.47",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "0.05",
+      "actual" : "0.05",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "GENERAL",
+      "actual" : "GENERAL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "Fraises, Sucre, gélifiant : Pectine de fruits et correcteur d'acidité: acide citrique.",
+      "actual" : "Fraises, Sucre, gélifiant : Pectine de fruits et correcteur d'acidité : acide citrique.",
+      "note" : null
+    }, {
+      "name" : "grade",
+      "passed" : true,
+      "expected" : "D (18)",
+      "actual" : "D (18)",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p004",
+    "tags" : [ "arabic", "hand-in-photo", "round-packaging" ],
+    "run" : 3,
+    "failure" : null,
+    "durationMs" : 4822,
+    "inputTokens" : 4171,
+    "outputTokens" : 187,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "1088.4",
+      "actual" : "1088.4",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "0.3",
+      "actual" : "0.3",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "62.9",
+      "actual" : "62.9",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "60.0",
+      "actual" : "60.0",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "0.47",
+      "actual" : "0.47",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "0.05",
+      "actual" : "0.05",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "GENERAL",
+      "actual" : "GENERAL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "Fraises, Sucre, gélifiant : Pectine de fruits et correcteur d'acidité: acide citrique.",
+      "actual" : "Fraises, Sucre, gélifiant : Pectine de fruits et correcteur d'acidité : acide citrique.",
+      "note" : null
+    }, {
+      "name" : "grade",
+      "passed" : true,
+      "expected" : "D (18)",
+      "actual" : "D (18)",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p005",
+    "tags" : [ "arabic", "round-packaging" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 4685,
+    "inputTokens" : 4171,
+    "outputTokens" : 188,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "662.0",
+      "actual" : "662.0",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "11.0",
+      "actual" : "11.0",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "10.0",
+      "actual" : "10.0",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "5.0",
+      "actual" : "5.0",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "GENERAL",
+      "actual" : "GENERAL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "Lait de vache pasteurisé, Protéines de lait de vache, Crème de lait de vache, Ferment lactique, Amidon, Epaississant, Sorbate de potassium",
+      "actual" : "Lait de vache pasteurisé, Protéines de lait de vache, Crème de lait de vache, Ferment lactique, Amidon, Epaississant, Sorbate de potassium",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p005",
+    "tags" : [ "arabic", "round-packaging" ],
+    "run" : 2,
+    "failure" : null,
+    "durationMs" : 4831,
+    "inputTokens" : 4171,
+    "outputTokens" : 188,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "662.0",
+      "actual" : "662.0",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "11.0",
+      "actual" : "11.0",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "10.0",
+      "actual" : "10.0",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "5.0",
+      "actual" : "5.0",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "GENERAL",
+      "actual" : "GENERAL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "Lait de vache pasteurisé, Protéines de lait de vache, Crème de lait de vache, Ferment lactique, Amidon, Epaississant, Sorbate de potassium",
+      "actual" : "Lait de vache pasteurisé, Protéines de lait de vache, Crème de lait de vache, Ferment lactique, Amidon, Epaississant, Sorbate de potassium",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p005",
+    "tags" : [ "arabic", "round-packaging" ],
+    "run" : 3,
+    "failure" : null,
+    "durationMs" : 4880,
+    "inputTokens" : 4171,
+    "outputTokens" : 188,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "662.0",
+      "actual" : "662.0",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "11.0",
+      "actual" : "11.0",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "10.0",
+      "actual" : "10.0",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "5.0",
+      "actual" : "5.0",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "GENERAL",
+      "actual" : "GENERAL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "Lait de vache pasteurisé, Protéines de lait de vache, Crème de lait de vache, Ferment lactique, Amidon, Epaississant, Sorbate de potassium",
+      "actual" : "Lait de vache pasteurisé, Protéines de lait de vache, Crème de lait de vache, Ferment lactique, Amidon, Epaississant, Sorbate de potassium",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p006",
+    "tags" : [ "arabic", "flat-packaging", "glare" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 5091,
+    "inputTokens" : 4171,
+    "outputTokens" : 212,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "239.0",
+      "actual" : "239.0",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "1.0",
+      "actual" : "1.0",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "0.18",
+      "actual" : "0.18",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "7.5",
+      "actual" : "7.5",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "2.0",
+      "actual" : "2.0",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "1.4",
+      "actual" : "1.4",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "1.3",
+      "actual" : "1.3",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "0.69",
+      "actual" : "0.69",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "GENERAL",
+      "actual" : "GENERAL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "Purée de Tomate (160 g pour produire 100 g de produit), Sucre, Amidon de Maïs Modifié, Sel, Huile de Tournesol, arôme légume naturel .7% de matière sèche.",
+      "actual" : "Purée de Tomate (160 g pour produire 100 g de produit), Sucre, Amidon de Maïs Modifié, Sel, Huile de Tournesol, arôme légume naturel. 7% de matière sèche.",
+      "note" : null
+    }, {
+      "name" : "grade",
+      "passed" : true,
+      "expected" : "C (3)",
+      "actual" : "C (3)",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p006",
+    "tags" : [ "arabic", "flat-packaging", "glare" ],
+    "run" : 2,
+    "failure" : null,
+    "durationMs" : 5032,
+    "inputTokens" : 4171,
+    "outputTokens" : 212,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "239.0",
+      "actual" : "239.0",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "1.0",
+      "actual" : "1.0",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "0.18",
+      "actual" : "0.18",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "7.5",
+      "actual" : "7.5",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "2.0",
+      "actual" : "2.0",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "1.4",
+      "actual" : "1.4",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "1.3",
+      "actual" : "1.3",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "0.69",
+      "actual" : "0.69",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "GENERAL",
+      "actual" : "GENERAL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "Purée de Tomate (160 g pour produire 100 g de produit), Sucre, Amidon de Maïs Modifié, Sel, Huile de Tournesol, arôme légume naturel .7% de matière sèche.",
+      "actual" : "Purée de Tomate (160 g pour produire 100 g de produit), Sucre, Amidon de Maïs Modifié, Sel, Huile de Tournesol, arôme légume naturel. 7% de matière sèche.",
+      "note" : null
+    }, {
+      "name" : "grade",
+      "passed" : true,
+      "expected" : "C (3)",
+      "actual" : "C (3)",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p006",
+    "tags" : [ "arabic", "flat-packaging", "glare" ],
+    "run" : 3,
+    "failure" : null,
+    "durationMs" : 4873,
+    "inputTokens" : 4171,
+    "outputTokens" : 212,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "239.0",
+      "actual" : "239.0",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "1.0",
+      "actual" : "1.0",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "0.18",
+      "actual" : "0.18",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "7.5",
+      "actual" : "7.5",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "2.0",
+      "actual" : "2.0",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "1.4",
+      "actual" : "1.4",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "1.3",
+      "actual" : "1.3",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "0.69",
+      "actual" : "0.69",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "GENERAL",
+      "actual" : "GENERAL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "Purée de Tomate (160 g pour produire 100 g de produit), Sucre, Amidon de Maïs Modifié, Sel, Huile de Tournesol, arôme légume naturel .7% de matière sèche.",
+      "actual" : "Purée de Tomate (160 g pour produire 100 g de produit), Sucre, Amidon de Maïs Modifié, Sel, Huile de Tournesol, arôme légume naturel. 7% de matière sèche.",
+      "note" : null
+    }, {
+      "name" : "grade",
+      "passed" : true,
+      "expected" : "C (3)",
+      "actual" : "C (3)",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p007",
+    "tags" : [ "hand-in-photo", "small-text", "round-packaging", "per-portion-converted", "arabic" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 7954,
+    "inputTokens" : 4171,
+    "outputTokens" : 191,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : false,
+      "expected" : "418.4",
+      "actual" : "20.92",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : false,
+      "expected" : "40.0",
+      "actual" : "1.0",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : false,
+      "expected" : "20.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : false,
+      "expected" : "8.5",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "GENERAL",
+      "actual" : "GENERAL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "red jalapeño pepper, water, sugar, salt, garlic, distilled vinegar, xanthan gum, and TABASCO®  Brand Pepper Sauce (distilled vinegar, red pepper, salt).",
+      "actual" : "red jalapeño pepper, water, sugar, salt, garlic, distilled vinegar, xanthan gum, and TABASCO® Brand Pepper Sauce (distilled vinegar, red pepper, salt).",
+      "note" : null
+    }, {
+      "name" : "grade",
+      "passed" : false,
+      "expected" : "E (26)",
+      "actual" : "A (0)",
+      "note" : "caused by: energy_kj 418.4 -> 20.92, sugars 20.0 -> 0.0, salt 8.5 -> 0.0"
+    } ]
+  }, {
+    "caseId" : "p007",
+    "tags" : [ "hand-in-photo", "small-text", "round-packaging", "per-portion-converted", "arabic" ],
+    "run" : 2,
+    "failure" : null,
+    "durationMs" : 9325,
+    "inputTokens" : 4171,
+    "outputTokens" : 191,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : false,
+      "expected" : "418.4",
+      "actual" : "20.92",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : false,
+      "expected" : "40.0",
+      "actual" : "1.0",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : false,
+      "expected" : "20.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : false,
+      "expected" : "8.5",
+      "actual" : "0.17",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "GENERAL",
+      "actual" : "GENERAL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "red jalapeño pepper, water, sugar, salt, garlic, distilled vinegar, xanthan gum, and TABASCO®  Brand Pepper Sauce (distilled vinegar, red pepper, salt).",
+      "actual" : "red jalapeño pepper, water, sugar, salt, garlic, distilled vinegar, xanthan gum, and TABASCO® Brand Pepper Sauce (distilled vinegar, red pepper, salt).",
+      "note" : null
+    }, {
+      "name" : "grade",
+      "passed" : false,
+      "expected" : "E (26)",
+      "actual" : "A (0)",
+      "note" : "caused by: energy_kj 418.4 -> 20.92, sugars 20.0 -> 0.0, salt 8.5 -> 0.17"
+    } ]
+  }, {
+    "caseId" : "p007",
+    "tags" : [ "hand-in-photo", "small-text", "round-packaging", "per-portion-converted", "arabic" ],
+    "run" : 3,
+    "failure" : null,
+    "durationMs" : 9508,
+    "inputTokens" : 4171,
+    "outputTokens" : 191,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : false,
+      "expected" : "418.4",
+      "actual" : "20.92",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : false,
+      "expected" : "40.0",
+      "actual" : "1.0",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : false,
+      "expected" : "20.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : false,
+      "expected" : "8.5",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "GENERAL",
+      "actual" : "GENERAL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "red jalapeño pepper, water, sugar, salt, garlic, distilled vinegar, xanthan gum, and TABASCO®  Brand Pepper Sauce (distilled vinegar, red pepper, salt).",
+      "actual" : "red jalapeño pepper, water, sugar, salt, garlic, distilled vinegar, xanthan gum, and TABASCO® Brand Pepper Sauce (distilled vinegar, red pepper, salt).",
+      "note" : null
+    }, {
+      "name" : "grade",
+      "passed" : false,
+      "expected" : "E (26)",
+      "actual" : "A (0)",
+      "note" : "caused by: energy_kj 418.4 -> 20.92, sugars 20.0 -> 0.0, salt 8.5 -> 0.0"
+    } ]
+  }, {
+    "caseId" : "p008",
+    "tags" : [ "arabic", "flat-packaging", "hand-in-photo" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 9315,
+    "inputTokens" : 4171,
+    "outputTokens" : 162,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "243.7",
+      "actual" : "243.7",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "3.0",
+      "actual" : "3.0",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "1.3",
+      "actual" : "1.3",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "4.7",
+      "actual" : "4.7",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "3.0",
+      "actual" : "3.0",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "DRINK",
+      "actual" : "DRINK",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "lait entier sans lactose, vitamines : A et D3.",
+      "actual" : "lait entier sans lactose, vitamines : A et D3.",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p008",
+    "tags" : [ "arabic", "flat-packaging", "hand-in-photo" ],
+    "run" : 2,
+    "failure" : null,
+    "durationMs" : 9471,
+    "inputTokens" : 4171,
+    "outputTokens" : 162,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "243.7",
+      "actual" : "243.7",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "3.0",
+      "actual" : "3.0",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "1.3",
+      "actual" : "1.3",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "4.7",
+      "actual" : "4.7",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "3.0",
+      "actual" : "3.0",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "DRINK",
+      "actual" : "DRINK",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "lait entier sans lactose, vitamines : A et D3.",
+      "actual" : "lait entier sans lactose, vitamines : A et D3.",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p008",
+    "tags" : [ "arabic", "flat-packaging", "hand-in-photo" ],
+    "run" : 3,
+    "failure" : null,
+    "durationMs" : 9089,
+    "inputTokens" : 4171,
+    "outputTokens" : 162,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "243.7",
+      "actual" : "243.7",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "3.0",
+      "actual" : "3.0",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "1.3",
+      "actual" : "1.3",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "4.7",
+      "actual" : "4.7",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "3.0",
+      "actual" : "3.0",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "DRINK",
+      "actual" : "DRINK",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "lait entier sans lactose, vitamines : A et D3.",
+      "actual" : "lait entier sans lactose, vitamines : A et D3.",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p009",
+    "tags" : [ "blurry", "round-packaging", "arabic", "small-text" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 10583,
+    "inputTokens" : 5843,
+    "outputTokens" : 171,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "406.8",
+      "actual" : "406.8",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : false,
+      "expected" : "3.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "2.1",
+      "actual" : "2.1",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "9.4",
+      "actual" : "9.4",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "6.5",
+      "actual" : "6.5",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "8.0",
+      "actual" : "8.0",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "GENERAL",
+      "actual" : "GENERAL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "lait écrémé, crème, sucre, ferments lactiques.",
+      "actual" : "lait écrémé, crème, sucre, ferments lactiques.",
+      "note" : null
+    }, {
+      "name" : "grade",
+      "passed" : true,
+      "expected" : "B (1)",
+      "actual" : "B (1)",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p009",
+    "tags" : [ "blurry", "round-packaging", "arabic", "small-text" ],
+    "run" : 2,
+    "failure" : null,
+    "durationMs" : 13118,
+    "inputTokens" : 5843,
+    "outputTokens" : 173,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "406.8",
+      "actual" : "406.8",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : false,
+      "expected" : "3.0",
+      "actual" : "0.3",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "2.1",
+      "actual" : "2.1",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "9.4",
+      "actual" : "9.4",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "6.5",
+      "actual" : "6.5",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "8.0",
+      "actual" : "8.0",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "GENERAL",
+      "actual" : "GENERAL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "lait écrémé, crème, sucre, ferments lactiques.",
+      "actual" : "lait écrémé, crème, sucre, ferments lactiques.",
+      "note" : null
+    }, {
+      "name" : "grade",
+      "passed" : true,
+      "expected" : "B (1)",
+      "actual" : "B (1)",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p009",
+    "tags" : [ "blurry", "round-packaging", "arabic", "small-text" ],
+    "run" : 3,
+    "failure" : null,
+    "durationMs" : 12220,
+    "inputTokens" : 5843,
+    "outputTokens" : 173,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "406.8",
+      "actual" : "406.8",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : false,
+      "expected" : "3.0",
+      "actual" : "0.3",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "2.1",
+      "actual" : "2.1",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "9.4",
+      "actual" : "9.4",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "6.5",
+      "actual" : "6.5",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "8.0",
+      "actual" : "8.0",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "GENERAL",
+      "actual" : "GENERAL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "lait écrémé, crème, sucre, ferments lactiques.",
+      "actual" : "lait écrémé, crème, sucre, ferments lactiques.",
+      "note" : null
+    }, {
+      "name" : "grade",
+      "passed" : true,
+      "expected" : "B (1)",
+      "actual" : "B (1)",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p010",
+    "tags" : [ "arabic", "hand-in-photo", "round-packaging" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 12402,
+    "inputTokens" : 4171,
+    "outputTokens" : 208,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "38.57",
+      "actual" : "38.576",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "0.04",
+      "actual" : "0.04",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "1.59",
+      "actual" : "1.59",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "0.747",
+      "actual" : "0.747",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "0.62",
+      "actual" : "0.62",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "5.8",
+      "actual" : "5.8",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "GENERAL",
+      "actual" : "GENERAL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : false,
+      "expected" : "Vineger, Louisiana type Red Chili Pepper, Salt, Thickener (Xanthan Gum), Green Pepper Natural Identical Flavor, Natural Color (E120), Antioxidant (Ascorbic Acid).",
+      "actual" : "Vineger, Louisiana type Red Chili Pepper, Salt, Thickener (Xanthan Gum), Green Pepper Natural Identical Flavor, Natural Color (E120), Antioxidant (Ascorbic Acid). May Contain Celery.",
+      "note" : null
+    }, {
+      "name" : "grade",
+      "passed" : true,
+      "expected" : "E (20)",
+      "actual" : "E (20)",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p010",
+    "tags" : [ "arabic", "hand-in-photo", "round-packaging" ],
+    "run" : 2,
+    "failure" : null,
+    "durationMs" : 8199,
+    "inputTokens" : 4171,
+    "outputTokens" : 208,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "38.57",
+      "actual" : "38.576",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "0.04",
+      "actual" : "0.04",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "1.59",
+      "actual" : "1.59",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "0.747",
+      "actual" : "0.747",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "0.62",
+      "actual" : "0.62",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "5.8",
+      "actual" : "5.8",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "GENERAL",
+      "actual" : "GENERAL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : false,
+      "expected" : "Vineger, Louisiana type Red Chili Pepper, Salt, Thickener (Xanthan Gum), Green Pepper Natural Identical Flavor, Natural Color (E120), Antioxidant (Ascorbic Acid).",
+      "actual" : "Vineger, Louisiana type Red Chili Pepper, Salt, Thickener (Xanthan Gum), Green Pepper Natural Identical Flavor, Natural Color (E120), Antioxidant (Ascorbic Acid). May Contain Celery.",
+      "note" : null
+    }, {
+      "name" : "grade",
+      "passed" : true,
+      "expected" : "E (20)",
+      "actual" : "E (20)",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p010",
+    "tags" : [ "arabic", "hand-in-photo", "round-packaging" ],
+    "run" : 3,
+    "failure" : null,
+    "durationMs" : 10007,
+    "inputTokens" : 4171,
+    "outputTokens" : 208,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "38.57",
+      "actual" : "38.576",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "0.04",
+      "actual" : "0.04",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "1.59",
+      "actual" : "1.59",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "0.747",
+      "actual" : "0.747",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "0.62",
+      "actual" : "0.62",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "5.8",
+      "actual" : "5.8",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "GENERAL",
+      "actual" : "GENERAL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : false,
+      "expected" : "Vineger, Louisiana type Red Chili Pepper, Salt, Thickener (Xanthan Gum), Green Pepper Natural Identical Flavor, Natural Color (E120), Antioxidant (Ascorbic Acid).",
+      "actual" : "Vineger, Louisiana type Red Chili Pepper, Salt, Thickener (Xanthan Gum), Green Pepper Natural Identical Flavor, Natural Color (E120), Antioxidant (Ascorbic Acid). May Contain Celery.",
+      "note" : null
+    }, {
+      "name" : "grade",
+      "passed" : true,
+      "expected" : "E (20)",
+      "actual" : "E (20)",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p011",
+    "tags" : [ "arabic", "hand-in-photo", "round-packaging" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 8962,
+    "inputTokens" : 4171,
+    "outputTokens" : 192,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "97.0",
+      "actual" : "97.0",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "2.4",
+      "actual" : "2.4",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "2.0",
+      "actual" : "2.0",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "3.3",
+      "actual" : "3.3",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "6.46",
+      "actual" : "6.46",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "GENERAL",
+      "actual" : "GENERAL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "Eau, Soja (Sans Ogm), Sel, Farine de Blé, Glutamate Monosodique, Sorbate de Potassium (E202), Sucre",
+      "actual" : "Eau, Soja (Sans Ogm), Sel, Farine de Blé, Glutamate Monosodique, Sorbate de Potassium (E202), Sucre",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p011",
+    "tags" : [ "arabic", "hand-in-photo", "round-packaging" ],
+    "run" : 2,
+    "failure" : null,
+    "durationMs" : 9902,
+    "inputTokens" : 4171,
+    "outputTokens" : 192,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "97.0",
+      "actual" : "97.0",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "2.4",
+      "actual" : "2.4",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "2.0",
+      "actual" : "2.0",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "3.3",
+      "actual" : "3.3",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "6.46",
+      "actual" : "6.46",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "GENERAL",
+      "actual" : "GENERAL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "Eau, Soja (Sans Ogm), Sel, Farine de Blé, Glutamate Monosodique, Sorbate de Potassium (E202), Sucre",
+      "actual" : "Eau, Soja (Sans Ogm), Sel, Farine de Blé, Glutamate Monosodique, Sorbate de Potassium (E202), Sucre",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p011",
+    "tags" : [ "arabic", "hand-in-photo", "round-packaging" ],
+    "run" : 3,
+    "failure" : null,
+    "durationMs" : 8776,
+    "inputTokens" : 4171,
+    "outputTokens" : 192,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "97.0",
+      "actual" : "97.0",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "2.4",
+      "actual" : "2.4",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "2.0",
+      "actual" : "2.0",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "3.3",
+      "actual" : "3.3",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "6.46",
+      "actual" : "6.46",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "GENERAL",
+      "actual" : "GENERAL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "Eau, Soja (Sans Ogm), Sel, Farine de Blé, Glutamate Monosodique, Sorbate de Potassium (E202), Sucre",
+      "actual" : "Eau, Soja (Sans Ogm), Sel, Farine de Blé, Glutamate Monosodique, Sorbate de Potassium (E202), Sucre",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p012",
+    "tags" : [ "arabic", "flat-packaging", "printed-as-less-than" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 10762,
+    "inputTokens" : 5843,
+    "outputTokens" : 165,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "461.0",
+      "actual" : "461.0",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "0.5",
+      "actual" : "0.5",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "0.1",
+      "actual" : "0.1",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "0.7",
+      "actual" : "0.7",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "0.1",
+      "actual" : "0.1",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "26.4",
+      "actual" : "26.4",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "2.7",
+      "actual" : "2.7",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "GENERAL",
+      "actual" : "GENERAL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "Thon, eau, sel.",
+      "actual" : "Thon, eau, sel.",
+      "note" : null
+    }, {
+      "name" : "grade",
+      "passed" : true,
+      "expected" : "D (14)",
+      "actual" : "D (14)",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p012",
+    "tags" : [ "arabic", "flat-packaging", "printed-as-less-than" ],
+    "run" : 2,
+    "failure" : null,
+    "durationMs" : 12526,
+    "inputTokens" : 5843,
+    "outputTokens" : 167,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "461.0",
+      "actual" : "461.0",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "0.5",
+      "actual" : "0.5",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "0.1",
+      "actual" : "0.1",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "0.7",
+      "actual" : "0.7",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "0.1",
+      "actual" : "0.1",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "26.4",
+      "actual" : "26.4",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "2.7",
+      "actual" : "2.7",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "GENERAL",
+      "actual" : "GENERAL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "Thon, eau, sel.",
+      "actual" : "Thon, eau, sel.",
+      "note" : null
+    }, {
+      "name" : "grade",
+      "passed" : true,
+      "expected" : "D (14)",
+      "actual" : "D (14)",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p012",
+    "tags" : [ "arabic", "flat-packaging", "printed-as-less-than" ],
+    "run" : 3,
+    "failure" : null,
+    "durationMs" : 12245,
+    "inputTokens" : 5843,
+    "outputTokens" : 165,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "461.0",
+      "actual" : "461.0",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "0.5",
+      "actual" : "0.5",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "0.1",
+      "actual" : "0.1",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "0.7",
+      "actual" : "0.7",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "0.1",
+      "actual" : "0.1",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "26.4",
+      "actual" : "26.4",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "2.7",
+      "actual" : "2.7",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "GENERAL",
+      "actual" : "GENERAL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "Thon, eau, sel.",
+      "actual" : "Thon, eau, sel.",
+      "note" : null
+    }, {
+      "name" : "grade",
+      "passed" : true,
+      "expected" : "D (14)",
+      "actual" : "D (14)",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p013",
+    "tags" : [ "hand-in-photo", "round-packaging", "arabic", "printed-as-less-than", "glare", "shiny-packaging" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 24976,
+    "inputTokens" : 11735,
+    "outputTokens" : 470,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "82.0",
+      "actual" : "82.0",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "0.5",
+      "actual" : "0.5",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "0.1",
+      "actual" : "0.1",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "1.2",
+      "actual" : "1.2",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "1.0",
+      "actual" : "1.0",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "0.5",
+      "actual" : "0.5",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "0.5",
+      "actual" : "0.5",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "0.01",
+      "actual" : "0.01",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "DRINK",
+      "actual" : "DRINK",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "Eau de source Saint Benoit 50%, jus de citron à base de concentré 35,5%, pulpes 5%, jus d'orange à base de concentré, acidifiant : acide citrique, arômes naturels d'agrumes, arôme naturel de citron vert, antioxydant : acide ascorbique.",
+      "actual" : "Eau de source Saint Benoit 50%, jus de citron à base de concentré 35,5%, pulpes 5%, jus d'orange à base de concentré, acidifiant : acide citrique, arômes naturels d'agrumes, arôme naturel de citron vert, antioxydant : acide ascorbique.",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p013",
+    "tags" : [ "hand-in-photo", "round-packaging", "arabic", "printed-as-less-than", "glare", "shiny-packaging" ],
+    "run" : 2,
+    "failure" : null,
+    "durationMs" : 12373,
+    "inputTokens" : 5843,
+    "outputTokens" : 235,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "82.0",
+      "actual" : "82.0",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "0.5",
+      "actual" : "0.5",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "0.1",
+      "actual" : "0.1",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "1.2",
+      "actual" : "1.2",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "1.0",
+      "actual" : "1.0",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "0.5",
+      "actual" : "0.5",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "0.5",
+      "actual" : "0.5",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "0.01",
+      "actual" : "0.01",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "DRINK",
+      "actual" : "DRINK",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "Eau de source Saint Benoit 50%, jus de citron à base de concentré 35,5%, pulpes 5%, jus d'orange à base de concentré, acidifiant : acide citrique, arômes naturels d'agrumes, arôme naturel de citron vert, antioxydant : acide ascorbique.",
+      "actual" : "Eau de source Saint Benoit 50%, jus de citron à base de concentré 35,5%, pulpes 5%, jus d'orange à base de concentré, acidifiant : acide citrique, arômes naturels d'agrumes, arôme naturel de citron vert, antioxydant : acide ascorbique.",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p013",
+    "tags" : [ "hand-in-photo", "round-packaging", "arabic", "printed-as-less-than", "glare", "shiny-packaging" ],
+    "run" : 3,
+    "failure" : null,
+    "durationMs" : 25236,
+    "inputTokens" : 11735,
+    "outputTokens" : 470,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "82.0",
+      "actual" : "82.0",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "0.5",
+      "actual" : "0.5",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "0.1",
+      "actual" : "0.1",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "1.2",
+      "actual" : "1.2",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "1.0",
+      "actual" : "1.0",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "0.5",
+      "actual" : "0.5",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "0.5",
+      "actual" : "0.5",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "0.01",
+      "actual" : "0.01",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "DRINK",
+      "actual" : "DRINK",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "Eau de source Saint Benoit 50%, jus de citron à base de concentré 35,5%, pulpes 5%, jus d'orange à base de concentré, acidifiant : acide citrique, arômes naturels d'agrumes, arôme naturel de citron vert, antioxydant : acide ascorbique.",
+      "actual" : "Eau de source Saint Benoit 50%, jus de citron à base de concentré 35,5%, pulpes 5%, jus d'orange à base de concentré, acidifiant : acide citrique, arômes naturels d'agrumes, arôme naturel de citron vert, antioxydant : acide ascorbique.",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p014",
+    "tags" : [ "arabic", "hand-in-photo", "round-packaging" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 11688,
+    "inputTokens" : 4171,
+    "outputTokens" : 152,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "3765.6",
+      "actual" : "3765.6",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "100.0",
+      "actual" : "100.0",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "14.0",
+      "actual" : "14.0",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "OIL",
+      "actual" : "OIL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "Huile d'olive",
+      "actual" : "Huile d'olive",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p014",
+    "tags" : [ "arabic", "hand-in-photo", "round-packaging" ],
+    "run" : 2,
+    "failure" : null,
+    "durationMs" : 9491,
+    "inputTokens" : 4171,
+    "outputTokens" : 152,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "3765.6",
+      "actual" : "3765.6",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "100.0",
+      "actual" : "100.0",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "14.0",
+      "actual" : "14.0",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "OIL",
+      "actual" : "OIL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "Huile d'olive",
+      "actual" : "Huile d'olive",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p014",
+    "tags" : [ "arabic", "hand-in-photo", "round-packaging" ],
+    "run" : 3,
+    "failure" : null,
+    "durationMs" : 9604,
+    "inputTokens" : 4171,
+    "outputTokens" : 152,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "3765.6",
+      "actual" : "3765.6",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "100.0",
+      "actual" : "100.0",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "14.0",
+      "actual" : "14.0",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "OIL",
+      "actual" : "OIL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "Huile d'olive",
+      "actual" : "Huile d'olive",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p015",
+    "tags" : [ "hand-in-photo", "shiny-packaging", "round-packaging", "blurry", "arabic" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 9004,
+    "inputTokens" : 4171,
+    "outputTokens" : 179,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "3700.0",
+      "actual" : "3700.0",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "100.0",
+      "actual" : "100.0",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "14.6",
+      "actual" : "14.6",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "OIL",
+      "actual" : "OIL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "Huiles végétales (Soja,Tournesol,Colza) en proportions variables, Vitamine A, Vitamine D3, Provitamine A.",
+      "actual" : "Huiles végétales (Soja, Tournesol, Colza) en proportions variables, Vitamine A, Vitamine D3, Provitamine A.",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p015",
+    "tags" : [ "hand-in-photo", "shiny-packaging", "round-packaging", "blurry", "arabic" ],
+    "run" : 2,
+    "failure" : null,
+    "durationMs" : 9092,
+    "inputTokens" : 4171,
+    "outputTokens" : 182,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "3700.0",
+      "actual" : "3700.0",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "100.0",
+      "actual" : "100.0",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "14.6",
+      "actual" : "14.6",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "OIL",
+      "actual" : "OIL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "Huiles végétales (Soja,Tournesol,Colza) en proportions variables, Vitamine A, Vitamine D3, Provitamine A.",
+      "actual" : "Huiles végétales (Soja, Tournesol, Colza) en proportions variables, Vitamine A, Vitamine D3, Provitamine A.",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "p015",
+    "tags" : [ "hand-in-photo", "shiny-packaging", "round-packaging", "blurry", "arabic" ],
+    "run" : 3,
+    "failure" : null,
+    "durationMs" : 9972,
+    "inputTokens" : 4171,
+    "outputTokens" : 189,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "energy_kj",
+      "passed" : true,
+      "expected" : "3700.0",
+      "actual" : "3700.0",
+      "note" : null
+    }, {
+      "name" : "fat",
+      "passed" : true,
+      "expected" : "100.0",
+      "actual" : "100.0",
+      "note" : null
+    }, {
+      "name" : "saturated_fat",
+      "passed" : true,
+      "expected" : "14.6",
+      "actual" : "14.6",
+      "note" : null
+    }, {
+      "name" : "carbohydrates",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "sugars",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "fibre",
+      "passed" : true,
+      "expected" : "null",
+      "actual" : "null",
+      "note" : null
+    }, {
+      "name" : "protein",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "salt",
+      "passed" : true,
+      "expected" : "0.0",
+      "actual" : "0.0",
+      "note" : null
+    }, {
+      "name" : "type",
+      "passed" : true,
+      "expected" : "OIL",
+      "actual" : "OIL",
+      "note" : null
+    }, {
+      "name" : "ingredients",
+      "passed" : true,
+      "expected" : "Huiles végétales (Soja,Tournesol,Colza) en proportions variables, Vitamine A, Vitamine D3, Provitamine A.",
+      "actual" : "Huiles végétales (Soja, Tournesol, Colza) en proportions variables, Vitamine A, Vitamine D3, Provitamine A.",
+      "note" : null
+    } ]
+  } ]
+}

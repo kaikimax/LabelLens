@@ -22,6 +22,7 @@ spring:
         model: ${LABELLENS_READER_DEPLOYMENT:gpt-4.1-mini}
         # 0 = as repeatable as possible: we want the same photo read the same way every time.
         temperature: 0.0
+        max-tokens: 1500
 
   # Values like ${DB_URL:...} read an environment variable, or use the default after ":".
   # The defaults match compose.yaml, so locally you don't set anything.
