@@ -254,7 +254,7 @@ Azure wants one line per example, like this:
 
 ```json
 {"messages": [
-  {"role": "system", "content": "List the EU allergens in this ingredients text. Answer in JSON: {\"allergens\": [...]} using only these tags: en:milk, en:gluten, en:soybeans, en:eggs, en:nuts, en:mustard, en:fish, en:peanuts, en:celery, en:sesame-seeds, en:sulphur-dioxide-and-sulphites, en:crustaceans, en:molluscs, en:lupin."},
+  {"role": "system", "content": "List the EU allergens in this ingredients text. Answer in JSON: {\"allergens\": [...]} using only these tags: en:milk, en:gluten, en:soybeans, en:eggs, en:nuts, en:mustard, en:fish, en:peanuts, en:celery, en:sesame-seeds, en:sulphur-dioxide-and-sulphites, en:crustaceans, en:molluscs, en:lupin. If there are none, answer {\"allergens\": []}."},
   {"role": "user", "content": "Farine de blé, sucre, lait écrémé en poudre, lécithine de soja"},
   {"role": "assistant", "content": "{\"allergens\": [\"en:gluten\", \"en:milk\", \"en:soybeans\"]}"}
 ]}

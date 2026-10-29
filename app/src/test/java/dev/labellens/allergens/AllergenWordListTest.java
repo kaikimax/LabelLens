@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * What the word list must do. Written before the code (same method as NutriScoreCalculatorTest).
@@ -208,5 +209,67 @@ class AllergenWordListTest {
     @Test
     void anAccentStoredAsTwoCharacters_isStillFound() {
         assertThat(find("farine de ble\u0301, sucre")).containsExactly("en:gluten");
+    }
+
+    // ---- Non-breaking spaces (Open Food Facts texts contain U+00A0 and U+202F) -----------
+
+    @Test
+    void aNonBreakingSpace_insideAWord_stillMatches() {
+        assertThat(find("Peut contenir des traces de fruits à coque, de céréales contenant du gluten et de lait."))
+                .containsExactlyInAnyOrder("en:nuts", "en:gluten", "en:milk");
+    }
+
+    @Test
+    void aNonBreakingSpace_insideAnException_stillBlanksIt() {
+        assertThat(find("Sucre, beurre de cacao, pâte de cacao")).isEmpty();
+        assertThat(find("Sucre, beurre de cacao")).isEmpty();
+    }
+
+    // ---- Fish species ------------------------------------------------------------------
+
+    @Test
+    void fishSpecies_singularAndPlural() {
+        assertThat(find("Maquereau à l'huile")).containsExactly("en:fish");
+        assertThat(find("Morceaux de maquereaux, sauce tomate")).containsExactly("en:fish");
+        assertThat(find("Sardines, huile d'olive vierge extra, sel.")).containsExactly("en:fish");
+        assertThat(find("Mackerel fillets, salt")).containsExactly("en:fish");
+    }
+
+    @Test
+    void fishInArabic_withPrefixesAndBrokenPlural() {
+        assertThat(find("سمك الماكريل، زيت، ملح")).containsExactly("en:fish");
+        assertThat(find("زيت، والتونة، ملح")).containsExactly("en:fish");   // "and the tuna"
+        assertThat(find("طماطم بالسردين")).containsExactly("en:fish");      // "with sardines"
+        assertThat(find("اسماك، ملح")).containsExactly("en:fish");           // plural of سمك
+        assertThat(find("سلمون مرقط")).containsExactly("en:fish");
+    }
+
+    // ---- Traps -------------------------------------------------------------------------
+
+    @Test
+    void nutmegAndCoconut_areNotNuts() {
+        assertThat(find("Sel, noix de muscade, poivre")).isEmpty();
+        assertThat(find("حليب جوز الهند، سكر")).isEmpty();
+        assertThat(find("جوز الهند المبشور")).isEmpty();
+    }
+
+    @Test
+    void arabicPrefixes_onOtherAllergens() {
+        assertThat(find("سكر، وبيض")).containsExactly("en:eggs");
+        assertThat(find("مسحوق للحليب")).containsExactly("en:milk");
+        assertThat(find("الفول السوداني، ملح")).containsExactly("en:peanuts");
+    }
+
+    @Test
+    void arabicPrefixes_doNotMatchInsideOtherWords() {
+        assertThat(find("صنع في لبنان")).isEmpty();                          // Lebanon, not لبن (milk)
+    }
+
+    // ---- The list itself ---------------------------------------------------------------
+
+    @Test
+    void theListCantBeChangedFromOutside() {
+        assertThatThrownBy(() -> AllergenWordList.ALLERGENS.put("en:pork", Set.of("porc")))
+                .isInstanceOf(UnsupportedOperationException.class);
     }
 }

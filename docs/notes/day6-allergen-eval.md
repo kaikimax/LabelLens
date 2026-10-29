@@ -65,19 +65,36 @@ allergens, not different runs. It now skips counters, and the report prints "not
 or more runs per case)" when nothing can be compared. New test:
 `EvalRunnerTest.stability_ignoresCounters_soOneRunMeasuresNothing`.
 
-## Next (hand review, before saving the allergen baselines)
+## Hand review, round 1 (14 products, 2026-10-29)
 
-Run `training/show_allergen_cases.py` on the groups above and write a verdict per product (AI
-error, word-list gap, or key error):
-1. the 4 "all 14" products;
-2. the 10 "nobody found anything" products;
-3. 10 of the 33 shared false alarms;
-4. 10 of the 35 "only nuts missing" traces.
+| Group | Products | Verdict |
+|---|---|---|
+| nano answered "all 14" | 3270190127765, 6111266963450, 8718754500296, 3660992012527 | **AI error, all 4.** The key ([]) is right. All 4 have no allergen: when there's nothing to find, nano answers with the tag list from the prompt. The prompt never says what to answer when there are none. |
+| fish, nobody found it | 0769503575353, 6111255062010, 6111162001225, 3222474768461, 3263670126419 | **Key right.** Mackerel and sardines: the word list has no fish species, and nano doesn't treat a species as "en:fish". This corrects point 5 above: I had guessed key errors. |
+| gluten/milk, nobody found it | 3250390271604, 3250390115236, 3250390748847 | **Key error.** Cocoa powder, cocoa drink and mint sweets: no gluten or milk in the text. |
+| | 3222475104336 | **Key error** on allergens (gluten is only a trace: "traces de _gluten_"). |
+| unreadable | 5999884034469 | **Text is OCR garbage**, so the case can't be answered. The junk filter missed it, and 8718754500296 is half garbage too. |
 
-Then, depending on what the texts show:
-- fix the key in the test set (a `key_fixes` list in `build_allergen_sets.py`, logged, not hand
-  edits to the JSONL);
-- add the `traces-printed` tag;
-- fix the word-list gaps (that's the user's code: hints only);
-- guard against "all 14" answers (open question: treat as unusable, or let fine-tuning fix it?);
-- re-run, then save the baselines.
+Two more findings from reading the texts:
+- **Open Food Facts marks allergens with underscores**: `_gluten_`, `_Sardines_`. `\b` sees `_` as a
+  letter, so `\bgluten` never matches `_gluten_`. That explains at least 3222475104336's missed trace,
+  and probably many more misses. Real labels have bold type, not underscores, so this is data markup
+  like HTML: the cleaning in `build_allergen_sets.py` should remove it.
+- **The "may contain" nuts gap is confirmed**: 3270190127765 prints "Peut contenir des traces de
+  fruits à coque, de céréales contenant du gluten et de lait". The word list found milk and gluten
+  but not nuts. The key misses the gluten trace (another key error).
+
+## Fixes after round 1 (2026-10-29, decisions log)
+
+- `build_allergen_sets.py`: `_underscore_` markup removed; traces kept in the key only when the text
+  prints a "may contain"-like statement (original in `traces_off`); `KEY_FIXES` (6 products) and
+  `DROP` (1). The tag "html" in the reports is now "markup".
+- Prompt: "If there are none, answer {"allergens": []}." (same line in DATA_PLAN, for fine-tuning).
+- These change the test set, so the 2026-10-28 scores can't be compared with the next run.
+
+## Next
+
+1. Word list (user's code, hints only): fish species (and the `x` plural: maquereaux); why
+   "fruits à coque" isn't found in the 3270190127765 trace sentence.
+2. Rebuild the sets, then review round 2: 10 of the 33 shared false alarms (KEY_FIXES grows).
+3. Re-run all 5 setups, then save the baselines.

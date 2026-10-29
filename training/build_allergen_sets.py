@@ -13,10 +13,20 @@ Cleaning, in order:
   1. Not obsolete, no data-quality errors, ingredients text of 20+ characters.
   2. Not a fake barcode (e.g. ...12345678905) or a non-food product.
   3. Not one of the photographed products (labels.json), compared without leading zeros.
-  4. HTML removed: some texts mark the allergens with <span class="allergen">...</span>,
-     which would give the answer away. The words are kept, the markup is removed.
-  5. Exact duplicate texts removed (case and spacing ignored), so a test question can't
+  4. Allergen markup removed: some texts mark the allergens with <span class="allergen">...</span>
+     or with underscores (_gluten_), which would give the answer away. Real labels use bold
+     type, not markup. The words are kept, the markup is removed (underscores: day 6 review).
+  5. Products in DROP removed (found unusable in the hand review, e.g. OCR garbage).
+  6. Exact duplicate texts removed (case and spacing ignored), so a test question can't
      reappear in the training set under another barcode.
+
+Answer key, after cleaning (decisions log, 2026-10-29):
+  - Traces are kept only if the text prints a "may contain"-like statement (TRACES_PRINTED,
+    deliberately broader than the app's splitter so its misses still count). OFF's traces field
+    is also filled from the rest of the packaging, which we never send. The original is kept in
+    "traces_off".
+  - KEY_FIXES: answer-key errors confirmed by reading the text, with the reason. Never edit the
+    JSONL by hand: a rebuild would undo it silently.
 Groups are decided by a hash of the barcode: rerunning gives exactly the same files.
 
 Usage (from the project folder, .venv active):
@@ -58,6 +68,28 @@ NON_FOOD = {"en:non-food-products", "en:dietary-supplements", "en:food-supplemen
             "en:medicines", "en:drugs", "en:cosmetics", "en:pet-food"}
 
 TAG = re.compile(r"<[^>]+>")
+UNDERSCORED = re.compile(r"_([^_\n]{1,80})_")   # _gluten_, _Sardines_
+# Any sign of a "may contain" statement, in French, English or Arabic. Broader than the app's
+# MayContainSplitter on purpose: a wording the splitter misses must still count as a miss.
+TRACES_PRINTED = re.compile(r"trace|contenir|contient|contain|pr[ée]sence|atelier|usine|factory|equipment"
+                            r"|يحتوي|يحتوى|تحتوي|آثار", re.IGNORECASE)
+
+# Answer-key errors confirmed by reading the text (docs/notes/day6-allergen-eval.md, review round 1).
+# Only the fields given are replaced.
+KEY_FIXES = {
+    "3250390271604": {"allergens": [], "why": "cocoa powder + potassium carbonates: no gluten or milk in the text"},
+    "3250390115236": {"allergens": [], "why": "sugar, cocoa, salt, flavouring, vitamin B1: no gluten in the text"},
+    "3250390748847": {"allergens": [], "why": "sweeteners, mint flavouring, menthol: no milk in the text"},
+    "3222475104336": {"allergens": [], "why": "corn 99.4%, salt: gluten is only printed as a trace"},
+    "3270190127765": {"traces": ["en:gluten", "en:milk", "en:nuts"],
+                      "why": "prints traces of nuts, gluten cereals and milk; the key had no gluten"},
+    "3222474768461": {"traces": ["en:milk", "en:mustard"],
+                      "why": "prints 'Traces de lait, moutarde'; fish is an ingredient, not a trace"},
+}
+# Products whose text can't be used at all (review round 1).
+DROP = {
+    "5999884034469": "OCR garbage: the ingredients can't be read",
+}
 ARABIC_LETTER = re.compile(r"[\u0600-\u06FF]")
 LATIN_LETTER = re.compile(r"[A-Za-z\u00C0-\u00FF\u0152\u0153]")
 WORD = re.compile(r"[a-z\u00e0-\u00ff\u0153]+")
@@ -68,10 +100,26 @@ SPACES = re.compile(r"\s+")
 
 
 def clean(text):
-    """Removes HTML markup and entities, keeps the words. Returns (clean text, had_html)."""
-    had_html = "<" in text and TAG.search(text) is not None
+    """Removes allergen markup (HTML tags and entities, _underscores_), keeps the words.
+    Returns (clean text, had_markup)."""
+    had_markup = ("<" in text and TAG.search(text) is not None) or UNDERSCORED.search(text) is not None
     text = html.unescape(TAG.sub("", text))
-    return SPACES.sub(" ", text).strip(), had_html
+    text = UNDERSCORED.sub(r"\1", text)
+    return SPACES.sub(" ", text).strip(), had_markup
+
+
+def key_traces(text, traces):
+    """The traces the text can answer: none if no "may contain"-like statement is printed."""
+    return traces if TRACES_PRINTED.search(text) else []
+
+
+def apply_key_fixes(records, counts):
+    for r in records:
+        fix = KEY_FIXES.get(r["code"])
+        if fix:
+            r.update({k: v for k, v in fix.items() if k != "why"})
+            r["key_fixed"] = fix["why"]
+            counts["6. answer key fixed by hand (KEY_FIXES)"] += 1
 
 
 def right_language(text, lang):
@@ -152,6 +200,9 @@ def main():
             if code.lstrip("0") in excluded_photos:
                 counts["   removed: photographed product"] += 1
                 continue
+            if code in DROP:
+                counts["   removed: unusable text (DROP)"] += 1
+                continue
             counts["2. after junk and photographed products"] += 1
 
             allergens = sorted(a for a in (p["allergens_tags"] or []) if a in EU14)
@@ -159,17 +210,21 @@ def main():
             for lang, bucket in (("fr", french), ("ar", arabic)):
                 if lang not in texts:
                     continue
-                text, had_html = clean(texts[lang])
+                text, had_markup = clean(texts[lang])
                 if len(text) < 20:
                     continue
                 if not right_language(text, lang):
                     counts[f"   {lang}: removed, text not really in {lang}"] += 1
                     continue
-                if had_html:
-                    counts[f"   {lang}: HTML removed"] += 1
+                if had_markup:
+                    counts[f"   {lang}: allergen markup removed"] += 1
+                printed = key_traces(text, traces)
+                if traces and not printed:
+                    counts[f"   {lang}: traces dropped from the key, not printed in the text"] += 1
                 bucket.append((sort_key(code), {
                     "code": code, "lang": lang, "origin": "morocco", "text": text,
-                    "allergens": allergens, "traces": traces, "had_html": had_html,
+                    "allergens": allergens, "traces": printed, "traces_off": traces,
+                    "had_markup": had_markup,
                 }))
         print(f"... {counts['0. all products']:,} products read", end="\r")
     print()
@@ -184,6 +239,7 @@ def main():
     train_codes = {r["code"] for r in train}
     arabic_slice = [r for r in arabic if r["code"] not in train_codes]
     counts["5. ar: removed, same product in training"] = len(arabic) - len(arabic_slice)
+    apply_key_fixes(test + arabic_slice + train, counts)
 
     TEST_DIR.mkdir(parents=True, exist_ok=True)
     TRAIN_DIR.mkdir(parents=True, exist_ok=True)
@@ -201,21 +257,22 @@ def main():
 def collect_france(p, texts, code, excluded_photos, pool):
     """Keeps the FRANCE_POOL French products with the smallest barcode hash (deterministic),
     after the same cleaning as the Moroccan ones. Used only to top up the training set."""
-    if "fr" not in texts or fake_barcode(code) or code.lstrip("0") in excluded_photos:
+    if "fr" not in texts or fake_barcode(code) or code.lstrip("0") in excluded_photos or code in DROP:
         return
     if set(p["categories_tags"] or []) & NON_FOOD:
         return
     key = negate(sort_key(code))
     if len(pool) >= FRANCE_POOL and key <= pool[0][0]:
         return  # pool full and this barcode sorts after all of them: skip the cleaning work
-    text, had_html = clean(texts["fr"])
+    text, had_markup = clean(texts["fr"])
     if len(text) < 20 or not right_language(text, "fr"):
         return
+    traces = sorted(a for a in (p["traces_tags"] or []) if a in EU14)
     record = {
         "code": code, "lang": "fr", "origin": "france", "text": text,
         "allergens": sorted(a for a in (p["allergens_tags"] or []) if a in EU14),
-        "traces": sorted(a for a in (p["traces_tags"] or []) if a in EU14),
-        "had_html": had_html,
+        "traces": key_traces(text, traces), "traces_off": traces,
+        "had_markup": had_markup,
     }
     # Max-heap on the key (stored negated): the largest key is dropped when a smaller one arrives.
     entry = (key, code, record)
@@ -302,7 +359,9 @@ def summary(counts, test, arabic_slice, train):
         "same product, so testing on it would test on a practice question.",
         "",
         "Each line: code, lang, origin, text (full cleaned text, may include a \"may contain\" sentence),",
-        "allergens and traces (EU-14 tags from Open Food Facts), had_html.",
+        "allergens and traces (EU-14 tags from Open Food Facts; traces only when the text prints a",
+        "\"may contain\"-like statement), traces_off (OFF's original traces), had_markup, and key_fixed",
+        "(the reason) when the answer key was corrected by hand.",
         "",
         "## Allergens in the test set",
         "",
@@ -315,17 +374,20 @@ def summary(counts, test, arabic_slice, train):
         lines.append(f"| {a} | {few(n)} | {few(ar[a])} | {tr[a]} |")
     no_allergen = sum(1 for r in test if not r["allergens"])
     with_traces = sum(1 for r in test if r["traces"])
-    with_html = sum(1 for r in test if r["had_html"])
+    with_markup = sum(1 for r in test if r["had_markup"])
+    fixed = sum(1 for r in test if r.get("key_fixed"))
     lines += [
         "",
         f"Test set: {no_allergen} products with no EU allergen, {with_traces} with traces, "
-        f"{with_html} had HTML allergen markup (removed).",
+        f"{with_markup} had allergen markup (HTML or _underscores_, removed), {fixed} with a hand-fixed answer key.",
         "",
         "## Known problems",
         "",
         "- The answer key comes from Open Food Facts volunteers and automatic detection; no column says which.",
         "  Missed allergens exist (e.g. a cream \"de lait de vache\" tagged with none). Disagreements must be checked by hand.",
         "- Traces sometimes repeat the allergens themselves.",
+        "- Only the reviewed products are fixed (KEY_FIXES): the rest of the key is still unchecked.",
+        "  Day 6 review: 4 of 14 products checked had a wrong key.",
         "- Non-food and fake-barcode filters are heuristics.",
     ]
     return "\n".join(lines) + "\n"

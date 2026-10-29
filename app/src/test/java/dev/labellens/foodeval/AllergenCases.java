@@ -18,8 +18,8 @@ import java.util.TreeSet;
  * Turns allergen_test.jsonl (built by training/build_allergen_sets.py) into eval cases:
  * input = the full cleaned text (with any "may contain" sentence), expected = OFF's tags.
  *
- * Tags, to split the scores: "html" (the text had allergen markup, now removed),
- * "with-traces", "no-allergen".
+ * Tags, to split the scores: "markup" (the text had allergen markup, HTML or _underscores_,
+ * now removed), "with-traces", "no-allergen".
  */
 public final class AllergenCases {
 
@@ -38,8 +38,8 @@ public final class AllergenCases {
             Set<String> allergens = tags(p.get("allergens"));
             Set<String> traces = tags(p.get("traces"));
             Set<String> caseTags = new LinkedHashSet<>();
-            if (p.has("had_html") && p.get("had_html").asBoolean()) {
-                caseTags.add("html");
+            if (flag(p, "had_markup") || flag(p, "had_html")) { // had_html: files built before 2026-10-29
+                caseTags.add("markup");
             }
             if (!traces.isEmpty()) {
                 caseTags.add("with-traces");
@@ -54,6 +54,10 @@ public final class AllergenCases {
             }
         }
         return cases;
+    }
+
+    private static boolean flag(JsonNode p, String field) {
+        return p.has(field) && p.get(field).asBoolean();
     }
 
     private static Set<String> tags(JsonNode array) {

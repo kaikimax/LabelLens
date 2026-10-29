@@ -27,6 +27,8 @@ def codes_from_report(report: Path) -> list[str]:
 
 
 def main() -> None:
+    # Windows redirects stdout in the console code page (MS932 here): accents and Arabic would crash.
+    sys.stdout.reconfigure(encoding="utf-8")
     args = sys.argv[1:]
     if not args:
         sys.exit(__doc__)
@@ -45,9 +47,14 @@ def main() -> None:
         if p is None:
             print(f"{code}: not in {test_set}\n")
             continue
-        print(f"=== {code}  ({p['lang']}, {p['origin']}{', had HTML' if p['had_html'] else ''})")
-        print(f"key allergens: {p['allergens']}")
-        print(f"key traces:    {p['traces']}")
+        details = [p.get("lang"), p.get("origin"),
+                   "had markup" if p.get("had_markup") or p.get("had_html") else None]
+        print(f"=== {code}  ({', '.join(d for d in details if d)})")
+        print(f"key allergens: {p.get('allergens')}")
+        print(f"key traces:    {p.get('traces')}"
+              + (f"   (OFF: {p['traces_off']})" if p.get("traces_off") not in (None, p.get("traces")) else ""))
+        if p.get("key_fixed"):
+            print(f"key fixed:     {p['key_fixed']}")
         print(f"text: {p['text']}")
         print(f"verdict: ")
         print()
