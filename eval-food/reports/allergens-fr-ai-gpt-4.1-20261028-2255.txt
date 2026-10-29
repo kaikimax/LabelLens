@@ -1,0 +1,110 @@
+EVAL REPORT: allergens-fr-ai-gpt-4.1
+================================================================================
+Started:        2026-10-28T22:55:26.672875700Z (took 1 min 0 s)
+Cases:          50, 1 run(s) each
+setup:          ai-gpt-4.1
+model:          gpt-4.1-2025-04-14
+test set:       allergen_test.jsonl (first 50 only)
+est. cost:      $0.0226
+main score:     caught:all = allergens really there that were found (a miss is the dangerous mistake)
+
+Counting rule: a run with no usable answer counts as WRONG for every check.
+
+SCORES
+--------------------------------------------------------------------------------
+answered                   50 / 50   100.0%
+allergens                  43 / 50   86.0%
+caught:all                 54 / 59   91.5%
+caught:gluten              15 / 15   100.0%
+caught:milk                12 / 12   100.0%
+caught:nuts                 8 / 8    100.0%   (too few to measure)
+caught:soybeans            10 / 10   100.0%
+correct-alarm:all          54 / 60   90.0%
+correct-alarm:gluten       15 / 16   93.8%
+correct-alarm:milk         12 / 15   80.0%
+correct-alarm:nuts          8 / 8    100.0%   (too few to measure)
+correct-alarm:soybeans     10 / 10   100.0%
+traces                     36 / 50   72.0%
+traces-caught:all          28 / 45   62.2%
+traces-correct:all         28 / 30   93.3%
+caught:lupin                0 / 1    0.0%   (too few to measure)
+caught:mustard              2 / 3    66.7%   (too few to measure)
+caught:peanuts              2 / 2    100.0%   (too few to measure)
+caught:sesame               0 / 1    0.0%   (too few to measure)
+correct-alarm:peanuts       2 / 2    100.0%   (too few to measure)
+caught:celery               1 / 1    100.0%   (too few to measure)
+caught:eggs                 3 / 3    100.0%   (too few to measure)
+caught:sulphites            0 / 1    0.0%   (too few to measure)
+correct-alarm:celery        1 / 1    100.0%   (too few to measure)
+correct-alarm:eggs          3 / 3    100.0%   (too few to measure)
+correct-alarm:mustard       2 / 3    66.7%   (too few to measure)
+caught:fish                 1 / 2    50.0%   (too few to measure)
+correct-alarm:fish          1 / 1    100.0%   (too few to measure)
+correct-alarm:sulphites     0 / 1    0.0%   (too few to measure)
+
+Stability: 25 / 51 (case, check) pairs gave the same answer in every run (49.0%)
+
+BY SITUATION (percent; number of cases in brackets; few cases = unreliable)
+--------------------------------------------------------------------------------
+html (13)              allergens 76.9% | caught:all 95.8% | caught:gluten 100.0% | caught:milk 100.0% | caught:nuts 100.0% | caught:soybeans 100.0% | correct-alarm:all 85.2% | correct-alarm:gluten 85.7% | correct-alarm:milk 83.3% | correct-alarm:nuts 100.0% | correct-alarm:soybeans 100.0% | traces 61.5% | traces-caught:all 75.0% | traces-correct:all 100.0% | caught:lupin - | caught:mustard 100.0% | caught:peanuts - | caught:sesame - | correct-alarm:peanuts - | caught:celery 100.0% | caught:eggs 100.0% | caught:sulphites 0.0% | correct-alarm:celery 100.0% | correct-alarm:eggs 100.0% | correct-alarm:mustard 66.7% | caught:fish - | correct-alarm:fish - | correct-alarm:sulphites 0.0%
+no-allergen (19)       allergens 84.2% | caught:all - | caught:gluten - | caught:milk - | caught:nuts - | caught:soybeans - | correct-alarm:all 0.0% | correct-alarm:gluten - | correct-alarm:milk 0.0% | correct-alarm:nuts - | correct-alarm:soybeans - | traces 94.7% | traces-caught:all 40.0% | traces-correct:all 100.0% | caught:lupin - | caught:mustard - | caught:peanuts - | caught:sesame - | correct-alarm:peanuts - | caught:celery - | caught:eggs - | caught:sulphites - | correct-alarm:celery - | correct-alarm:eggs - | correct-alarm:mustard 0.0% | caught:fish - | correct-alarm:fish - | correct-alarm:sulphites 0.0%
+with-traces (15)       allergens 86.7% | caught:all 91.4% | caught:gluten 100.0% | caught:milk 100.0% | caught:nuts 100.0% | caught:soybeans 100.0% | correct-alarm:all 94.1% | correct-alarm:gluten 90.9% | correct-alarm:milk 85.7% | correct-alarm:nuts 100.0% | correct-alarm:soybeans 100.0% | traces 6.7% | traces-caught:all 62.2% | traces-correct:all 93.3% | caught:lupin 0.0% | caught:mustard 0.0% | caught:peanuts 100.0% | caught:sesame 0.0% | correct-alarm:peanuts 100.0% | caught:celery - | caught:eggs 100.0% | caught:sulphites - | correct-alarm:celery - | correct-alarm:eggs 100.0% | correct-alarm:mustard - | caught:fish - | correct-alarm:fish - | correct-alarm:sulphites -
+
+COMPARED WITH THE BASELINE
+--------------------------------------------------------------------------------
+No baseline yet.
+
+DISAGREEMENTS (review each one: AI error, answer-key error, or comparison rule?)
+--------------------------------------------------------------------------------
+3056440032696
+  traces         expected [en:eggs, en:nuts] | got [en:eggs] (x1) | wrong in 1/1 runs
+3560070330744
+  allergens      expected [en:gluten, en:lupin, en:milk, en:mustard, en:nuts, en:peanuts, en:sesame-seeds] | got [en:gluten, en:milk, en:nuts, en:peanuts] (x1) | wrong in 1/1 runs
+  traces         expected [en:lupin, en:mustard, en:nuts, en:sesame-seeds, en:soybeans] | got [en:soybeans, en:mustard, en:sesame-seeds, en:lupin] (x1) | wrong in 1/1 runs
+8718114734484
+  allergens      expected [en:celery, en:eggs, en:mustard, en:sulphur-dioxide-and-sulphites] | got [en:celery, en:eggs, en:mustard] (x1) | wrong in 1/1 runs
+3560071015725
+  traces         expected [en:lupin, en:milk, en:mustard, en:nuts, en:peanuts, en:sesame-seeds, en:soybeans] | got [en:milk, en:peanuts, en:soybeans, en:mustard, en:sesame-seeds, en:lupin] (x1) | wrong in 1/1 runs
+5900617002983
+  traces         expected [en:nuts, en:peanuts] | got [] (x1) | wrong in 1/1 runs
+4335619014442
+  traces         expected [en:nuts, en:peanuts] | got [en:peanuts] (x1) | wrong in 1/1 runs
+3664346308823
+  traces         expected [en:gluten] | got [] (x1) | wrong in 1/1 runs
+8053504210439
+  traces         expected [en:nuts, en:soybeans] | got [en:soybeans, en:mustard, en:sesame-seeds] (x1) | wrong in 1/1 runs
+6111262384945
+  traces         expected [en:eggs] | got [] (x1) | wrong in 1/1 runs
+6111012120175
+  traces         expected [en:gluten] | got [] (x1) | wrong in 1/1 runs
+3560070800322
+  traces         expected [en:lupin, en:milk, en:mustard, en:nuts, en:peanuts, en:sesame-seeds, en:soybeans] | got [en:milk, en:peanuts, en:soybeans, en:mustard, en:sesame-seeds, en:lupin] (x1) | wrong in 1/1 runs
+3387390321357
+  traces         expected [en:milk, en:nuts, en:peanuts] | got [en:milk, en:peanuts] (x1) | wrong in 1/1 runs
+11558813
+  allergens      expected [en:nuts, en:soybeans] | got [en:gluten, en:milk, en:nuts, en:soybeans] (x1) | wrong in 1/1 runs
+  traces         expected [en:gluten, en:nuts, en:soybeans] | got [en:soybeans, en:gluten] (x1) | wrong in 1/1 runs
+3222476439505
+  traces         expected [en:eggs, en:gluten, en:milk, en:nuts, en:soybeans] | got [en:milk, en:gluten] (x1) | wrong in 1/1 runs
+6111273210127
+  allergens      expected [en:fish] | got [] (x1) | wrong in 1/1 runs
+3073780971638
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+8410679400674
+  traces         expected [en:milk, en:nuts] | got [en:milk] (x1) | wrong in 1/1 runs
+8436573629850
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+6111184000541
+  allergens      expected [] | got [en:mustard, en:sulphur-dioxide-and-sulphites] (x1) | wrong in 1/1 runs
+
+RUNS WITH NO USABLE ANSWER
+--------------------------------------------------------------------------------
+None.
+
+UNSTABLE (same input, different answers between runs)
+--------------------------------------------------------------------------------
+None.
+
+COST
+--------------------------------------------------------------------------------
+Tokens: 8,866 in, 611 out | average 1.2 s per run | 0 infrastructure retries

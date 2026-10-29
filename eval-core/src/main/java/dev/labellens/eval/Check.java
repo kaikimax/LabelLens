@@ -12,6 +12,15 @@ public record Check(String name, boolean passed, String expected, String actual,
         return new Check(name, passed, String.valueOf(expected), String.valueOf(actual), null);
     }
 
+    /**
+     * A counter is a check named "something:detail" (e.g. "caught:milk", "caught:all"). It's counted
+     * in the scores like any check, but not listed in the report's disagreements, because the
+     * product-level checks already show the same mistakes with more context.
+     */
+    public static boolean isCounter(String name) {
+        return name.contains(":");
+    }
+
     public Check withNote(String note) {
         return new Check(name, passed, expected, actual, note);
     }

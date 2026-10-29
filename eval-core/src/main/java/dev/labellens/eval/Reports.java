@@ -79,8 +79,10 @@ public final class Reports {
         }
         EvalResult.Score stability = r.stability();
         out.add("");
-        out.add(String.format(Locale.ROOT, "Stability: %d / %d (case, check) pairs gave the same answer in every run (%s)",
-                stability.passed(), stability.total(), percent(stability)));
+        out.add(stability.total() == 0
+                ? "Stability: not measured (needs 2 or more runs per case)"
+                : String.format(Locale.ROOT, "Stability: %d / %d (case, check) pairs gave the same answer in every run (%s)",
+                        stability.passed(), stability.total(), percent(stability)));
 
         // ---- By tag
         Set<String> tags = r.tags();
@@ -118,6 +120,9 @@ public final class Reports {
         out.add("-".repeat(80));
         String currentCase = null;
         for (EvalResult.Disagreement d : r.disagreements()) {
+            if (Check.isCounter(d.check())) {
+                continue; // counters ("caught:milk") repeat what the product-level checks already show
+            }
             if (!d.caseId().equals(currentCase)) {
                 currentCase = d.caseId();
                 out.add(currentCase);
@@ -139,7 +144,8 @@ public final class Reports {
             out.add("None.");
         }
 
-        List<EvalResult.Disagreement> unstable = r.unstable();
+        List<EvalResult.Disagreement> unstable = r.unstable().stream()
+                .filter(u -> !Check.isCounter(u.check())).toList();
         out.add("");
         out.add("UNSTABLE (same input, different answers between runs)");
         out.add("-".repeat(80));
@@ -158,8 +164,12 @@ public final class Reports {
         return String.join(System.lineSeparator(), out) + System.lineSeparator();
     }
 
+    /** Below this many examples, a percentage is noise: it's shown, but marked. */
+    static final int TOO_FEW = 10;
+
     private static String line(String name, EvalResult.Score s) {
-        return String.format(Locale.ROOT, "%-16s %4d / %-4d %s", name, s.passed(), s.total(), percent(s));
+        String few = s.total() > 0 && s.total() < TOO_FEW ? "   (too few to measure)" : "";
+        return String.format(Locale.ROOT, "%-24s %4d / %-4d %s%s", name, s.passed(), s.total(), percent(s), few);
     }
 
     private static String percent(EvalResult.Score s) {

@@ -1,0 +1,1 @@
+List the EU allergens in this ingredients text. Answer in JSON: {"allergens": [...]} using only these tags: en:milk, en:gluten, en:soybeans, en:eggs, en:nuts, en:mustard, en:fish, en:peanuts, en:celery, en:sesame-seeds, en:sulphur-dioxide-and-sulphites, en:crustaceans, en:molluscs, en:lupin.

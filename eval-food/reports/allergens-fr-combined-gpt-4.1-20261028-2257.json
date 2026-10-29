@@ -1,0 +1,3085 @@
+{
+  "suite" : "allergens-fr-combined-gpt-4.1",
+  "startedAt" : "2026-10-28T22:57:28.835417400Z",
+  "runsPerCase" : 1,
+  "info" : {
+    "setup" : "combined-gpt-4.1",
+    "model" : "gpt-4.1-2025-04-14",
+    "test set" : "allergen_test.jsonl (first 50 only)",
+    "est. cost" : "$0.0226",
+    "main score" : "caught:all = allergens really there that were found (a miss is the dangerous mistake)"
+  },
+  "metrics" : {
+    "answered" : 100.0,
+    "allergens" : 88.0,
+    "caught:all" : 93.22033898305085,
+    "caught:gluten" : 100.0,
+    "caught:milk" : 100.0,
+    "caught:nuts" : 100.0,
+    "caught:soybeans" : 100.0,
+    "correct-alarm:all" : 90.1639344262295,
+    "correct-alarm:gluten" : 93.75,
+    "correct-alarm:milk" : 80.0,
+    "correct-alarm:nuts" : 100.0,
+    "correct-alarm:soybeans" : 100.0,
+    "traces" : 72.0,
+    "traces-caught:all" : 62.22222222222222,
+    "traces-correct:all" : 93.33333333333333,
+    "caught:lupin" : 0.0,
+    "caught:mustard" : 66.66666666666667,
+    "caught:peanuts" : 100.0,
+    "caught:sesame" : 0.0,
+    "correct-alarm:peanuts" : 100.0,
+    "caught:celery" : 100.0,
+    "caught:eggs" : 100.0,
+    "caught:sulphites" : 0.0,
+    "correct-alarm:celery" : 100.0,
+    "correct-alarm:eggs" : 100.0,
+    "correct-alarm:mustard" : 66.66666666666667,
+    "caught:fish" : 100.0,
+    "correct-alarm:fish" : 100.0,
+    "correct-alarm:sulphites" : 0.0,
+    "allergens[html]" : 76.92307692307692,
+    "caught:all[html]" : 95.83333333333333,
+    "caught:gluten[html]" : 100.0,
+    "caught:milk[html]" : 100.0,
+    "caught:nuts[html]" : 100.0,
+    "caught:soybeans[html]" : 100.0,
+    "correct-alarm:all[html]" : 85.18518518518519,
+    "correct-alarm:gluten[html]" : 85.71428571428571,
+    "correct-alarm:milk[html]" : 83.33333333333333,
+    "correct-alarm:nuts[html]" : 100.0,
+    "correct-alarm:soybeans[html]" : 100.0,
+    "traces[html]" : 61.53846153846154,
+    "traces-caught:all[html]" : 75.0,
+    "traces-correct:all[html]" : 100.0,
+    "caught:mustard[html]" : 100.0,
+    "caught:celery[html]" : 100.0,
+    "caught:eggs[html]" : 100.0,
+    "caught:sulphites[html]" : 0.0,
+    "correct-alarm:celery[html]" : 100.0,
+    "correct-alarm:eggs[html]" : 100.0,
+    "correct-alarm:mustard[html]" : 66.66666666666667,
+    "correct-alarm:sulphites[html]" : 0.0,
+    "allergens[no-allergen]" : 84.21052631578948,
+    "correct-alarm:all[no-allergen]" : 0.0,
+    "correct-alarm:milk[no-allergen]" : 0.0,
+    "traces[no-allergen]" : 94.73684210526316,
+    "traces-caught:all[no-allergen]" : 40.0,
+    "traces-correct:all[no-allergen]" : 100.0,
+    "correct-alarm:mustard[no-allergen]" : 0.0,
+    "correct-alarm:sulphites[no-allergen]" : 0.0,
+    "allergens[with-traces]" : 86.66666666666667,
+    "caught:all[with-traces]" : 91.42857142857143,
+    "caught:gluten[with-traces]" : 100.0,
+    "caught:milk[with-traces]" : 100.0,
+    "caught:nuts[with-traces]" : 100.0,
+    "caught:soybeans[with-traces]" : 100.0,
+    "correct-alarm:all[with-traces]" : 94.11764705882354,
+    "correct-alarm:gluten[with-traces]" : 90.9090909090909,
+    "correct-alarm:milk[with-traces]" : 85.71428571428571,
+    "correct-alarm:nuts[with-traces]" : 100.0,
+    "correct-alarm:soybeans[with-traces]" : 100.0,
+    "traces[with-traces]" : 6.666666666666667,
+    "traces-caught:all[with-traces]" : 62.22222222222222,
+    "traces-correct:all[with-traces]" : 93.33333333333333,
+    "caught:lupin[with-traces]" : 0.0,
+    "caught:mustard[with-traces]" : 0.0,
+    "caught:peanuts[with-traces]" : 100.0,
+    "caught:sesame[with-traces]" : 0.0,
+    "correct-alarm:peanuts[with-traces]" : 100.0,
+    "caught:eggs[with-traces]" : 100.0,
+    "correct-alarm:eggs[with-traces]" : 100.0
+  },
+  "runs" : [ {
+    "caseId" : "3056440032696",
+    "tags" : [ "with-traces", "html" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1035,
+    "inputTokens" : 204,
+    "outputTokens" : 27,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[en:gluten, en:milk, en:nuts, en:soybeans]",
+      "actual" : "[en:gluten, en:milk, en:nuts, en:soybeans]",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:gluten",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:milk",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:nuts",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:nuts",
+      "passed" : true,
+      "expected" : "en:nuts",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:soybeans",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "en:gluten",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:gluten",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "en:gluten",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "en:milk",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:milk",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "en:milk",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:nuts",
+      "actual" : "en:nuts",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:nuts",
+      "passed" : true,
+      "expected" : "en:nuts",
+      "actual" : "en:nuts",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "en:soybeans",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:soybeans",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "en:soybeans",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : false,
+      "expected" : "[en:eggs, en:nuts]",
+      "actual" : "[en:eggs]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : true,
+      "expected" : "en:eggs",
+      "actual" : "[en:eggs]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : false,
+      "expected" : "en:nuts",
+      "actual" : "[en:eggs]",
+      "note" : null
+    }, {
+      "name" : "traces-correct:all",
+      "passed" : true,
+      "expected" : "[en:eggs, en:nuts]",
+      "actual" : "en:eggs",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "5449000143495",
+    "tags" : [ "no-allergen" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1116,
+    "inputTokens" : 147,
+    "outputTokens" : 6,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "6111266962583",
+    "tags" : [ ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1025,
+    "inputTokens" : 205,
+    "outputTokens" : 11,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[en:soybeans]",
+      "actual" : "[en:soybeans]",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:soybeans",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "en:soybeans",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:soybeans",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "en:soybeans",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "6111021010139",
+    "tags" : [ "no-allergen" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 634,
+    "inputTokens" : 123,
+    "outputTokens" : 6,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "3560070330744",
+    "tags" : [ "with-traces" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1310,
+    "inputTokens" : 296,
+    "outputTokens" : 27,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : false,
+      "expected" : "[en:gluten, en:lupin, en:milk, en:mustard, en:nuts, en:peanuts, en:sesame-seeds]",
+      "actual" : "[en:gluten, en:milk, en:nuts, en:peanuts]",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:gluten",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : false,
+      "expected" : "en:lupin",
+      "actual" : "missed",
+      "note" : null
+    }, {
+      "name" : "caught:lupin",
+      "passed" : false,
+      "expected" : "en:lupin",
+      "actual" : "missed",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:milk",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : false,
+      "expected" : "en:mustard",
+      "actual" : "missed",
+      "note" : null
+    }, {
+      "name" : "caught:mustard",
+      "passed" : false,
+      "expected" : "en:mustard",
+      "actual" : "missed",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:nuts",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:nuts",
+      "passed" : true,
+      "expected" : "en:nuts",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:peanuts",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:peanuts",
+      "passed" : true,
+      "expected" : "en:peanuts",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : false,
+      "expected" : "en:sesame-seeds",
+      "actual" : "missed",
+      "note" : null
+    }, {
+      "name" : "caught:sesame",
+      "passed" : false,
+      "expected" : "en:sesame-seeds",
+      "actual" : "missed",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "en:gluten",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:gluten",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "en:gluten",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "en:milk",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:milk",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "en:milk",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:nuts",
+      "actual" : "en:nuts",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:nuts",
+      "passed" : true,
+      "expected" : "en:nuts",
+      "actual" : "en:nuts",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:peanuts",
+      "actual" : "en:peanuts",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:peanuts",
+      "passed" : true,
+      "expected" : "en:peanuts",
+      "actual" : "en:peanuts",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : false,
+      "expected" : "[en:lupin, en:mustard, en:nuts, en:sesame-seeds, en:soybeans]",
+      "actual" : "[en:soybeans, en:mustard, en:sesame-seeds, en:lupin]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : true,
+      "expected" : "en:lupin",
+      "actual" : "[en:soybeans, en:mustard, en:sesame-seeds, en:lupin]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : true,
+      "expected" : "en:mustard",
+      "actual" : "[en:soybeans, en:mustard, en:sesame-seeds, en:lupin]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : false,
+      "expected" : "en:nuts",
+      "actual" : "[en:soybeans, en:mustard, en:sesame-seeds, en:lupin]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : true,
+      "expected" : "en:sesame-seeds",
+      "actual" : "[en:soybeans, en:mustard, en:sesame-seeds, en:lupin]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "[en:soybeans, en:mustard, en:sesame-seeds, en:lupin]",
+      "note" : null
+    }, {
+      "name" : "traces-correct:all",
+      "passed" : true,
+      "expected" : "[en:lupin, en:mustard, en:nuts, en:sesame-seeds, en:soybeans]",
+      "actual" : "en:soybeans",
+      "note" : null
+    }, {
+      "name" : "traces-correct:all",
+      "passed" : true,
+      "expected" : "[en:lupin, en:mustard, en:nuts, en:sesame-seeds, en:soybeans]",
+      "actual" : "en:mustard",
+      "note" : null
+    }, {
+      "name" : "traces-correct:all",
+      "passed" : true,
+      "expected" : "[en:lupin, en:mustard, en:nuts, en:sesame-seeds, en:soybeans]",
+      "actual" : "en:sesame-seeds",
+      "note" : null
+    }, {
+      "name" : "traces-correct:all",
+      "passed" : true,
+      "expected" : "[en:lupin, en:mustard, en:nuts, en:sesame-seeds, en:soybeans]",
+      "actual" : "en:lupin",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "3041090063206",
+    "tags" : [ "with-traces" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1130,
+    "inputTokens" : 228,
+    "outputTokens" : 16,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[en:gluten, en:milk]",
+      "actual" : "[en:gluten, en:milk]",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:gluten",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:milk",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "en:gluten",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:gluten",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "en:gluten",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "en:milk",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:milk",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "en:milk",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[en:sesame-seeds, en:soybeans]",
+      "actual" : "[en:soybeans, en:sesame-seeds]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : true,
+      "expected" : "en:sesame-seeds",
+      "actual" : "[en:soybeans, en:sesame-seeds]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "[en:soybeans, en:sesame-seeds]",
+      "note" : null
+    }, {
+      "name" : "traces-correct:all",
+      "passed" : true,
+      "expected" : "[en:sesame-seeds, en:soybeans]",
+      "actual" : "en:soybeans",
+      "note" : null
+    }, {
+      "name" : "traces-correct:all",
+      "passed" : true,
+      "expected" : "[en:sesame-seeds, en:soybeans]",
+      "actual" : "en:sesame-seeds",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "6111035000027",
+    "tags" : [ "no-allergen" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 954,
+    "inputTokens" : 172,
+    "outputTokens" : 6,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "6111262581078",
+    "tags" : [ "no-allergen" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1293,
+    "inputTokens" : 183,
+    "outputTokens" : 6,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "0714770149431",
+    "tags" : [ ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1024,
+    "inputTokens" : 184,
+    "outputTokens" : 16,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[en:gluten, en:milk]",
+      "actual" : "[en:gluten, en:milk]",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:gluten",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:milk",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "en:gluten",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:gluten",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "en:gluten",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "en:milk",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:milk",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "en:milk",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "4335619109360",
+    "tags" : [ ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1021,
+    "inputTokens" : 125,
+    "outputTokens" : 11,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[en:peanuts]",
+      "actual" : "[en:peanuts]",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:peanuts",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:peanuts",
+      "passed" : true,
+      "expected" : "en:peanuts",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:peanuts",
+      "actual" : "en:peanuts",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:peanuts",
+      "passed" : true,
+      "expected" : "en:peanuts",
+      "actual" : "en:peanuts",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "8718114734484",
+    "tags" : [ "html" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1233,
+    "inputTokens" : 210,
+    "outputTokens" : 23,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : false,
+      "expected" : "[en:celery, en:eggs, en:mustard, en:sulphur-dioxide-and-sulphites]",
+      "actual" : "[en:celery, en:eggs, en:mustard]",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:celery",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:celery",
+      "passed" : true,
+      "expected" : "en:celery",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:eggs",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:eggs",
+      "passed" : true,
+      "expected" : "en:eggs",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:mustard",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:mustard",
+      "passed" : true,
+      "expected" : "en:mustard",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : false,
+      "expected" : "en:sulphur-dioxide-and-sulphites",
+      "actual" : "missed",
+      "note" : null
+    }, {
+      "name" : "caught:sulphites",
+      "passed" : false,
+      "expected" : "en:sulphur-dioxide-and-sulphites",
+      "actual" : "missed",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:celery",
+      "actual" : "en:celery",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:celery",
+      "passed" : true,
+      "expected" : "en:celery",
+      "actual" : "en:celery",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:eggs",
+      "actual" : "en:eggs",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:eggs",
+      "passed" : true,
+      "expected" : "en:eggs",
+      "actual" : "en:eggs",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:mustard",
+      "actual" : "en:mustard",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:mustard",
+      "passed" : true,
+      "expected" : "en:mustard",
+      "actual" : "en:mustard",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "6111259349162",
+    "tags" : [ "no-allergen" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1745,
+    "inputTokens" : 312,
+    "outputTokens" : 6,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "3236240070702",
+    "tags" : [ "html" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1012,
+    "inputTokens" : 149,
+    "outputTokens" : 10,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[en:milk]",
+      "actual" : "[en:milk]",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:milk",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "en:milk",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:milk",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "en:milk",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "8410707124176",
+    "tags" : [ "no-allergen" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 835,
+    "inputTokens" : 136,
+    "outputTokens" : 6,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "3560071015725",
+    "tags" : [ "with-traces", "html" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1152,
+    "inputTokens" : 195,
+    "outputTokens" : 16,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[en:gluten, en:nuts]",
+      "actual" : "[en:gluten, en:nuts]",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:gluten",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:nuts",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:nuts",
+      "passed" : true,
+      "expected" : "en:nuts",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "en:gluten",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:gluten",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "en:gluten",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:nuts",
+      "actual" : "en:nuts",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:nuts",
+      "passed" : true,
+      "expected" : "en:nuts",
+      "actual" : "en:nuts",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : false,
+      "expected" : "[en:lupin, en:milk, en:mustard, en:nuts, en:peanuts, en:sesame-seeds, en:soybeans]",
+      "actual" : "[en:milk, en:peanuts, en:soybeans, en:mustard, en:sesame-seeds, en:lupin]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : true,
+      "expected" : "en:lupin",
+      "actual" : "[en:milk, en:peanuts, en:soybeans, en:mustard, en:sesame-seeds, en:lupin]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "[en:milk, en:peanuts, en:soybeans, en:mustard, en:sesame-seeds, en:lupin]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : true,
+      "expected" : "en:mustard",
+      "actual" : "[en:milk, en:peanuts, en:soybeans, en:mustard, en:sesame-seeds, en:lupin]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : false,
+      "expected" : "en:nuts",
+      "actual" : "[en:milk, en:peanuts, en:soybeans, en:mustard, en:sesame-seeds, en:lupin]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : true,
+      "expected" : "en:peanuts",
+      "actual" : "[en:milk, en:peanuts, en:soybeans, en:mustard, en:sesame-seeds, en:lupin]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : true,
+      "expected" : "en:sesame-seeds",
+      "actual" : "[en:milk, en:peanuts, en:soybeans, en:mustard, en:sesame-seeds, en:lupin]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "[en:milk, en:peanuts, en:soybeans, en:mustard, en:sesame-seeds, en:lupin]",
+      "note" : null
+    }, {
+      "name" : "traces-correct:all",
+      "passed" : true,
+      "expected" : "[en:lupin, en:milk, en:mustard, en:nuts, en:peanuts, en:sesame-seeds, en:soybeans]",
+      "actual" : "en:milk",
+      "note" : null
+    }, {
+      "name" : "traces-correct:all",
+      "passed" : true,
+      "expected" : "[en:lupin, en:milk, en:mustard, en:nuts, en:peanuts, en:sesame-seeds, en:soybeans]",
+      "actual" : "en:peanuts",
+      "note" : null
+    }, {
+      "name" : "traces-correct:all",
+      "passed" : true,
+      "expected" : "[en:lupin, en:milk, en:mustard, en:nuts, en:peanuts, en:sesame-seeds, en:soybeans]",
+      "actual" : "en:soybeans",
+      "note" : null
+    }, {
+      "name" : "traces-correct:all",
+      "passed" : true,
+      "expected" : "[en:lupin, en:milk, en:mustard, en:nuts, en:peanuts, en:sesame-seeds, en:soybeans]",
+      "actual" : "en:mustard",
+      "note" : null
+    }, {
+      "name" : "traces-correct:all",
+      "passed" : true,
+      "expected" : "[en:lupin, en:milk, en:mustard, en:nuts, en:peanuts, en:sesame-seeds, en:soybeans]",
+      "actual" : "en:sesame-seeds",
+      "note" : null
+    }, {
+      "name" : "traces-correct:all",
+      "passed" : true,
+      "expected" : "[en:lupin, en:milk, en:mustard, en:nuts, en:peanuts, en:sesame-seeds, en:soybeans]",
+      "actual" : "en:lupin",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "5900617002983",
+    "tags" : [ "with-traces" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1907,
+    "inputTokens" : 262,
+    "outputTokens" : 17,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[en:gluten, en:soybeans]",
+      "actual" : "[en:gluten, en:soybeans]",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:gluten",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:soybeans",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "en:gluten",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:gluten",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "en:gluten",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "en:soybeans",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:soybeans",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "en:soybeans",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : false,
+      "expected" : "[en:nuts, en:peanuts]",
+      "actual" : "[]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : false,
+      "expected" : "en:nuts",
+      "actual" : "[]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : false,
+      "expected" : "en:peanuts",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "6111184000213",
+    "tags" : [ "no-allergen" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 920,
+    "inputTokens" : 151,
+    "outputTokens" : 6,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "4335619014442",
+    "tags" : [ "with-traces" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1020,
+    "inputTokens" : 123,
+    "outputTokens" : 10,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[en:nuts]",
+      "actual" : "[en:nuts]",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:nuts",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:nuts",
+      "passed" : true,
+      "expected" : "en:nuts",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:nuts",
+      "actual" : "en:nuts",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:nuts",
+      "passed" : true,
+      "expected" : "en:nuts",
+      "actual" : "en:nuts",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : false,
+      "expected" : "[en:nuts, en:peanuts]",
+      "actual" : "[en:peanuts]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : false,
+      "expected" : "en:nuts",
+      "actual" : "[en:peanuts]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : true,
+      "expected" : "en:peanuts",
+      "actual" : "[en:peanuts]",
+      "note" : null
+    }, {
+      "name" : "traces-correct:all",
+      "passed" : true,
+      "expected" : "[en:nuts, en:peanuts]",
+      "actual" : "en:peanuts",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "3664346308823",
+    "tags" : [ "with-traces" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1231,
+    "inputTokens" : 175,
+    "outputTokens" : 21,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[en:milk, en:nuts, en:soybeans]",
+      "actual" : "[en:milk, en:nuts, en:soybeans]",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:milk",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:nuts",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:nuts",
+      "passed" : true,
+      "expected" : "en:nuts",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:soybeans",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "en:milk",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:milk",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "en:milk",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:nuts",
+      "actual" : "en:nuts",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:nuts",
+      "passed" : true,
+      "expected" : "en:nuts",
+      "actual" : "en:nuts",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "en:soybeans",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:soybeans",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "en:soybeans",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : false,
+      "expected" : "[en:gluten]",
+      "actual" : "[]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : false,
+      "expected" : "en:gluten",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "6111249190194",
+    "tags" : [ ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1223,
+    "inputTokens" : 134,
+    "outputTokens" : 16,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[en:fish, en:soybeans]",
+      "actual" : "[en:fish, en:soybeans]",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:fish",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:fish",
+      "passed" : true,
+      "expected" : "en:fish",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:soybeans",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:fish",
+      "actual" : "en:fish",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:fish",
+      "passed" : true,
+      "expected" : "en:fish",
+      "actual" : "en:fish",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "en:soybeans",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:soybeans",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "en:soybeans",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "3015496414405",
+    "tags" : [ "no-allergen" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1130,
+    "inputTokens" : 134,
+    "outputTokens" : 6,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "8053504210439",
+    "tags" : [ "with-traces" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1021,
+    "inputTokens" : 194,
+    "outputTokens" : 27,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[en:eggs, en:gluten, en:milk, en:nuts]",
+      "actual" : "[en:eggs, en:gluten, en:milk, en:nuts]",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:eggs",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:eggs",
+      "passed" : true,
+      "expected" : "en:eggs",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:gluten",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:milk",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:nuts",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:nuts",
+      "passed" : true,
+      "expected" : "en:nuts",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:eggs",
+      "actual" : "en:eggs",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:eggs",
+      "passed" : true,
+      "expected" : "en:eggs",
+      "actual" : "en:eggs",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "en:gluten",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:gluten",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "en:gluten",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "en:milk",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:milk",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "en:milk",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:nuts",
+      "actual" : "en:nuts",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:nuts",
+      "passed" : true,
+      "expected" : "en:nuts",
+      "actual" : "en:nuts",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : false,
+      "expected" : "[en:nuts, en:soybeans]",
+      "actual" : "[en:soybeans, en:mustard, en:sesame-seeds]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : false,
+      "expected" : "en:nuts",
+      "actual" : "[en:soybeans, en:mustard, en:sesame-seeds]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "[en:soybeans, en:mustard, en:sesame-seeds]",
+      "note" : null
+    }, {
+      "name" : "traces-correct:all",
+      "passed" : true,
+      "expected" : "[en:nuts, en:soybeans]",
+      "actual" : "en:soybeans",
+      "note" : null
+    }, {
+      "name" : "traces-correct:all",
+      "passed" : false,
+      "expected" : "[en:nuts, en:soybeans]",
+      "actual" : "en:mustard",
+      "note" : null
+    }, {
+      "name" : "traces-correct:all",
+      "passed" : false,
+      "expected" : "[en:nuts, en:soybeans]",
+      "actual" : "en:sesame-seeds",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "6111262384945",
+    "tags" : [ "with-traces", "html" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1235,
+    "inputTokens" : 182,
+    "outputTokens" : 22,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[en:gluten, en:milk, en:soybeans]",
+      "actual" : "[en:gluten, en:milk, en:soybeans]",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:gluten",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:milk",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:soybeans",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "en:gluten",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:gluten",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "en:gluten",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "en:milk",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:milk",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "en:milk",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "en:soybeans",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:soybeans",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "en:soybeans",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : false,
+      "expected" : "[en:eggs]",
+      "actual" : "[]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : false,
+      "expected" : "en:eggs",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "6111012120175",
+    "tags" : [ "with-traces" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1018,
+    "inputTokens" : 123,
+    "outputTokens" : 11,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[en:gluten]",
+      "actual" : "[en:gluten]",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:gluten",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "en:gluten",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:gluten",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "en:gluten",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : false,
+      "expected" : "[en:gluten]",
+      "actual" : "[]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : false,
+      "expected" : "en:gluten",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "3560070800322",
+    "tags" : [ "with-traces", "html" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 821,
+    "inputTokens" : 133,
+    "outputTokens" : 11,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[en:gluten]",
+      "actual" : "[en:gluten]",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:gluten",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "en:gluten",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:gluten",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "en:gluten",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : false,
+      "expected" : "[en:lupin, en:milk, en:mustard, en:nuts, en:peanuts, en:sesame-seeds, en:soybeans]",
+      "actual" : "[en:milk, en:peanuts, en:soybeans, en:mustard, en:sesame-seeds, en:lupin]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : true,
+      "expected" : "en:lupin",
+      "actual" : "[en:milk, en:peanuts, en:soybeans, en:mustard, en:sesame-seeds, en:lupin]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "[en:milk, en:peanuts, en:soybeans, en:mustard, en:sesame-seeds, en:lupin]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : true,
+      "expected" : "en:mustard",
+      "actual" : "[en:milk, en:peanuts, en:soybeans, en:mustard, en:sesame-seeds, en:lupin]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : false,
+      "expected" : "en:nuts",
+      "actual" : "[en:milk, en:peanuts, en:soybeans, en:mustard, en:sesame-seeds, en:lupin]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : true,
+      "expected" : "en:peanuts",
+      "actual" : "[en:milk, en:peanuts, en:soybeans, en:mustard, en:sesame-seeds, en:lupin]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : true,
+      "expected" : "en:sesame-seeds",
+      "actual" : "[en:milk, en:peanuts, en:soybeans, en:mustard, en:sesame-seeds, en:lupin]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "[en:milk, en:peanuts, en:soybeans, en:mustard, en:sesame-seeds, en:lupin]",
+      "note" : null
+    }, {
+      "name" : "traces-correct:all",
+      "passed" : true,
+      "expected" : "[en:lupin, en:milk, en:mustard, en:nuts, en:peanuts, en:sesame-seeds, en:soybeans]",
+      "actual" : "en:milk",
+      "note" : null
+    }, {
+      "name" : "traces-correct:all",
+      "passed" : true,
+      "expected" : "[en:lupin, en:milk, en:mustard, en:nuts, en:peanuts, en:sesame-seeds, en:soybeans]",
+      "actual" : "en:peanuts",
+      "note" : null
+    }, {
+      "name" : "traces-correct:all",
+      "passed" : true,
+      "expected" : "[en:lupin, en:milk, en:mustard, en:nuts, en:peanuts, en:sesame-seeds, en:soybeans]",
+      "actual" : "en:soybeans",
+      "note" : null
+    }, {
+      "name" : "traces-correct:all",
+      "passed" : true,
+      "expected" : "[en:lupin, en:milk, en:mustard, en:nuts, en:peanuts, en:sesame-seeds, en:soybeans]",
+      "actual" : "en:mustard",
+      "note" : null
+    }, {
+      "name" : "traces-correct:all",
+      "passed" : true,
+      "expected" : "[en:lupin, en:milk, en:mustard, en:nuts, en:peanuts, en:sesame-seeds, en:soybeans]",
+      "actual" : "en:sesame-seeds",
+      "note" : null
+    }, {
+      "name" : "traces-correct:all",
+      "passed" : true,
+      "expected" : "[en:lupin, en:milk, en:mustard, en:nuts, en:peanuts, en:sesame-seeds, en:soybeans]",
+      "actual" : "en:lupin",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "3387390321357",
+    "tags" : [ "with-traces" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 686,
+    "inputTokens" : 232,
+    "outputTokens" : 11,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[en:gluten]",
+      "actual" : "[en:gluten]",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:gluten",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "en:gluten",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:gluten",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "en:gluten",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : false,
+      "expected" : "[en:milk, en:nuts, en:peanuts]",
+      "actual" : "[en:milk, en:peanuts]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "[en:milk, en:peanuts]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : false,
+      "expected" : "en:nuts",
+      "actual" : "[en:milk, en:peanuts]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : true,
+      "expected" : "en:peanuts",
+      "actual" : "[en:milk, en:peanuts]",
+      "note" : null
+    }, {
+      "name" : "traces-correct:all",
+      "passed" : true,
+      "expected" : "[en:milk, en:nuts, en:peanuts]",
+      "actual" : "en:milk",
+      "note" : null
+    }, {
+      "name" : "traces-correct:all",
+      "passed" : true,
+      "expected" : "[en:milk, en:nuts, en:peanuts]",
+      "actual" : "en:peanuts",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "11558813",
+    "tags" : [ "with-traces", "html" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1050,
+    "inputTokens" : 353,
+    "outputTokens" : 27,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : false,
+      "expected" : "[en:nuts, en:soybeans]",
+      "actual" : "[en:gluten, en:milk, en:nuts, en:soybeans]",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:nuts",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:nuts",
+      "passed" : true,
+      "expected" : "en:nuts",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:soybeans",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : false,
+      "expected" : "none",
+      "actual" : "en:gluten",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:gluten",
+      "passed" : false,
+      "expected" : "none",
+      "actual" : "en:gluten",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : false,
+      "expected" : "none",
+      "actual" : "en:milk",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:milk",
+      "passed" : false,
+      "expected" : "none",
+      "actual" : "en:milk",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:nuts",
+      "actual" : "en:nuts",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:nuts",
+      "passed" : true,
+      "expected" : "en:nuts",
+      "actual" : "en:nuts",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "en:soybeans",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:soybeans",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "en:soybeans",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : false,
+      "expected" : "[en:gluten, en:nuts, en:soybeans]",
+      "actual" : "[en:soybeans, en:gluten]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "[en:soybeans, en:gluten]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : false,
+      "expected" : "en:nuts",
+      "actual" : "[en:soybeans, en:gluten]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "[en:soybeans, en:gluten]",
+      "note" : null
+    }, {
+      "name" : "traces-correct:all",
+      "passed" : true,
+      "expected" : "[en:gluten, en:nuts, en:soybeans]",
+      "actual" : "en:soybeans",
+      "note" : null
+    }, {
+      "name" : "traces-correct:all",
+      "passed" : true,
+      "expected" : "[en:gluten, en:nuts, en:soybeans]",
+      "actual" : "en:gluten",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "3222476439505",
+    "tags" : [ "with-traces", "no-allergen" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1023,
+    "inputTokens" : 142,
+    "outputTokens" : 6,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : false,
+      "expected" : "[en:eggs, en:gluten, en:milk, en:nuts, en:soybeans]",
+      "actual" : "[en:milk, en:gluten]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : false,
+      "expected" : "en:eggs",
+      "actual" : "[en:milk, en:gluten]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "[en:milk, en:gluten]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "[en:milk, en:gluten]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : false,
+      "expected" : "en:nuts",
+      "actual" : "[en:milk, en:gluten]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : false,
+      "expected" : "en:soybeans",
+      "actual" : "[en:milk, en:gluten]",
+      "note" : null
+    }, {
+      "name" : "traces-correct:all",
+      "passed" : true,
+      "expected" : "[en:eggs, en:gluten, en:milk, en:nuts, en:soybeans]",
+      "actual" : "en:milk",
+      "note" : null
+    }, {
+      "name" : "traces-correct:all",
+      "passed" : true,
+      "expected" : "[en:eggs, en:gluten, en:milk, en:nuts, en:soybeans]",
+      "actual" : "en:gluten",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "54051140",
+    "tags" : [ ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1332,
+    "inputTokens" : 196,
+    "outputTokens" : 11,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[en:soybeans]",
+      "actual" : "[en:soybeans]",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:soybeans",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "en:soybeans",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:soybeans",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "en:soybeans",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "6111273210127",
+    "tags" : [ ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1838,
+    "inputTokens" : 127,
+    "outputTokens" : 6,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[en:fish]",
+      "actual" : "[en:fish]",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:fish",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:fish",
+      "passed" : true,
+      "expected" : "en:fish",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:fish",
+      "actual" : "en:fish",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:fish",
+      "passed" : true,
+      "expected" : "en:fish",
+      "actual" : "en:fish",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "3228021170039",
+    "tags" : [ "html" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1127,
+    "inputTokens" : 132,
+    "outputTokens" : 10,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[en:milk]",
+      "actual" : "[en:milk]",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:milk",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "en:milk",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:milk",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "en:milk",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "3073780971638",
+    "tags" : [ "no-allergen" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 956,
+    "inputTokens" : 226,
+    "outputTokens" : 10,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : false,
+      "expected" : "[]",
+      "actual" : "[en:milk]",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : false,
+      "expected" : "none",
+      "actual" : "en:milk",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:milk",
+      "passed" : false,
+      "expected" : "none",
+      "actual" : "en:milk",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "3560071501105",
+    "tags" : [ "no-allergen" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1094,
+    "inputTokens" : 124,
+    "outputTokens" : 6,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "8076809540513",
+    "tags" : [ ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1225,
+    "inputTokens" : 124,
+    "outputTokens" : 11,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[en:gluten]",
+      "actual" : "[en:gluten]",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:gluten",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "en:gluten",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:gluten",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "en:gluten",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "8003740120054",
+    "tags" : [ ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1023,
+    "inputTokens" : 125,
+    "outputTokens" : 11,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[en:gluten]",
+      "actual" : "[en:gluten]",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:gluten",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "en:gluten",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:gluten",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "en:gluten",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "6111266962910",
+    "tags" : [ "no-allergen" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1025,
+    "inputTokens" : 140,
+    "outputTokens" : 6,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "6111031003534",
+    "tags" : [ "html" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1227,
+    "inputTokens" : 231,
+    "outputTokens" : 17,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[en:gluten, en:soybeans]",
+      "actual" : "[en:gluten, en:soybeans]",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:gluten",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:soybeans",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "en:gluten",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:gluten",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "en:gluten",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "en:soybeans",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:soybeans",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "en:soybeans",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "8410679400674",
+    "tags" : [ "with-traces" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1149,
+    "inputTokens" : 175,
+    "outputTokens" : 16,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[en:nuts, en:soybeans]",
+      "actual" : "[en:nuts, en:soybeans]",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:nuts",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:nuts",
+      "passed" : true,
+      "expected" : "en:nuts",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:soybeans",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:nuts",
+      "actual" : "en:nuts",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:nuts",
+      "passed" : true,
+      "expected" : "en:nuts",
+      "actual" : "en:nuts",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "en:soybeans",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:soybeans",
+      "passed" : true,
+      "expected" : "en:soybeans",
+      "actual" : "en:soybeans",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : false,
+      "expected" : "[en:milk, en:nuts]",
+      "actual" : "[en:milk]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "[en:milk]",
+      "note" : null
+    }, {
+      "name" : "traces-caught:all",
+      "passed" : false,
+      "expected" : "en:nuts",
+      "actual" : "[en:milk]",
+      "note" : null
+    }, {
+      "name" : "traces-correct:all",
+      "passed" : true,
+      "expected" : "[en:milk, en:nuts]",
+      "actual" : "en:milk",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "8410707001255",
+    "tags" : [ "no-allergen" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1103,
+    "inputTokens" : 172,
+    "outputTokens" : 6,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "6111265800350",
+    "tags" : [ ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1023,
+    "inputTokens" : 130,
+    "outputTokens" : 10,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[en:milk]",
+      "actual" : "[en:milk]",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:milk",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "en:milk",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:milk",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "en:milk",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "6111252420035",
+    "tags" : [ "no-allergen" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1227,
+    "inputTokens" : 158,
+    "outputTokens" : 6,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "5900020043412",
+    "tags" : [ "html" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 678,
+    "inputTokens" : 203,
+    "outputTokens" : 11,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[en:gluten]",
+      "actual" : "[en:gluten]",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:gluten",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "en:gluten",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:gluten",
+      "passed" : true,
+      "expected" : "en:gluten",
+      "actual" : "en:gluten",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "8436573629850",
+    "tags" : [ "no-allergen" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 925,
+    "inputTokens" : 213,
+    "outputTokens" : 10,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : false,
+      "expected" : "[]",
+      "actual" : "[en:milk]",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : false,
+      "expected" : "none",
+      "actual" : "en:milk",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:milk",
+      "passed" : false,
+      "expected" : "none",
+      "actual" : "en:milk",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "3222474644925",
+    "tags" : [ "html" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1058,
+    "inputTokens" : 228,
+    "outputTokens" : 17,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[en:eggs, en:mustard]",
+      "actual" : "[en:eggs, en:mustard]",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:eggs",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:eggs",
+      "passed" : true,
+      "expected" : "en:eggs",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:mustard",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:mustard",
+      "passed" : true,
+      "expected" : "en:mustard",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:eggs",
+      "actual" : "en:eggs",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:eggs",
+      "passed" : true,
+      "expected" : "en:eggs",
+      "actual" : "en:eggs",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:mustard",
+      "actual" : "en:mustard",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:mustard",
+      "passed" : true,
+      "expected" : "en:mustard",
+      "actual" : "en:mustard",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "8480017015242",
+    "tags" : [ ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 612,
+    "inputTokens" : 161,
+    "outputTokens" : 10,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[en:milk]",
+      "actual" : "[en:milk]",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:milk",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "en:milk",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:milk",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "en:milk",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "6111184000541",
+    "tags" : [ "html", "no-allergen" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 1651,
+    "inputTokens" : 139,
+    "outputTokens" : 25,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : false,
+      "expected" : "[]",
+      "actual" : "[en:mustard, en:sulphur-dioxide-and-sulphites]",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : false,
+      "expected" : "none",
+      "actual" : "en:mustard",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:mustard",
+      "passed" : false,
+      "expected" : "none",
+      "actual" : "en:mustard",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : false,
+      "expected" : "none",
+      "actual" : "en:sulphur-dioxide-and-sulphites",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:sulphites",
+      "passed" : false,
+      "expected" : "none",
+      "actual" : "en:sulphur-dioxide-and-sulphites",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "6111266320192",
+    "tags" : [ "no-allergen" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 2127,
+    "inputTokens" : 190,
+    "outputTokens" : 6,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "8410707001279",
+    "tags" : [ "no-allergen" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 2471,
+    "inputTokens" : 185,
+    "outputTokens" : 6,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "3155250002537",
+    "tags" : [ "html" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 2511,
+    "inputTokens" : 149,
+    "outputTokens" : 10,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[en:milk]",
+      "actual" : "[en:milk]",
+      "note" : null
+    }, {
+      "name" : "caught:all",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "caught:milk",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "found",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:all",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "en:milk",
+      "note" : null
+    }, {
+      "name" : "correct-alarm:milk",
+      "passed" : true,
+      "expected" : "en:milk",
+      "actual" : "en:milk",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  }, {
+    "caseId" : "5425600101370",
+    "tags" : [ "no-allergen" ],
+    "run" : 1,
+    "failure" : null,
+    "durationMs" : 2397,
+    "inputTokens" : 131,
+    "outputTokens" : 6,
+    "infraRetries" : 0,
+    "checks" : [ {
+      "name" : "allergens",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    }, {
+      "name" : "traces",
+      "passed" : true,
+      "expected" : "[]",
+      "actual" : "[]",
+      "note" : null
+    } ]
+  } ]
+}

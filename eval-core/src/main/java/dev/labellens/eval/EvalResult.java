@@ -178,13 +178,21 @@ public record EvalResult(String suite, int runsPerCase, Instant startedAt, Insta
         return result;
     }
 
-    /** Share of (case, check) pairs where every successful run gave the same answer. */
+    /**
+     * Share of (case, check) pairs where every successful run gave the same answer.
+     * Counters are left out: one run can hold several checks with the same counter name
+     * ("caught:all" once per allergen), so comparing them would compare different allergens,
+     * not different runs (bug found on day 6: "49.9% stable" from a 1-run eval).
+     */
     public Score stability() {
         int stable = 0;
         int total = 0;
         for (String caseId : caseIds()) {
             List<CaseRun> caseRuns = runsOf(caseId);
             for (String check : checkNames()) {
+                if (Check.isCounter(check)) {
+                    continue;
+                }
                 List<Check> checks = checksOf(caseRuns, check);
                 if (checks.size() < 2) {
                     continue; // nothing to compare

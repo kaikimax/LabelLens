@@ -102,6 +102,17 @@ class EvalRunnerTest {
     }
 
     @Test
+    void stability_ignoresCounters_soOneRunMeasuresNothing() {
+        // Two checks with the same counter name in ONE run (like "caught:all" once per allergen).
+        Scorer<Integer, Integer> counters = (expected, answer) -> List.of(
+                Check.of("caught:all", true, "a", "a"),
+                Check.of("caught:all", false, "b", "x"));
+        EvalResult r = new EvalRunner(null).run("test", cases(), fakeAi(new ArrayList<>()), counters, 1);
+
+        assertThat(r.stability().total()).isZero();
+    }
+
+    @Test
     void aSubjectThatThrows_isRecordedAsAFailedRun() {
         Subject<Integer, Integer> crashing = input -> {
             throw new IllegalStateException("boom");

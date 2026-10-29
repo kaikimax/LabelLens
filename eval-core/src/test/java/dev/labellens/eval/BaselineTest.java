@@ -69,4 +69,12 @@ class BaselineTest {
         assertThat(text).contains("value", "flaky", "model unavailable", "fake");
         assertThat(dir.resolve(report.getFileName().toString().replace(".txt", ".json"))).exists();
     }
+
+    @Test
+    void counters_onlyTheOverallOneBlocks() {
+        assertThat(Baseline.gated("caught:all")).isTrue();
+        assertThat(Baseline.gated("caught:milk")).isFalse();
+        assertThat(Baseline.gated("caught:all[html]")).isFalse();
+        assertThat(Baseline.gated("salt")).isTrue();
+    }
 }

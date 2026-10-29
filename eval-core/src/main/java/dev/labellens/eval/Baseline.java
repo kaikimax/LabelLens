@@ -20,8 +20,9 @@ import java.util.Optional;
  * Every new eval is compared with it: a score that drops by more than the allowed
  * number of points is a regression.
  *
- * Only OVERALL scores block ("salt"). Per-tag scores ("salt[arabic]") are reported but
- * don't block: they're computed on a few products, so one product moves them a lot.
+ * Only OVERALL scores block ("salt", "caught:all"). Per-tag scores ("salt[arabic]") and
+ * per-detail counters ("caught:milk") are reported but don't block: they're computed on a few
+ * examples, so one example moves them a lot.
  */
 public final class Baseline {
 
@@ -75,6 +76,18 @@ public final class Baseline {
         }
     }
 
+    /**
+     * Which metrics block. Per-tag scores ("salt[arabic]") and per-detail counters ("caught:milk")
+     * rest on a few examples, so they only inform. Overall scores ("salt") and overall counters
+     * ("caught:all") block.
+     */
+    static boolean gated(String metric) {
+        if (metric.contains("[")) {
+            return false;
+        }
+        return !metric.contains(":") || metric.endsWith(":all");
+    }
+
     /** Every metric that dropped by more than maxDropPoints (percentage points). */
     public static List<Regression> compare(Map<String, Double> current, Map<String, Double> baseline, double maxDropPoints) {
         List<Regression> result = new ArrayList<>();
@@ -84,7 +97,7 @@ public final class Baseline {
                 return; // metric no longer measured (e.g. a tag with no products left)
             }
             if (before - now > maxDropPoints) {
-                result.add(new Regression(metric, before, now, !metric.contains("[")));
+                result.add(new Regression(metric, before, now, gated(metric)));
             }
         });
         return result;
