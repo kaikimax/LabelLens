@@ -48,6 +48,11 @@ public class AiAllergenFinder {
         }
     }
 
+    /** The exact instruction sent to the model: the fine-tuning file must use the same one. */
+    public String instructions() {
+        return instructions;
+    }
+
     public Result find(TextModel model, String ingredients) {
         ModelReply reply = model.ask(instructions, ingredients == null ? "" : ingredients);
         return parse(reply);
