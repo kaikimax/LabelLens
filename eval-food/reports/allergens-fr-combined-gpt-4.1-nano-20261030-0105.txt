@@ -1,0 +1,341 @@
+EVAL REPORT: allergens-fr-combined-gpt-4.1-nano
+================================================================================
+Started:        2026-10-30T01:05:21.813703600Z (took 14 min 51 s)
+Cases:          500, 1 run(s) each
+setup:          combined-gpt-4.1-nano
+model:          gpt-4.1-nano-2025-04-14
+test set:       allergen_test.jsonl
+est. cost:      $0.0094
+main score:     caught:all = allergens really there that were found (a miss is the dangerous mistake)
+
+Counting rule: a run with no usable answer counts as WRONG for every check.
+
+SCORES
+--------------------------------------------------------------------------------
+answered                  386 / 500  77.2%
+allergens                 357 / 500  71.4%
+caught:all                491 / 610  80.5%
+caught:gluten             108 / 223  48.4%
+caught:milk               149 / 264  56.4%
+caught:nuts                48 / 163  29.4%
+caught:soybeans            95 / 210  45.2%
+correct-alarm:all         491 / 659  74.5%
+correct-alarm:gluten      108 / 229  47.2%
+correct-alarm:milk        149 / 271  55.0%
+correct-alarm:nuts         48 / 171  28.1%
+correct-alarm:soybeans     95 / 217  43.8%
+traces                    381 / 500  76.2%
+traces-caught:all         200 / 318  62.9%
+traces-correct:all        200 / 315  63.5%
+caught:peanuts             10 / 124  8.1%
+correct-alarm:peanuts      10 / 126  7.9%
+caught:celery               5 / 119  4.2%
+caught:eggs                29 / 143  20.3%
+caught:mustard             15 / 129  11.6%
+correct-alarm:celery        5 / 121  4.1%
+correct-alarm:eggs         29 / 146  19.9%
+correct-alarm:mustard      15 / 131  11.5%
+caught:fish                19 / 133  14.3%
+correct-alarm:fish         19 / 135  14.1%
+caught:sulphites            8 / 123  6.5%
+correct-alarm:sulphites     8 / 124  6.5%
+caught:sesame               4 / 118  3.4%
+correct-alarm:sesame        4 / 120  3.3%
+caught:crustaceans          1 / 115  0.9%
+correct-alarm:crustaceans    1 / 117  0.9%
+correct-alarm:molluscs      0 / 117  0.0%
+correct-alarm:lupin         0 / 116  0.0%
+
+Stability: 181 / 377 (case, check) pairs gave the same answer in every run (48.0%)
+
+BY SITUATION (percent; number of cases in brackets; few cases = unreliable)
+--------------------------------------------------------------------------------
+markup (179)           allergens 68.2% | caught:all 85.8% | caught:gluten 58.0% | caught:milk 63.2% | caught:nuts 36.8% | caught:soybeans 57.6% | correct-alarm:all 79.2% | correct-alarm:gluten 56.3% | correct-alarm:milk 62.2% | correct-alarm:nuts 34.2% | correct-alarm:soybeans 54.8% | traces 74.9% | traces-caught:all 71.8% | traces-correct:all 72.3% | caught:peanuts 8.7% | correct-alarm:peanuts 8.5% | caught:celery 6.7% | caught:eggs 31.1% | caught:mustard 20.8% | correct-alarm:celery 6.5% | correct-alarm:eggs 30.2% | correct-alarm:mustard 20.4% | caught:fish 20.8% | correct-alarm:fish 20.4% | caught:sulphites 12.2% | correct-alarm:sulphites 12.2% | caught:sesame 4.5% | correct-alarm:sesame 4.4% | caught:crustaceans 2.3% | correct-alarm:crustaceans 2.3% | correct-alarm:molluscs 0.0% | correct-alarm:lupin 0.0%
+no-allergen (157)      allergens 74.5% | caught:all 0.0% | caught:gluten 0.0% | caught:milk 0.0% | caught:nuts 0.0% | caught:soybeans 0.0% | correct-alarm:all 0.0% | correct-alarm:gluten 0.0% | correct-alarm:milk 0.0% | correct-alarm:nuts 0.0% | correct-alarm:soybeans 0.0% | traces 77.1% | traces-caught:all 37.9% | traces-correct:all 39.3% | caught:peanuts 0.0% | correct-alarm:peanuts 0.0% | caught:celery 0.0% | caught:eggs 0.0% | caught:mustard 0.0% | correct-alarm:celery 0.0% | correct-alarm:eggs 0.0% | correct-alarm:mustard 0.0% | caught:fish 0.0% | correct-alarm:fish 0.0% | caught:sulphites 0.0% | correct-alarm:sulphites 0.0% | caught:sesame 0.0% | correct-alarm:sesame 0.0% | caught:crustaceans 0.0% | correct-alarm:crustaceans 0.0% | correct-alarm:molluscs 0.0% | correct-alarm:lupin 0.0%
+with-traces (98)       allergens 69.4% | caught:all 89.0% | caught:gluten 73.1% | caught:milk 67.9% | caught:nuts 53.8% | caught:soybeans 63.8% | correct-alarm:all 83.7% | correct-alarm:gluten 71.0% | correct-alarm:milk 63.2% | correct-alarm:nuts 51.2% | correct-alarm:soybeans 60.0% | traces 77.6% | traces-caught:all 90.5% | traces-correct:all 91.7% | caught:peanuts 19.0% | correct-alarm:peanuts 19.0% | caught:celery 0.0% | caught:eggs 37.0% | caught:mustard 5.6% | correct-alarm:celery 0.0% | correct-alarm:eggs 37.0% | correct-alarm:mustard 5.6% | caught:fish 0.0% | correct-alarm:fish 0.0% | caught:sulphites 10.5% | correct-alarm:sulphites 10.5% | caught:sesame 5.6% | correct-alarm:sesame 5.6% | caught:crustaceans 0.0% | correct-alarm:crustaceans 0.0% | correct-alarm:molluscs 0.0% | correct-alarm:lupin 0.0%
+
+COMPARED WITH THE BASELINE
+--------------------------------------------------------------------------------
+BLOCKS answered                       100.0% -> 77.2% (-22.8 points)
+BLOCKS allergens                      84.0% -> 71.4% (-12.6 points)
+BLOCKS caught:all                     95.6% -> 80.5% (-15.1 points)
+info   caught:gluten                  100.0% -> 48.4% (-51.6 points)
+info   caught:milk                    99.5% -> 56.4% (-43.1 points)
+info   caught:nuts                    89.2% -> 29.4% (-59.8 points)
+info   caught:soybeans                97.6% -> 45.2% (-52.4 points)
+BLOCKS correct-alarm:all              83.4% -> 74.5% (-8.9 points)
+info   correct-alarm:gluten           86.2% -> 47.2% (-39.0 points)
+info   correct-alarm:milk             87.0% -> 55.0% (-32.0 points)
+info   correct-alarm:nuts             81.5% -> 28.1% (-53.4 points)
+info   correct-alarm:soybeans         89.7% -> 43.8% (-45.9 points)
+BLOCKS traces                         94.0% -> 76.2% (-17.8 points)
+BLOCKS traces-caught:all              86.9% -> 62.9% (-24.0 points)
+BLOCKS traces-correct:all             90.7% -> 63.5% (-27.2 points)
+info   caught:mustard                 82.4% -> 11.6% (-70.8 points)
+info   caught:peanuts                 84.6% -> 8.1% (-76.5 points)
+info   caught:sesame                  62.5% -> 3.4% (-59.1 points)
+info   correct-alarm:peanuts          78.6% -> 7.9% (-70.7 points)
+info   caught:celery                  80.0% -> 4.2% (-75.8 points)
+info   caught:eggs                    97.0% -> 20.3% (-76.7 points)
+info   caught:sulphites               80.0% -> 6.5% (-73.5 points)
+info   correct-alarm:celery           72.7% -> 4.1% (-68.6 points)
+info   correct-alarm:eggs             84.2% -> 19.9% (-64.3 points)
+info   correct-alarm:mustard          77.8% -> 11.5% (-66.3 points)
+info   caught:fish                    96.0% -> 14.3% (-81.7 points)
+info   correct-alarm:fish             85.7% -> 14.1% (-71.6 points)
+info   correct-alarm:sulphites        30.8% -> 6.5% (-24.3 points)
+info   correct-alarm:sesame           55.6% -> 3.3% (-52.3 points)
+info   caught:crustaceans             100.0% -> 0.9% (-99.1 points)
+info   correct-alarm:crustaceans      25.0% -> 0.9% (-24.1 points)
+info   allergens[markup]              81.6% -> 68.2% (-13.4 points)
+info   caught:all[markup]             94.0% -> 85.8% (-8.2 points)
+info   caught:gluten[markup]          100.0% -> 58.0% (-42.0 points)
+info   caught:milk[markup]            100.0% -> 63.2% (-36.8 points)
+info   caught:nuts[markup]            90.0% -> 36.8% (-53.2 points)
+info   caught:soybeans[markup]        97.4% -> 57.6% (-39.8 points)
+info   correct-alarm:all[markup]      86.6% -> 79.2% (-7.4 points)
+info   correct-alarm:gluten[markup]   92.5% -> 56.3% (-36.2 points)
+info   correct-alarm:milk[markup]     95.0% -> 62.2% (-32.8 points)
+info   correct-alarm:nuts[markup]     80.0% -> 34.2% (-45.8 points)
+info   correct-alarm:soybeans[markup] 95.0% -> 54.8% (-40.2 points)
+info   traces[markup]                 90.2% -> 74.9% (-15.3 points)
+info   traces-caught:all[markup]      89.7% -> 71.8% (-17.9 points)
+info   traces-correct:all[markup]     91.0% -> 72.3% (-18.7 points)
+info   caught:mustard[markup]         76.9% -> 20.8% (-56.1 points)
+info   caught:peanuts[markup]         66.7% -> 8.7% (-58.0 points)
+info   caught:sesame[markup]          40.0% -> 4.5% (-35.5 points)
+info   correct-alarm:peanuts[markup]  66.7% -> 8.5% (-58.2 points)
+info   caught:celery[markup]          71.4% -> 6.7% (-64.7 points)
+info   caught:eggs[markup]            96.2% -> 31.1% (-65.1 points)
+info   caught:sulphites[markup]       66.7% -> 12.2% (-54.5 points)
+info   correct-alarm:celery[markup]   71.4% -> 6.5% (-64.9 points)
+info   correct-alarm:eggs[markup]     89.3% -> 30.2% (-59.1 points)
+info   correct-alarm:mustard[markup]  76.9% -> 20.4% (-56.5 points)
+info   caught:fish[markup]            92.9% -> 20.8% (-72.1 points)
+info   correct-alarm:fish[markup]     86.7% -> 20.4% (-66.3 points)
+info   correct-alarm:sulphites[markup] 20.0% -> 12.2% (-7.8 points)
+info   correct-alarm:sesame[markup]   50.0% -> 4.4% (-45.6 points)
+info   caught:crustaceans[markup]     100.0% -> 2.3% (-97.7 points)
+info   correct-alarm:crustaceans[markup] 33.3% -> 2.3% (-31.0 points)
+info   allergens[no-allergen]         85.4% -> 74.5% (-10.9 points)
+info   traces[no-allergen]            97.1% -> 77.1% (-20.0 points)
+info   traces-caught:all[no-allergen] 81.5% -> 37.9% (-43.6 points)
+info   traces-correct:all[no-allergen] 84.6% -> 39.3% (-45.3 points)
+info   allergens[with-traces]         76.0% -> 69.4% (-6.6 points)
+info   caught:all[with-traces]        93.8% -> 89.0% (-4.8 points)
+info   caught:gluten[with-traces]     100.0% -> 73.1% (-26.9 points)
+info   caught:milk[with-traces]       100.0% -> 67.9% (-32.1 points)
+info   caught:nuts[with-traces]       86.1% -> 53.8% (-32.3 points)
+info   caught:soybeans[with-traces]   100.0% -> 63.8% (-36.2 points)
+info   correct-alarm:gluten[with-traces] 90.0% -> 71.0% (-19.0 points)
+info   correct-alarm:milk[with-traces] 88.7% -> 63.2% (-25.5 points)
+info   correct-alarm:nuts[with-traces] 88.6% -> 51.2% (-37.4 points)
+info   correct-alarm:soybeans[with-traces] 95.0% -> 60.0% (-35.0 points)
+info   caught:mustard[with-traces]    60.0% -> 5.6% (-54.4 points)
+info   caught:peanuts[with-traces]    80.0% -> 19.0% (-61.0 points)
+info   caught:sesame[with-traces]     50.0% -> 5.6% (-44.4 points)
+info   correct-alarm:peanuts[with-traces] 80.0% -> 19.0% (-61.0 points)
+info   caught:celery[with-traces]     66.7% -> 0.0% (-66.7 points)
+info   caught:eggs[with-traces]       100.0% -> 37.0% (-63.0 points)
+info   caught:sulphites[with-traces]  100.0% -> 10.5% (-89.5 points)
+info   correct-alarm:celery[with-traces] 66.7% -> 0.0% (-66.7 points)
+info   correct-alarm:eggs[with-traces] 86.7% -> 37.0% (-49.7 points)
+info   correct-alarm:mustard[with-traces] 75.0% -> 5.6% (-69.4 points)
+info   caught:fish[with-traces]       100.0% -> 0.0% (-100.0 points)
+info   correct-alarm:fish[with-traces] 50.0% -> 0.0% (-50.0 points)
+info   correct-alarm:sulphites[with-traces] 25.0% -> 10.5% (-14.5 points)
+info   correct-alarm:sesame[with-traces] 66.7% -> 5.6% (-61.1 points)
+
+DISAGREEMENTS (review each one: AI error, answer-key error, or comparison rule?)
+--------------------------------------------------------------------------------
+5900617002983
+  allergens      expected [en:gluten, en:soybeans] | got [en:gluten, en:nuts, en:soybeans] (x1) | wrong in 1/1 runs
+11558813
+  allergens      expected [en:milk, en:nuts, en:soybeans] | got [en:gluten, en:milk, en:nuts, en:soybeans] (x1) | wrong in 1/1 runs
+  traces         expected [en:gluten, en:nuts] | got [en:soybeans, en:gluten, en:nuts] (x1) | wrong in 1/1 runs
+6111017045466
+  allergens      expected [en:milk, en:nuts, en:soybeans] | got [en:gluten, en:milk, en:nuts, en:soybeans] (x1) | wrong in 1/1 runs
+  traces         expected [en:nuts] | got [] (x1) | wrong in 1/1 runs
+3387390324082
+  allergens      expected [en:gluten] | got [en:gluten, en:milk] (x1) | wrong in 1/1 runs
+3226219003763
+  allergens      expected [en:eggs, en:gluten, en:milk] | got [en:eggs, en:gluten, en:milk, en:nuts] (x1) | wrong in 1/1 runs
+3609200011006
+  allergens      expected [en:celery, en:crustaceans, en:fish, en:milk, en:mustard, en:sesame-seeds] | got [en:celery, en:crustaceans, en:fish, en:gluten, en:milk, en:molluscs, en:mustard, en:nuts, en:sesame-seeds] (x1) | wrong in 1/1 runs
+8801073113893
+  allergens      expected [en:gluten, en:milk, en:soybeans] | got [en:eggs, en:gluten, en:milk, en:soybeans] (x1) | wrong in 1/1 runs
+3222475982330
+  traces         expected [en:gluten, en:soybeans] | got [en:gluten] (x1) | wrong in 1/1 runs
+3270190127765
+  allergens      expected [] | got [en:milk, en:soybeans] (x1) | wrong in 1/1 runs
+3155250343302
+  allergens      expected [en:milk, en:nuts] | got [en:milk] (x1) | wrong in 1/1 runs
+06800642
+  allergens      expected [en:gluten] | got [en:gluten, en:milk] (x1) | wrong in 1/1 runs
+6111260960615
+  allergens      expected [en:gluten] | got [en:celery, en:crustaceans, en:eggs, en:fish, en:gluten, en:lupin, en:milk, en:molluscs, en:mustard, en:nuts, en:peanuts, en:sesame-seeds, en:soybeans, en:sulphur-dioxide-and-sulphites] (x1) | wrong in 1/1 runs
+3222472114031
+  allergens      expected [en:peanuts] | got [en:nuts, en:peanuts] (x1) | wrong in 1/1 runs
+6111271526305
+  allergens      expected [en:milk] | got [en:milk, en:soybeans] (x1) | wrong in 1/1 runs
+3560071013745
+  allergens      expected [en:milk] | got [en:gluten, en:milk] (x1) | wrong in 1/1 runs
+8428532121437
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+6111246721940
+  allergens      expected [en:milk] | got [en:milk, en:soybeans] (x1) | wrong in 1/1 runs
+3067140041628
+  allergens      expected [] | got [en:nuts] (x1) | wrong in 1/1 runs
+3222472658061
+  allergens      expected [] | got [en:soybeans] (x1) | wrong in 1/1 runs
+6111242042599
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+3222472523918
+  allergens      expected [en:milk] | got [en:milk, en:nuts] (x1) | wrong in 1/1 runs
+8410376013672
+  allergens      expected [en:gluten, en:sulphur-dioxide-and-sulphites] | got [en:gluten, en:milk, en:soybeans, en:sulphur-dioxide-and-sulphites] (x1) | wrong in 1/1 runs
+3560071427535
+  allergens      expected [en:milk, en:nuts, en:soybeans] | got [en:gluten, en:milk, en:nuts, en:soybeans] (x1) | wrong in 1/1 runs
+6111270962333
+  allergens      expected [en:gluten, en:milk, en:peanuts, en:soybeans] | got [en:gluten, en:milk, en:nuts, en:peanuts, en:soybeans] (x1) | wrong in 1/1 runs
+6111184007847
+  allergens      expected [en:fish, en:milk, en:soybeans] | got [en:fish, en:milk] (x1) | wrong in 1/1 runs
+3222475985416
+  allergens      expected [en:milk] | got [en:gluten, en:milk] (x1) | wrong in 1/1 runs
+8718754500296
+  allergens      expected [] | got [en:celery, en:crustaceans, en:eggs, en:fish, en:gluten, en:lupin, en:milk, en:molluscs, en:mustard, en:nuts, en:peanuts, en:sesame-seeds, en:soybeans, en:sulphur-dioxide-and-sulphites] (x1) | wrong in 1/1 runs
+3222476990150
+  traces         expected [en:gluten, en:sesame-seeds] | got [en:gluten] (x1) | wrong in 1/1 runs
+6111254878384
+  allergens      expected [en:eggs, en:milk, en:mustard, en:sulphur-dioxide-and-sulphites] | got [en:eggs, en:milk, en:mustard] (x1) | wrong in 1/1 runs
+8410376024326
+  allergens      expected [en:gluten, en:milk] | got [en:gluten, en:soybeans] (x1) | wrong in 1/1 runs
+3270190195474
+  allergens      expected [en:gluten] | got [] (x1) | wrong in 1/1 runs
+3038351128606
+  traces         expected [en:eggs, en:gluten] | got [en:eggs] (x1) | wrong in 1/1 runs
+
+RUNS WITH NO USABLE ANSWER
+--------------------------------------------------------------------------------
+  7622210247292 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111017007112 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  3222475309687 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111262588510 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  3451790019180 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111184003283 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111254878414 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  3175681851849 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111245460345 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  8445290728791 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  3222475301780 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  3360101950107 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111255062348 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111246721957 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  8410014470300 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  8410014478436 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  4056489440628 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  4017100713903 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  7613033332883 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  3067140041567 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  3451790020469 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  7640427570347 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  3123930657025 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  90087769 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111255562176 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  3222471358610 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111242100664 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  8436532941252 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111250477703 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  87157239 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  5449000144874 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  3083681014044 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  3222472166313 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111179001416 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111255771196 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111031005439 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111195018801 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111024004845 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  8411037892308 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111017046982 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  5410041424805 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  3560071483326 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  0769503575353 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111214004426 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111180005809 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  3222472669104 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  8410076800510 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111242109544 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  8695077006646 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  80418900 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  3360101940108 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  8410099571794 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111251754230 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  3270190178897 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  3222477013674 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111260960912 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  5053990101597 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111269980577 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111266750777 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  7622201050757 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  8434165437425 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  7610400075770 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  5900852057915 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  4056489682677 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  3187570015447 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  3451790400797 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  3229820793689 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  3560070600915 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6294003550196 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111242102194 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111242105515 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  5285000396864 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  3229820793764 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  8690997156334 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111255520213 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  3222477013681 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  3038351489806 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111246720011 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  3222476152985 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111126005597 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111046002058 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  3307131002208 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111246301197 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  8000500357729 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  4056489215226 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  3341430510019 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111258242556 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111250471299 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111250013376 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  8003740191009 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  3155250367841 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  8715700017006 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111050005533 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  8410111000707 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111266751149 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111254873969 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111126005320 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111195016937 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111243387842 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  0796554079561 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111266962644 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111028000591 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  8008698005491 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  3800233070026 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111025700524 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  6111259340992 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  3046920021142 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  5060108450089 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  7610400068529 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  8410376027693 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  8425197712086 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  3222474768461 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  3250390271604 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+  8434165476424 run 1: exception: com.openai.errors.OpenAIIoException: Request failed
+
+UNSTABLE (same input, different answers between runs)
+--------------------------------------------------------------------------------
+None.
+
+COST
+--------------------------------------------------------------------------------
+Tokens: 73,796 in, 5,016 out | average 1.8 s per run | 0 infrastructure retries

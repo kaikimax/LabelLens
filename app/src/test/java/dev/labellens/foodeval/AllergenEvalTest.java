@@ -129,7 +129,13 @@ class AllergenEvalTest {
             Path report = Reports.write(REPORTS, result, regressions, info);
             System.out.println(summaryLine(result) + "\nReport: " + report.toAbsolutePath().normalize());
 
-            if (saveBaseline) {
+            if (saveBaseline && !result.failedRuns().isEmpty()) {
+                // Day 6, run 3: a network outage failed 114 calls and the broken scores were saved
+                // as the baseline. Failed calls say nothing about the model: rerun this setup instead.
+                System.out.printf("NOT saving the baseline for %s: %d run(s) had no usable answer."
+                        + " Rerun with -Deval.setups=%s.%n", suite, result.failedRuns().size(), setup);
+                blocking.add(suite + " baseline not saved (" + result.failedRuns().size() + " failed runs)");
+            } else if (saveBaseline) {
                 Baseline.save(baselineFile, result);
             } else if (regressions != null) {
                 regressions.stream().filter(Baseline.Regression::gated)

@@ -150,8 +150,40 @@ Fine for a portfolio project, worth saying in the README.
 nano still answered "all 14" on 3 products in run 2 (3270190127765, 6111260960615, 8718754500296),
 despite the prompt's new "none" line. Fine-tuning's job.
 
+## Run 3 (2026-10-30, 00:27 to 01:39): the day 6 baselines
+
+After both reviews and the code fixes. Test set rebuilt (61 hand-fixed keys, 13 drops, language check).
+
+| Setup | Caught | Correct alarms | Whole set right |
+|---|---|---|---|
+| word list | 96.7% | **98.6%** | 94.4% |
+| gpt-4.1-nano | 91.8% | 88.1% | 83.8% |
+| gpt-4.1 | 97.0% | 97.5% | 93.8% |
+| word list + nano | 99.2% (639/644) | 89.2% (639/716) | 92.4% |
+| word list + gpt-4.1 | **99.5%** (641/644) | 97.7% | **96.8%** |
+
+"May contain": caught 97.8%, correct 99.6%.
+
+- **Combined with gpt-4.1 misses 3 allergens out of 644.** The word list alone misses 21; adding the
+  model removes 18 of them for 6 more false alarms. That's the case for combining, in numbers.
+- **nano is the weak one**: 5 points below the word list on recall, 10 on precision. The fine-tuning
+  target: at least the word list's precision, while adding recall when combined.
+- **Read these numbers as optimistic.** The key was corrected only where a setup disagreed, and the
+  word list and splitter were fixed by reading test products. The test set is partly a development
+  set now. An honest next check: a fresh sample of products nobody has looked at.
+- **Combined, nano and gpt-4.1 catch almost the same** (639 vs 641 of 644), but nano adds 77 false
+  alarms where gpt-4.1 adds 15, and ends below the word list alone on whole-set right (92.4 vs 94.4).
+  The fine-tuning goal in one number: bring nano's false alarms from 77 towards 15, at 1/20 of the price.
+- **combined-nano was rerun on 2026-10-30, 10:47** (the row above): in the first run, 114 calls failed with `OpenAIIoException: Request failed` (a network
+  or Azure outage between [129] and [280]), counted as wrong, and saved as the baseline.
+  `AllergenEvalTest` now refuses to save a baseline when any run failed.
+- **The stability line still said 49.5%**: `mvn -pl app` used the eval-core jar installed earlier,
+  not the fixed source. eval-core must be reinstalled (`mvn install -pl eval-core`) after changes.
+
+The 21 remaining disagreements of the best setup are known types: coconut called a nut by gpt-4.1 (3),
+refined soy fat flagged by gpt-4.1 (3), OCR noise, and a few unreviewed. Not reviewed further: each
+round of fixes from the test set makes it less of a test.
+
 ## Next
 
-1. Rebuild the sets, re-run the 5 setups with `-Deval.saveBaseline=true` (run 3). Those are the day 6
-   baselines and the numbers to beat on days 7-8.
-2. Days 7-8: fine-tune nano. Target: the word list's precision with nano's recall.
+1. Days 7-8: fine-tune nano. Target: the word list's precision with nano's recall.
