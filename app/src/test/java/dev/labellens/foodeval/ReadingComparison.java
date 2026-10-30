@@ -41,9 +41,9 @@ public final class ReadingComparison implements FieldComparison {
             if ((expected == null || expected.trim().isEmpty()) && (actual == null || actual.trim().isEmpty())) return true;
             if ((expected == null || expected.trim().isEmpty()) || (actual == null || actual.trim().isEmpty())) return false;
 
-            if (!expected.toLowerCase(Locale.ROOT).replaceAll("\\s+"," ").replaceAll(" *([,;:.()%]) *", "$1").trim()
+            if (!expected.toLowerCase(Locale.ROOT).replaceAll("\\s+"," ").replaceAll(" *([،,;:.()%]) *", "$1").replace("،", ",").trim()
                 .equals(
-                    actual.toLowerCase(Locale.ROOT).replaceAll("\\s+"," ").replaceAll(" *([,;:.()%]) *", "$1").trim()
+                    actual.toLowerCase(Locale.ROOT).replaceAll("\\s+"," ").replaceAll(" *([،,;:.()%]) *", "$1").replace("،", ",").trim()
                 )
             ) return false;
             return true;
