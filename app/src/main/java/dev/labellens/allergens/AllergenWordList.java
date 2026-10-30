@@ -61,7 +61,13 @@ public final class AllergenWordList {
             // French
             "beurre de cacao", "beurre de karité", "lait de coco", "crème de coco", "lait de noix de coco", "noix de coco",
             "noix de muscade",
-            "huile de soja", "sans gluten", "blé noir",
+            "huile de soja", "matière grasse végétale de soja", "matières grasses végétales de soja", "graisse de soja",
+            "sans gluten", "blé noir",
+            // Claims after the "may contain" sentence (day 6): "Sans blé. Sans oeufs. Sans fruits à coque."
+            // "sans lactose" is a claim too: lactose-free milk still says "lait", so it stays milk.
+            "sans blé", "sans oeufs", "sans œufs", "sans fruits à coque", "sans lactose",
+            // Flavours named after a nut, with no nut in them (day 6: chicory, chocolate milk)
+            "arôme noisette", "arôme de noisette", "goût noisette", "arôme amande", "arôme d'amande",
             // English
             "cocoa butter", "shea butter", "coconut milk", "coconut cream",
             "soybean oil", "soya oil", "soy oil", "gluten-free", "gluten free",
@@ -77,7 +83,7 @@ public final class AllergenWordList {
                 "wheat", "barley", "rye", "oat", "oats", "spelt",
                 "قمح", "شعير", "شوفان", "غلوتين", "جلوتين"));
         words.put("en:milk", Set.of("lait", "lactose", "lactosérum", "beurre", "crème", "fromage", "caséine", "caséinate",
-                "protéines de lait", "babeurre",
+                "protéines de lait", "babeurre", "produits laitiers", "dérivés laitiers", "matière grasse laitière",
                 "milk", "butter", "cream", "cheese", "whey", "casein", "caseinate", "buttermilk", "yogurt", "yoghurt",
                 "حليب", "لبن", "ألبان", "البان", "جبن", "أجبان", "اجبان", "جبنة", "زبدة", "زبده", "قشدة", "كريمة",
                 "مصل اللبن", "لاكتوز"));
@@ -90,7 +96,7 @@ public final class AllergenWordList {
         words.put("en:peanuts", Set.of("arachide", "cacahuète",
                 "peanut", "groundnut",
                 "فول سوداني", "فول السوداني", "فستق سوداني", "فستق السوداني"));
-        words.put("en:nuts", Set.of("amande", "noisette", "noix", "pistache", "cajou", "fruits à coque", "fruit à coque",
+        words.put("en:nuts", Set.of("amande", "noisette", "noix", "pistache", "cajou", "fruits à coque", "fruit à coque", "fruits a coque", "fruit a coque",
                 "almond", "hazelnut", "walnut", "cashew", "pistachio", "pistachios", "pecan", "macadamia",
                 "لوز", "بندق", "جوز", "كاجو", "فستق حلبي", "مكسرات"));
         words.put("en:sesame-seeds", Set.of("sésame",
@@ -156,6 +162,11 @@ public final class AllergenWordList {
         }
         prepared = prepared.replace("beurre de cacahuète", "cacahuète");
         prepared = prepared.replace("peanut butter", "peanut");
+        // Plant "milks" are not milk, but keep the plant: "lait d'amande" is still almond (day 6).
+        prepared = prepared.replace("lait d'amande", "amande");
+        prepared = prepared.replace("lait de soja", "soja");
+        prepared = prepared.replace("lait de riz", "riz");
+        prepared = prepared.replace("lait d'avoine", "avoine");
 
         for (Map.Entry<String, List<Pattern>> entry : PATTERNS.entrySet()) {
             for (Pattern pattern : entry.getValue()) {

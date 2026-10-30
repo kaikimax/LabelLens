@@ -71,24 +71,121 @@ TAG = re.compile(r"<[^>]+>")
 UNDERSCORED = re.compile(r"_([^_\n]{1,80})_")   # _gluten_, _Sardines_
 # Any sign of a "may contain" statement, in French, English or Arabic. Broader than the app's
 # MayContainSplitter on purpose: a wording the splitter misses must still count as a miss.
-TRACES_PRINTED = re.compile(r"trace|contenir|contient|contain|pr[ée]sence|atelier|usine|factory|equipment"
+# Not "contient/contains" or a bare "présence": those also start ingredient statements
+# ("contient du céleri", "Présence de gluten"), which kept wrong traces in the key (review round 2).
+TRACES_PRINTED = re.compile(r"trace|contenir|may (?:also )?contain|pr[ée]sence (?:[ée]ventuelle|possible)"
+                            r"|atelier|usine|factory|equipment"
                             r"|يحتوي|يحتوى|تحتوي|آثار", re.IGNORECASE)
 
-# Answer-key errors confirmed by reading the text (docs/notes/day6-allergen-eval.md, review round 1).
-# Only the fields given are replaced.
+# Answer-key errors confirmed by reading the text (docs/notes/day6-allergen-eval.md, review rounds
+# 1 and 2). Only the fields given are replaced. Round 2 reviewed only the products a setup got
+# wrong: products where the key and every setup are wrong together are still unchecked.
+A, T = "allergens", "traces"
+MILK, GLUTEN, SOY, EGGS, NUTS = "en:milk", "en:gluten", "en:soybeans", "en:eggs", "en:nuts"
+MUSTARD, FISH, PEANUTS, CELERY = "en:mustard", "en:fish", "en:peanuts", "en:celery"
+SESAME, SULPHITES, LUPIN = "en:sesame-seeds", "en:sulphur-dioxide-and-sulphites", "en:lupin"
+
+
+def fix(why, allergens=None, traces=None):
+    f = {"why": why}
+    if allergens is not None:
+        f[A] = sorted(allergens)
+    if traces is not None:
+        f[T] = sorted(traces)
+    return f
+
+
 KEY_FIXES = {
-    "3250390271604": {"allergens": [], "why": "cocoa powder + potassium carbonates: no gluten or milk in the text"},
-    "3250390115236": {"allergens": [], "why": "sugar, cocoa, salt, flavouring, vitamin B1: no gluten in the text"},
-    "3250390748847": {"allergens": [], "why": "sweeteners, mint flavouring, menthol: no milk in the text"},
-    "3222475104336": {"allergens": [], "why": "corn 99.4%, salt: gluten is only printed as a trace"},
-    "3270190127765": {"traces": ["en:gluten", "en:milk", "en:nuts"],
-                      "why": "prints traces of nuts, gluten cereals and milk; the key had no gluten"},
-    "3222474768461": {"traces": ["en:milk", "en:mustard"],
-                      "why": "prints 'Traces de lait, moutarde'; fish is an ingredient, not a trace"},
+    # ---- Round 1
+    "3250390271604": fix("cocoa powder + potassium carbonates: no gluten or milk in the text", allergens=[]),
+    "3250390115236": fix("sugar, cocoa, salt, flavouring, vitamin B1: no gluten in the text", allergens=[]),
+    "3250390748847": fix("sweeteners, mint flavouring, menthol: no milk in the text", allergens=[]),
+    "3222475104336": fix("corn 99.4%, salt: gluten is only printed as a trace", allergens=[]),
+    "3270190127765": fix("prints traces of nuts, gluten cereals and milk; the key had no gluten",
+                         traces=[GLUTEN, MILK, NUTS]),
+    "3222474768461": fix("prints 'Traces de lait, moutarde'; fish is an ingredient, not a trace",
+                         traces=[MILK, MUSTARD]),
+    # ---- Round 2: allergens the text names but the key misses
+    "6111184000541": fix("'Cornichons (dont sulfites)', 'graines de moutarde'", allergens=[MUSTARD, SULPHITES]),
+    "6111094000082": fix("durum wheat semolina", allergens=[GLUTEN]),
+    "8410376017113": fix("'disulfite de sodium' is a sulphite", allergens=[GLUTEN, MILK, SOY, SULPHITES]),
+    "6111265980830": fix("'lecithine de soja'", allergens=[MILK, NUTS, SOY]),
+    "6194008552204": fix("'eufs' (OCR of oeufs)", allergens=[EGGS, GLUTEN, MILK, SOY]),
+    "6111254878414": fix("'disulfite de potassium' in the mustard", allergens=[EGGS, MUSTARD, SULPHITES]),
+    "6111245460345": fix("'farine complète de blé tendre'", allergens=[GLUTEN]),
+    "6111246721957": fix("cow's milk; refined soybean fat is exempt (DATA_PLAN)", allergens=[MILK]),
+    "6111242100664": fix("'Lait caillé'", allergens=[MILK]),
+    "6111214004426": fix("'lécithine de soja'", allergens=[MILK, SOY]),
+    "6111242109544": fix("'Lait frais entier, crème', oats", allergens=[GLUTEN, MILK]),
+    "3700311810530": fix("'disulfite de sodium'", allergens=[GLUTEN, MILK, SULPHITES]),
+    "40338453": fix("'lait', 'lactosérum'", allergens=[GLUTEN, MILK]),
+    "6111126005597": fix("'Lait entier', 'crème fraîche'", allergens=[MILK]),
+    "6111046002058": fix("'lait frais écrémé', 'crème'", allergens=[MILK]),
+    "6111258242556": fix("'ceufs frais' (OCR of oeufs), 'contient ... des ceufs'", allergens=[EGGS, GLUTEN, MILK]),
+    "8410376027693": fix("'disulfite de sodium'", allergens=[GLUTEN, MILK, SOY, SULPHITES]),
+    "6111249190217": fix("'sardines'", allergens=[FISH]),
+    "6111246954614": fix("'Crème de lait de vache'", allergens=[MILK]),
+    "6111246250501": fix("'enzymes (sur support blé)'", allergens=[GLUTEN]),
+    "6111195018801": fix("no nuts in the text", allergens=[MILK, SOY]),
+    # ---- Round 2: allergens the key has but the text doesn't (often traces copied into allergens)
+    "3560070330744": fix("lupin, mustard, sesame are only traces", allergens=[GLUTEN, MILK, NUTS, PEANUTS]),
+    "8718114734484": fix("no sulphite in the text", allergens=[CELERY, EGGS, MUSTARD]),
+    "8410679017155": fix("nuts are only a trace", allergens=[MILK, SOY]),
+    "3560070430994": fix("celery is only a trace", allergens=[GLUTEN, MILK, MUSTARD]),
+    "8445290728791": fix("nuts are only a trace", allergens=[GLUTEN, MILK]),
+    "8410099571794": fix("'lécithine de tournesol': no soy", allergens=[EGGS, GLUTEN, MILK]),
+    "8801073113893": fix("noodles: wheat, soy, milk, cheese; nothing else in the text", allergens=[GLUTEN, MILK, SOY]),
+    "8712566381340": fix("no soy in the text", allergens=[FISH, GLUTEN, MUSTARD]),
+    "3250391737109": fix("lupin, mustard, peanuts, sesame are only traces", allergens=[EGGS, GLUTEN, MILK]),
+    "5400141614206": fix("nuts are only a trace (cashew)", allergens=[PEANUTS]),
+    "3029330068143": fix("milk, eggs, sesame are only traces", allergens=[GLUTEN]),
+    "8008698002223": fix("corn, 'SANS BLÉ': no gluten in the text", allergens=[]),
+    # ---- Round 2: both
+    "11558813": fix("'mantequilla', 'matière grasse laitière'; traces: gluten, other nuts",
+                    allergens=[MILK, NUTS, SOY], traces=[GLUTEN, NUTS]),
+    "6111031005385": fix("milk is only 'PEUT CONTENIR DU LAIT'", allergens=[GLUTEN, SOY], traces=[MILK]),
+    "4101540705793": fix("'æufs' (OCR); nuts and dairy are traces", allergens=[EGGS, GLUTEN], traces=[MILK, NUTS]),
+    "0796554079561": fix("sunflower seeds; traces of wheat, peanuts, sesame, soy",
+                         allergens=[], traces=[GLUTEN, PEANUTS, SESAME, SOY]),
+    "8410376061772": fix("oats; trace milk only ('Sans fruits à coque')", allergens=[GLUTEN, SOY], traces=[MILK]),
+    "8008698005347": fix("no nuts; trace lupin only", allergens=[MILK, SOY], traces=[LUPIN]),
+    "8410376013672": fix("'metabisulphite'; traces of milk and soya", allergens=[GLUTEN, SULPHITES],
+                         traces=[MILK, SOY]),
+    # ---- Round 2: traces the text prints differently
+    "8053504210439": fix("prints soy, other nuts, sesame, mustard", traces=[MUSTARD, NUTS, SESAME, SOY]),
+    "3222476439505": fix("prints gluten, milk, nuts", traces=[GLUTEN, MILK, NUTS]),
+    "3497911101129": fix("no 'may contain'; 'Contient Orge' is an ingredient", traces=[]),
+    "87157239": fix("celery is an ingredient ('contient du céleri')", traces=[]),
+    "8411037892308": fix("prints 'traces de LAIT' only", traces=[MILK]),
+    "3222472669104": fix("prints other nuts and gluten", traces=[GLUTEN, NUTS]),
+    "3222475982330": fix("prints soy ('desojaet') and gluten", traces=[GLUTEN, SOY]),
+    "4013197767010": fix("prints 'traces de lait' (OCR)", traces=[MILK]),
+    "3270190181231": fix("no 'may contain' printed", traces=[]),
+    "6111178002292": fix("prints 'présence éventuelle d'autres fruits à coque'", traces=[NUTS]),
+    "6194008533920": fix("prints 'noisettes, oeufs'", traces=[EGGS, NUTS]),
+    "8076802085738": fix("prints soy and mustard", traces=[MUSTARD, SOY]),
+    "3178530407938": fix("prints 'fruits à coque' only", traces=[NUTS]),
+    "3560070759354": fix("prints eggs and nuts", traces=[EGGS, NUTS]),
+    "3222473950324": fix("prints nuts, milk, soy, lupin, mustard", traces=[LUPIN, MILK, MUSTARD, NUTS, SOY]),
 }
-# Products whose text can't be used at all (review round 1).
+
+# Products whose text can't be used: not an ingredients list, OCR garbage, or not French at all
+# although it's in the French field (reviews 1 and 2; the language check below now catches most
+# Spanish, German, Italian and Dutch texts too).
 DROP = {
     "5999884034469": "OCR garbage: the ingredients can't be read",
+    "3073780971638": "OCR garbage, marketing text",
+    "3073781141382": "marketing and nutrition text, no ingredients list",
+    "8788128769000": "marketing text in French and Spanish, no ingredients list",
+    "8713576008821": "Dutch, mojibake Arabic, a few French words",
+    "40338576": "Latvian",
+    "8436573629850": "Spanish",
+    "8410128169916": "Spanish, OCR garbage",
+    "8412779240105": "Spanish, no ingredients list",
+    "8410376051148": "Spanish",
+    "8480012041048": "Spanish",
+    "4335619195080": "Spanish and Portuguese",
+    "4008400180427": "German",
 }
 ARABIC_LETTER = re.compile(r"[\u0600-\u06FF]")
 LATIN_LETTER = re.compile(r"[A-Za-z\u00C0-\u00FF\u0152\u0153]")
@@ -96,6 +193,11 @@ WORD = re.compile(r"[a-z\u00e0-\u00ff\u0153]+")
 # A few very common words in ingredients lists, to tell French from English.
 FRENCH_WORDS = {"et", "de", "du", "des", "sucre", "farine", "lait", "eau", "sel", "huile", "blé", "ou", "arôme", "arômes"}
 ENGLISH_WORDS = {"and", "of", "sugar", "flour", "milk", "water", "salt", "oil", "wheat", "or", "flavour", "flavor"}
+# Spanish, German, Italian, Dutch: OFF's "fr" field sometimes holds them (review round 2).
+OTHER_WORDS = {"y", "con", "azúcar", "agua", "harina", "leche", "aceite", "sal", "trigo", "puede", "contener",
+               "und", "mit", "zucker", "salz", "wasser", "mehl", "milch", "weizen", "kann",
+               "zucchero", "acqua", "latte", "olio", "frumento", "può",
+               "suiker", "zout", "melk", "tarwe", "het", "van", "bevat"}
 SPACES = re.compile(r"\s+")
 
 
@@ -137,6 +239,9 @@ def right_language(text, lang):
     words = WORD.findall(text.lower())
     french = sum(w in FRENCH_WORDS for w in words)
     english = sum(w in ENGLISH_WORDS for w in words)
+    other = sum(w in OTHER_WORDS for w in words)
+    if other > french:
+        return False
     return french >= english
 
 
@@ -387,7 +492,8 @@ def summary(counts, test, arabic_slice, train):
         "  Missed allergens exist (e.g. a cream \"de lait de vache\" tagged with none). Disagreements must be checked by hand.",
         "- Traces sometimes repeat the allergens themselves.",
         "- Only the reviewed products are fixed (KEY_FIXES): the rest of the key is still unchecked.",
-        "  Day 6 review: 4 of 14 products checked had a wrong key.",
+        "  Day 6 reviews: 4 of 14 (round 1), then 67 of the 89 products the best setup got wrong had a key error or an unusable text (round 2).",
+        "  Only disagreements were reviewed, so errors the key shares with every setup remain.",
         "- Non-food and fake-barcode filters are heuristics.",
     ]
     return "\n".join(lines) + "\n"

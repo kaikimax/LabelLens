@@ -92,9 +92,66 @@ Two more findings from reading the texts:
 - Prompt: "If there are none, answer {"allergens": []}." (same line in DATA_PLAN, for fine-tuning).
 - These change the test set, so the 2026-10-28 scores can't be compared with the next run.
 
+## Run 2 (2026-10-29, 22:45 to 00:01): after the fixes, baselines saved
+
+Same 500-product test set size, but not the same test set as run 1 (markup removed, traces only when
+printed, 6 key fixes, 1 product swapped), and a new word list and prompt. Compare with care.
+
+| Setup | Caught | Correct alarms | Whole set right | Run 1 (caught / correct / whole) |
+|---|---|---|---|---|
+| word list | 93.8% | **93.7%** | **88.0%** | 84.6 / 93.3 / 82.0 |
+| gpt-4.1-nano | 88.5% | 82.1% | 78.2% | 89.3 / 82.1 / 77.6 |
+| gpt-4.1 | 93.4% | 91.4% | 86.0% | 92.5 / 90.8 / 84.6 |
+| word list + nano | 95.6% | 83.4% | 84.0% | 93.9 / 79.3 / 79.4 |
+| word list + gpt-4.1 | **95.7%** | 90.5% | 87.2% | 94.5 / 90.0 / 85.6 |
+
+"May contain" (word list in every setup): caught **86.9%** (run 1: 41.9%), correct 90.7%.
+
+What changed:
+1. **The word list is now the best single method**: same recall as gpt-4.1 (93.8 vs 93.4), better
+   precision, and the best whole-set score. Fish went from 72% to 96% caught, nuts from 72.6% to
+   87.8%.
+2. **Combining still catches the most** (95.7%), and a miss is the dangerous mistake, so the
+   2026-10-26 decision stands. The price is now visible: +1.9 points of recall for -3.2 points of
+   precision, compared with the word list alone.
+3. **Combined with nano catches as much as combined with gpt-4.1** (95.6 vs 95.7), but with 7 points
+   less precision. That's the target for fine-tuning: nano's recall with the word list's precision.
+4. **The AI alone misses fish species**: gpt-4.1 catches 44% of fish, nano 16%. The word list now
+   catches 96%. To be checked in the report (sardines and mackerel not counted as "en:fish"?).
+5. **"May contain" jumped from 41.9% to 86.9%**: most run-1 misses were traces that aren't printed
+   in the text, plus the non-breaking space.
+6. nano still raises false lupin and mollusc alarms (correct-alarm 0%): check whether "all 14"
+   answers remain after the prompt fix.
+
+## Review round 2 (combined-gpt-4.1, run 2: 89 products wrong; a product can be in two rows)
+
+| Verdict | Products | What |
+|---|---|---|
+| **Answer-key error** | 55 | Missing allergens the text names (milk in "lait", "disulfite" as sulphite, oats as gluten, OCR'd "eufs"), traces copied into the allergens, traces the text doesn't print. All in `KEY_FIXES` with the reason. |
+| **Unusable text** | 12 | Spanish, German, Latvian, Dutch texts in OFF's French field; marketing or OCR garbage. In `DROP`, and a new language check (Spanish, German, Italian, Dutch words) removes the others. |
+| **Splitter** | 6 | The statement ran to the end of the text, so "Sans blé. Sans oeufs." and repeated lists in other languages became traces; "Présence possible" was missing. |
+| **Word list** | 11 | Nut flavours ("arôme noisette"), plant milks ("lait d'amande"), refined soy fat, "produits laitiers", "FRUIT A COQUE" without accents. |
+| **AI** | 3 | gpt-4.1 calls coconut a nut (40111216, 3226219003763, 3222472523918). Left as is: the AI's own error. |
+| **OCR noise / unclear** | 6 | Glued words ("desojaet", "sésameet"), "hui\e de soja"; "farines de céréales", "arôme de fromage" (can't tell). |
+
+The key, not the system, was wrong in 3 of every 4 disagreements. Run 2's scores were measured
+against that key, so they understate every setup.
+
+**The bias in this method:** only disagreements were reviewed. Where the key and every setup are
+wrong together, nobody looked, so the corrected key still flatters the setups a little. The honest
+fix is a random sample of agreements checked by hand; not done, noted in the data card.
+
+**Fixed in code** (2026-10-30): the splitter ends a statement at the end of its sentence and
+collects several statements; the word list's exceptions and words above; `TRACES_PRINTED` no longer
+counts "contient" / "Présence de" (ingredient statements, which kept wrong traces in the key).
+These fixes come from reading test-set products, so the test set is now partly a development set.
+Fine for a portfolio project, worth saying in the README.
+
+nano still answered "all 14" on 3 products in run 2 (3270190127765, 6111260960615, 8718754500296),
+despite the prompt's new "none" line. Fine-tuning's job.
+
 ## Next
 
-1. Word list (user's code, hints only): fish species (and the `x` plural: maquereaux); why
-   "fruits à coque" isn't found in the 3270190127765 trace sentence.
-2. Rebuild the sets, then review round 2: 10 of the 33 shared false alarms (KEY_FIXES grows).
-3. Re-run all 5 setups, then save the baselines.
+1. Rebuild the sets, re-run the 5 setups with `-Deval.saveBaseline=true` (run 3). Those are the day 6
+   baselines and the numbers to beat on days 7-8.
+2. Days 7-8: fine-tune nano. Target: the word list's precision with nano's recall.
