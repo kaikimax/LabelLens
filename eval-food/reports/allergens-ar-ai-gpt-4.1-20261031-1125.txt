@@ -1,0 +1,263 @@
+EVAL REPORT: allergens-ar-ai-gpt-4.1
+================================================================================
+Started:        2026-10-31T11:25:11.824945800Z (took 8 min 2 s)
+Cases:          227, 1 run(s) each
+setup:          ai-gpt-4.1
+model:          gpt-4.1-2025-04-14
+test set:       allergen_test_ar.jsonl
+est. cost:      $0.1229
+main score:     caught:all = allergens really there that were found (a miss is the dangerous mistake)
+
+Counting rule: a run with no usable answer counts as WRONG for every check.
+
+SCORES
+--------------------------------------------------------------------------------
+answered                  227 / 227  100.0%
+allergens                 136 / 227  59.9%
+traces                    213 / 227  93.8%
+caught:all                154 / 162  95.1%
+caught:gluten              21 / 24   87.5%
+caught:milk                84 / 86   97.7%
+caught:soybeans            28 / 29   96.6%
+correct-alarm:all         154 / 284  54.2%
+correct-alarm:gluten       21 / 45   46.7%
+correct-alarm:milk         84 / 142  59.2%
+correct-alarm:soybeans     28 / 53   52.8%
+caught:eggs                 3 / 4    75.0%   (too few to measure)
+caught:mustard              1 / 1    100.0%   (too few to measure)
+caught:sulphites            1 / 1    100.0%   (too few to measure)
+correct-alarm:eggs          3 / 8    37.5%   (too few to measure)
+correct-alarm:mustard       1 / 1    100.0%   (too few to measure)
+correct-alarm:sulphites     1 / 1    100.0%   (too few to measure)
+correct-alarm:nuts         12 / 27   44.4%
+caught:nuts                12 / 13   92.3%
+caught:peanuts              3 / 3    100.0%   (too few to measure)
+correct-alarm:peanuts       3 / 6    50.0%   (too few to measure)
+traces-caught:all          29 / 40   72.5%
+traces-correct:all         29 / 40   72.5%
+caught:sesame               1 / 1    100.0%   (too few to measure)
+correct-alarm:sesame        1 / 1    100.0%   (too few to measure)
+
+Stability: not measured (needs 2 or more runs per case)
+
+BY SITUATION (percent; number of cases in brackets; few cases = unreliable)
+--------------------------------------------------------------------------------
+markup (4)             allergens 100.0% | traces 100.0% | caught:all 100.0% | caught:gluten - | caught:milk 100.0% | caught:soybeans 100.0% | correct-alarm:all 100.0% | correct-alarm:gluten - | correct-alarm:milk 100.0% | correct-alarm:soybeans 100.0% | caught:eggs - | caught:mustard - | caught:sulphites - | correct-alarm:eggs - | correct-alarm:mustard - | correct-alarm:sulphites - | correct-alarm:nuts 100.0% | caught:nuts 100.0% | caught:peanuts - | correct-alarm:peanuts - | traces-caught:all 100.0% | traces-correct:all 100.0% | caught:sesame - | correct-alarm:sesame -
+no-allergen (121)      allergens 47.1% | traces 93.4% | caught:all - | caught:gluten - | caught:milk - | caught:soybeans - | correct-alarm:all 0.0% | correct-alarm:gluten 0.0% | correct-alarm:milk 0.0% | correct-alarm:soybeans 0.0% | caught:eggs - | caught:mustard - | caught:sulphites - | correct-alarm:eggs 0.0% | correct-alarm:mustard - | correct-alarm:sulphites - | correct-alarm:nuts 0.0% | caught:nuts - | caught:peanuts - | correct-alarm:peanuts 0.0% | traces-caught:all 70.0% | traces-correct:all 43.8% | caught:sesame - | correct-alarm:sesame -
+with-traces (23)       allergens 52.2% | traces 60.9% | caught:all 83.3% | caught:gluten 85.7% | caught:milk 81.8% | caught:soybeans 83.3% | correct-alarm:all 71.4% | correct-alarm:gluten 75.0% | correct-alarm:milk 75.0% | correct-alarm:soybeans 83.3% | caught:eggs 100.0% | caught:mustard - | caught:sulphites - | correct-alarm:eggs 66.7% | correct-alarm:mustard - | correct-alarm:sulphites - | correct-alarm:nuts 33.3% | caught:nuts 50.0% | caught:peanuts 100.0% | correct-alarm:peanuts 50.0% | traces-caught:all 72.5% | traces-correct:all 82.9% | caught:sesame - | correct-alarm:sesame -
+
+COMPARED WITH THE BASELINE
+--------------------------------------------------------------------------------
+No baseline yet.
+
+DISAGREEMENTS (review each one: AI error, answer-key error, or comparison rule?)
+--------------------------------------------------------------------------------
+4750121823557
+  allergens      expected [] | got [en:gluten] (x1) | wrong in 1/1 runs
+6111260232132
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+6111032010289
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+6194008552204
+  allergens      expected [en:eggs, en:gluten, en:milk, en:soybeans] | got [en:gluten, en:milk, en:nuts, en:soybeans] (x1) | wrong in 1/1 runs
+6111032009887
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+6111242109544
+  allergens      expected [en:gluten, en:milk] | got [en:gluten, en:milk, en:nuts] (x1) | wrong in 1/1 runs
+6111251754230
+  allergens      expected [en:milk] | got [en:milk, en:soybeans] (x1) | wrong in 1/1 runs
+6111266750777
+  allergens      expected [en:nuts, en:peanuts] | got [en:milk, en:nuts, en:peanuts, en:soybeans] (x1) | wrong in 1/1 runs
+3073781111552
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+6111099003071
+  allergens      expected [] | got [en:milk, en:nuts, en:soybeans] (x1) | wrong in 1/1 runs
+6111032003335
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+6111178002322
+  allergens      expected [] | got [en:eggs, en:milk, en:nuts, en:peanuts] (x1) | wrong in 1/1 runs
+6221007032724
+  allergens      expected [en:milk] | got [en:gluten, en:milk, en:soybeans] (x1) | wrong in 1/1 runs
+6111050005533
+  allergens      expected [en:gluten, en:soybeans] | got [en:soybeans] (x1) | wrong in 1/1 runs
+4008569028370
+  allergens      expected [en:gluten] | got [] (x1) | wrong in 1/1 runs
+  traces         expected [en:lupin, en:milk, en:nuts, en:soybeans] | got [en:milk, en:lupin] (x1) | wrong in 1/1 runs
+6111242042735
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+6111262520015
+  allergens      expected [] | got [en:gluten, en:milk, en:soybeans] (x1) | wrong in 1/1 runs
+3073781111576
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+8410376061789
+  allergens      expected [en:gluten, en:soybeans] | got [en:soybeans] (x1) | wrong in 1/1 runs
+  traces         expected [en:milk] | got [en:milk, en:gluten] (x1) | wrong in 1/1 runs
+6111255092062
+  allergens      expected [] | got [en:milk, en:nuts, en:soybeans] (x1) | wrong in 1/1 runs
+  traces         expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+8424893600321
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+6111259091283
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+19395692
+  allergens      expected [] | got [en:milk, en:nuts, en:soybeans] (x1) | wrong in 1/1 runs
+6221007037859
+  allergens      expected [] | got [en:gluten, en:milk] (x1) | wrong in 1/1 runs
+08523189
+  allergens      expected [] | got [en:nuts] (x1) | wrong in 1/1 runs
+5059319025575
+  allergens      expected [en:gluten, en:milk] | got [en:gluten] (x1) | wrong in 1/1 runs
+5900020025081
+  allergens      expected [en:gluten, en:milk] | got [en:gluten] (x1) | wrong in 1/1 runs
+6111028001185
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+6111266962576
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+4823077604294
+  allergens      expected [en:soybeans] | got [en:milk, en:soybeans] (x1) | wrong in 1/1 runs
+8052575090926
+  allergens      expected [] | got [en:nuts, en:soybeans] (x1) | wrong in 1/1 runs
+6111032010371
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+6111260961131
+  allergens      expected [] | got [en:gluten] (x1) | wrong in 1/1 runs
+  traces         expected [en:soybeans] | got [en:milk, en:soybeans, en:eggs, en:mustard, en:sesame-seeds] (x1) | wrong in 1/1 runs
+3073781163667
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+6111243090711
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+6111028000867
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+6111032007210
+  allergens      expected [en:milk] | got [en:gluten, en:milk, en:nuts] (x1) | wrong in 1/1 runs
+  traces         expected [en:nuts] | got [] (x1) | wrong in 1/1 runs
+6614918950353
+  allergens      expected [] | got [en:gluten] (x1) | wrong in 1/1 runs
+6111258520012
+  allergens      expected [] | got [en:gluten] (x1) | wrong in 1/1 runs
+6111251730944
+  allergens      expected [en:milk] | got [en:milk, en:soybeans] (x1) | wrong in 1/1 runs
+6111242664623
+  allergens      expected [] | got [en:gluten, en:milk, en:soybeans] (x1) | wrong in 1/1 runs
+6111028000713
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+6111032001003
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+0144432010128
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+  traces         expected [] | got [en:nuts] (x1) | wrong in 1/1 runs
+6111245470306
+  allergens      expected [] | got [en:soybeans] (x1) | wrong in 1/1 runs
+6111261592020
+  allergens      expected [] | got [en:milk, en:soybeans] (x1) | wrong in 1/1 runs
+5000396008791
+  allergens      expected [] | got [en:gluten] (x1) | wrong in 1/1 runs
+  traces         expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+6111024001295
+  allergens      expected [] | got [en:soybeans] (x1) | wrong in 1/1 runs
+8410376042894
+  allergens      expected [en:gluten, en:soybeans] | got [en:gluten, en:nuts, en:soybeans] (x1) | wrong in 1/1 runs
+  traces         expected [en:gluten, en:milk, en:soybeans] | got [en:nuts] (x1) | wrong in 1/1 runs
+6221007032526
+  allergens      expected [] | got [en:gluten, en:milk, en:soybeans] (x1) | wrong in 1/1 runs
+8000500384763
+  allergens      expected [] | got [en:gluten, en:milk, en:nuts, en:soybeans] (x1) | wrong in 1/1 runs
+9821338247018
+  allergens      expected [] | got [en:eggs, en:gluten, en:milk] (x1) | wrong in 1/1 runs
+0034000000289
+  allergens      expected [en:milk, en:peanuts] | got [en:milk, en:peanuts, en:soybeans] (x1) | wrong in 1/1 runs
+3073781166514
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+  traces         expected [] | got [en:gluten] (x1) | wrong in 1/1 runs
+6111259341920
+  allergens      expected [] | got [en:gluten, en:milk, en:soybeans] (x1) | wrong in 1/1 runs
+5410093179616
+  allergens      expected [en:milk] | got [en:milk, en:nuts] (x1) | wrong in 1/1 runs
+8000500367582
+  allergens      expected [en:milk, en:nuts] | got [en:milk, en:nuts, en:soybeans] (x1) | wrong in 1/1 runs
+0002946954652
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+6111032007531
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+6111258247018
+  allergens      expected [] | got [en:eggs, en:gluten, en:milk] (x1) | wrong in 1/1 runs
+6111246954065
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+8697439301277
+  allergens      expected [en:milk] | got [en:milk, en:soybeans] (x1) | wrong in 1/1 runs
+8410175062369
+  allergens      expected [en:gluten, en:nuts, en:soybeans] | got [en:gluten, en:milk, en:peanuts] (x1) | wrong in 1/1 runs
+  traces         expected [en:nuts, en:peanuts] | got [en:nuts] (x1) | wrong in 1/1 runs
+6111032008927
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+6111254873471
+  allergens      expected [] | got [en:eggs, en:gluten] (x1) | wrong in 1/1 runs
+  traces         expected [en:eggs, en:gluten] | got [] (x1) | wrong in 1/1 runs
+6111270030025
+  traces         expected [en:nuts] | got [] (x1) | wrong in 1/1 runs
+8717200006573
+  allergens      expected [] | got [en:milk, en:soybeans] (x1) | wrong in 1/1 runs
+6221007032649
+  allergens      expected [] | got [en:gluten, en:milk] (x1) | wrong in 1/1 runs
+8424893600352
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+6111018909170
+  allergens      expected [en:milk] | got [en:milk, en:soybeans] (x1) | wrong in 1/1 runs
+8595229919285
+  allergens      expected [en:nuts] | got [en:nuts, en:soybeans] (x1) | wrong in 1/1 runs
+8682091108937
+  allergens      expected [] | got [en:milk, en:nuts] (x1) | wrong in 1/1 runs
+6221007032564
+  allergens      expected [] | got [en:gluten, en:milk] (x1) | wrong in 1/1 runs
+6111214005768
+  allergens      expected [] | got [en:gluten, en:milk, en:soybeans] (x1) | wrong in 1/1 runs
+6111032006909
+  allergens      expected [en:milk] | got [en:milk, en:nuts] (x1) | wrong in 1/1 runs
+17967785
+  allergens      expected [] | got [en:gluten, en:milk] (x1) | wrong in 1/1 runs
+0404080007018
+  allergens      expected [] | got [en:eggs, en:gluten, en:milk] (x1) | wrong in 1/1 runs
+6111232004859
+  allergens      expected [en:nuts] | got [en:milk, en:nuts] (x1) | wrong in 1/1 runs
+8410376037845
+  allergens      expected [en:sesame-seeds, en:soybeans] | got [en:peanuts, en:sesame-seeds, en:soybeans] (x1) | wrong in 1/1 runs
+6111255890118
+  allergens      expected [] | got [en:gluten] (x1) | wrong in 1/1 runs
+0760122785574
+  allergens      expected [en:gluten] | got [en:gluten, en:milk] (x1) | wrong in 1/1 runs
+  traces         expected [en:soybeans] | got [] (x1) | wrong in 1/1 runs
+0115432008453
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+6111203005779
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+6111032010142
+  allergens      expected [en:milk] | got [en:gluten, en:milk, en:nuts] (x1) | wrong in 1/1 runs
+6111126004088
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+6111242665934
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+6111032002963
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+8420756008631
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+6111031004333
+  allergens      expected [] | got [en:gluten, en:soybeans] (x1) | wrong in 1/1 runs
+  traces         expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+6111203003263
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+80177180
+  allergens      expected [en:gluten] | got [en:gluten, en:milk, en:soybeans] (x1) | wrong in 1/1 runs
+3073781154467
+  allergens      expected [] | got [en:milk] (x1) | wrong in 1/1 runs
+
+RUNS WITH NO USABLE ANSWER
+--------------------------------------------------------------------------------
+None.
+
+UNSTABLE (same input, different answers between runs)
+--------------------------------------------------------------------------------
+None.
+
+COST
+--------------------------------------------------------------------------------
+Tokens: 50,396 in, 2,758 out | average 2.1 s per run | 0 infrastructure retries
