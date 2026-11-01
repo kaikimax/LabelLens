@@ -53,7 +53,7 @@
         "protein": 22.8,
         "salt": 1
       },
-      "ingredients_text": "ARACHIDES grillées a sec (90%), sucre, huile végétale hydrogénée (colza, huile de coton), sel.",
+      "ingredients_text": "ARACHIDES grillées à sec (90%), sucre, huile végétale hydrogénée (colza, huile de coton), sel.",
       "ingredients_language": "fr",
       "allergens": ["en:peanuts"],
       "may_contain": [],
@@ -82,7 +82,7 @@
         "protein": 0.95,
         "salt": 1.75
       },
-      "ingredients_text": "ماء, زيت الصوجا (%35), خل المائدة, اصفر البيض, مادة مثخنة: نشا معدل, خردل(ماء حبات الخردل, خل المائدة, ملح, زيت الصوجا, مثبت: صمغ الزنتان, مادة حافظة: ميتابيسلفيت البوتاسيوم و مضاد الأكسدة: حمض الستريك), ملح, مواد حافظة (بنزوات الصوديوم, سوربات البوتاسيوم), مثبت: صمغ الزنتان و مضاد الأكسدة: كالسيوم تنائي الصوديوم EDTA.",
+      "ingredients_text": "ماء, زيت الصوجا (35%), خل المائدة, اصفر البيض, مادة مثخنة: نشا معدل, خردل(ماء حبات الخردل, خل المائدة, ملح, زيت الصوجا, مثبت: صمغ الزنتان, مادة حافظة: ميتابيسلفيت البوتاسيوم و مضاد الأكسدة: حمض الستريك), ملح, مواد حافظة (بنزوات الصوديوم, سوربات البوتاسيوم), مثبت: صمغ الزنتان و مضاد الأكسدة: كالسيوم تنائي الصوديوم EDTA.",
       "ingredients_language": "ar",
       "allergens": ["en:eggs", "en:mustard", "en:sulphur-dioxide-and-sulphites"],
       "may_contain": [],
@@ -140,7 +140,7 @@
         "protein": 5.0,
         "salt": null
       },
-      "ingredients_text": "Lait de vache pasteurisé, Protéines de lait de vache, Crème de lait de vache, Ferment lactique, Amidon, Epaississant, Sorbate de potassium",
+      "ingredients_text": "Lait de vache pasteurisé, Protéines de lait de vache, Crème de lait de vache, Ferment lactique, Amidon, Épaississant, Sorbate de potassium",
       "ingredients_language": "fr",
       "allergens": ["en:milk"],
       "may_contain": [],
@@ -515,7 +515,7 @@
         "protein": 3.3,
         "salt": 0.1
       },
-      "ingredients_text": "Lait stérlisé u.h.t demi-écrémé",
+      "ingredients_text": "Lait stérilisé u.h.t demi-écrémé",
       "ingredients_language": "fr",
       "allergens": ["en:milk"],
       "may_contain": [],
@@ -544,8 +544,8 @@
         "protein": 9.4,
         "salt": 0.56
       },
-      "ingredients_text": "حبوب القمح الكاملة (61 %), أرز (34 %), سكر, فركتو-أوليجوسكرايد, شراب السكر المحول, كالسيوم, مستخلص مولت الشعير, زيت نباتي غير مهدرج (دوار الشمس), ملح, دبس السكر, نكهات طبيعية (السكر البني, الشوفان), حديد, مضاد أكسدة: توكوفيرول, فيتامينات: نياسين (ب3), حمض البانتوثينيك (ب5), ريبوفلافين (ب2), فيتامين ب6, حمض الفوليك (ب9).",
-      "ingredients_language": "ar",
+      "ingredients_text": "Whole Grain WHEAT (61 %), Rice (34 %), Sugar, Fructo-Oligosaccharides, Invert Sugar Syrup, Calcium, BARLEY Malt Extract, Non-hydrogenated Vegetable Oil (Sunflower), Salt, Molasses, Natural Flavourings (Brown Sugar, Oatmeal), Iron, Antioxidant: Tocopherols, Vitamins: Niacin (B3), Pantothenic Acid (B5), Riboflavin (B2), Vitamin B6, Folic Acid (B9).",
+      "ingredients_language": "en",
       "allergens": ["en:gluten"],
       "may_contain": [],
       "printed_grade": null,
@@ -573,8 +573,8 @@
         "protein": 5.1,
         "salt": 0.44
       },
-      "ingredients_text": "سكر, مسحوق الكاكاو قليل الدسم (%23), مستحلب من مصدر نباتي: ليسيثين الصويا, ملح, فيتامينات (ج, د), نكهة الفانيليا الطبيعية, قرفة. يحتوي على الصويا.",
-      "ingredients_language": "ar",
+      "ingredients_text": "Sugar, Fat Reduced Cocoa powder (23%), Emulsifier from plant origin: SOYA lecithin, Salt, Vitamins (C and D), Natural Vanilla flavor, Cinnamon. Contains SOY.",
+      "ingredients_language": "en",
       "allergens": ["en:soybeans"],
       "may_contain": [],
       "printed_grade": null,
@@ -660,7 +660,7 @@
         "protein": 13.5,
         "salt": 1.48
       },
-      "ingredients_text": "Viande de dinde, eau, fécule de pomme de terre, antioxydants (E300, E325), sel nitrite (sel+0.6% nitrite de sodium E250), epices, stabilisants (E450, E451, E452), sucre, conservateur (E262), fibres, exhausteur de gout (E621), fumé.",
+      "ingredients_text": "Viande de dinde, eau, fécule de pomme de terre, antioxydants (E300, E325), sel nitrite (sel+0.6% nitrite de sodium E250), épices, stabilisants (E450, E451, E452), sucre, conservateur (E262), fibres, exhausteur de goût (E621), fumé.",
       "ingredients_language": "fr",
       "allergens": [],
       "may_contain": [],
@@ -689,12 +689,215 @@
         "protein": 6.1,
         "salt": 0.85
       },
-      "ingredients_text": "البطاطس, الزيوت النباتية (زيت عباد الشمس, زيت بذور اللفت بنسب متفاوتة), الملح, مضادات الأكسدة (مستخلصات إكليل الجبل, حمض الأسكوربيك, مستخلص غني بالتوكوفيرول, حمض الستريك).",
-      "ingredients_language": "ar",
+      "ingredients_text": "Potatoes, vegetable oils (sunflower oil, rapeseed oil in varying proportions), salt, antioxidants (rosemary extracts, ascorbic acid, tocopherol rich extract, citric acid).",
+      "ingredients_language": "en",
       "allergens": [],
       "may_contain": [],
       "printed_grade": null,
       "notes": ""
+    },
+    {
+      "id": "p025",
+      "photos": {
+        "nutrition": "p025_back.jpg",
+        "ingredients": "p025_back.jpg",
+        "front": "p025_front.jpg"
+      },
+      "situations": ["glare", "arabic", "multi-languages"],
+      "barcode": "6111184002903",
+      "name": "KETCHUP",
+      "brand": "Star",
+      "type": "GENERAL",
+      "per_100g": {
+        "energy_kj": 519.5,
+        "fat": 0.12,
+        "saturated_fat": 0.07,
+        "carbohydrates": 28.5,
+        "sugars": 24.8,
+        "fibre": null,
+        "protein": 1.8,
+        "salt": 2.22
+      },
+      "ingredients_text": "Eau, concentré de tomate, sucre, vinaigre de table, sirop de glucose-fructose, épaississant : amidon modifié, sel, arôme, conservateurs (E202, E211), stabilisant : E415 et épice.",
+      "ingredients_language": "fr",
+      "allergens": [],
+      "may_contain": [],
+      "printed_grade": null,
+      "notes": ""
+    },
+    {
+      "id": "p026",
+      "photos": {
+        "nutrition": "p026_nutrition.jpg",
+        "ingredients": "p026_ingredients.jpg",
+        "front": "p026_front.jpg"
+      },
+      "situations": ["flat-packaging", "arabic", "glare"],
+      "barcode": "6221007032564",
+      "name": "Cerelac",
+      "brand": "Nestlé",
+      "type": "GENERAL",
+      "per_100g": {
+        "energy_kj": 1766,
+        "fat": 10,
+        "saturated_fat": null,
+        "carbohydrates": 68,
+        "sugars": 26.79,
+        "fibre": 1.5,
+        "protein": 15,
+        "salt": 0.525
+      },
+      "ingredients_text": "دقيق القمح 55%، حليب بقري خالي من الدسم، سكروز، زيوت نباتية غير مهدرجة (زيت بذور اللفت منخفض الإيروسيك، زيت عباد الشمس عالي الأوليك، زيت دوار الشمس)، كراميل، شراب التمر 2.8%، نكهة (فانيلين)، مضادات الأكسدة (خليط توكوفيرول مركز، بالميتات الأسكوربيل)، فيتامينات (فيتامين C، نياسين، فيتامين E، فيتامين B6، فيتامين B1، فيتامين B5، فيتامين A، فيتامين B2، حمض الفوليك، فيتامين K، فيتامين D، بيوتين، فيتامين B12)، معادن (كربونات الكالسيوم، فوسفات الصوديوم، فومارات الحديد، كبريتات الزنك، كلوريد الصوديوم، يوديد البوتاسيوم). يحتوي على الجلوتين والحليب.",
+      "ingredients_language": "ar",
+      "allergens": ["en:milk", "en:gluten"],
+      "may_contain": [],
+      "printed_grade": null,
+      "notes": "Nutrients in arabic. Only sodium printed (210 mg): salt computed as 210 mg x 2.5 = 0.525 g."
+    },
+    {
+      "id": "p027",
+      "photos": {
+        "nutrition": "p027_nutrition.jpg",
+        "ingredients": "p027_ingredients.jpg",
+        "front": "p027_front.jpg"
+      },
+      "situations": ["round-packaging", "multi-languages", "arabic", "glare"],
+      "barcode": "80177173",
+      "name": "Nutella",
+      "brand": "Ferrero",
+      "type": "GENERAL",
+      "per_100g": {
+        "energy_kj": 2252,
+        "fat": 30.9,
+        "saturated_fat": 10.6,
+        "carbohydrates": 57.5,
+        "sugars": 56.3,
+        "fibre": 3,
+        "protein": 6.3,
+        "salt": 0.107
+      },
+      "ingredients_text": "sucre, graisse végétale (palme), noisettes (13%), lait écrémé en poudre (8,7%), cacao maigre en poudre (7,4%), émulsifiant: lécithines (soja)(0,43%), arôme: vanilline (0,02%).",
+      "ingredients_language": "fr",
+      "allergens": ["en:milk", "en:nuts", "en:soybeans"],
+      "may_contain": [],
+      "printed_grade": null,
+      "notes": ""
+    },
+    {
+      "id": "p028",
+      "photos": {
+        "nutrition": "p028_nutrition.jpg",
+        "ingredients": "p028_ingredients.jpg",
+        "front": "p028_front.jpg"
+      },
+      "situations": ["hand-in-photo", "small-text"],
+      "barcode": "8410376078121",
+      "name": "Zero",
+      "brand": "Gullón",
+      "type": "GENERAL",
+      "per_100g": {
+        "energy_kj": 1802,
+        "fat": 17,
+        "saturated_fat": 1.7,
+        "carbohydrates": 65,
+        "sugars": 0.5,
+        "fibre": 9.3,
+        "protein": 6.1,
+        "salt": 0.65
+      },
+      "ingredients_text": "Farine de blé complet, édulcorant (maltitol), huile de tournesol raffinée à haute teneur en acide oléique 17%, fibre de pois 4%, inuline, oligofructose, poudres à lever (carbonate acide de sodium, carbonate acide d'ammonium), sel, arômes, émulsifiant (lécithines [soja]).",
+      "ingredients_language": "fr",
+      "allergens": ["en:gluten", "en:soybeans"],
+      "may_contain": ["en:milk", "en:mustard"],
+      "printed_grade": null,
+      "notes": "Sugar printed as <0.5g"
+    },
+    {
+      "id": "p029",
+      "photos": {
+        "nutrition": "p029_nutrition.jpg",
+        "ingredients": "p029_ingredients.jpg",
+        "front": "p029_front.jpg"
+      },
+      "situations": ["shiny-packaging", "glare", "hand-in-photo", "flat-packaging"],
+      "barcode": "8695077011442",
+      "name": "SAVOIARDI",
+      "brand": "Carlotti",
+      "type": "GENERAL",
+      "per_100g": {
+        "energy_kj": 1652.5,
+        "fat": 3.25,
+        "saturated_fat": 0.9,
+        "carbohydrates": 80.2,
+        "sugars": 42.3,
+        "fibre": 2.7,
+        "protein": 8.66,
+        "salt": 0.4
+      },
+      "ingredients_text": "Farine de blé, sucre 35%, oeufs 26%, agents de levage (hydrogénocarbonate d'ammonium, hydrogénocarbonate de sodium), arômes naturels (citron et vanille), sel.",
+      "ingredients_language": "fr",
+      "allergens": ["en:gluten", "en:eggs"],
+      "may_contain": ["en:soybeans", "en:mustard", "en:peanuts", "en:milk"],
+      "printed_grade": null,
+      "notes": ""
+    },
+    {
+      "id": "p030",
+      "photos": {
+        "nutrition": "p030_back.jpg",
+        "ingredients": "p030_back.jpg",
+        "front": "p030_front.jpg"
+      },
+      "situations": ["hand-in-photo", "glare", "shiny-packaging"],
+      "barcode": "6111264421655",
+      "name": "Slices",
+      "brand": "Chalupa",
+      "type": "GENERAL",
+      "per_100g": {
+        "energy_kj": 1040,
+        "fat": 19.7,
+        "saturated_fat": 9.4,
+        "carbohydrates": 17.2,
+        "sugars": 0.6,
+        "fibre": null,
+        "protein": 1.1,
+        "salt": 2.2
+      },
+      "ingredients_text": "Huile végétale (palme), amidon modifié, FROMAGE, LAIT en poudre écrémé, sel, sels de fonte (E-452, E-331, E-330, E-339), arôme naturel (LAIT), conservateur (E-202) et colorant (E-160a). SANS GLUTEN",
+      "ingredients_language": "fr",
+      "allergens": ["en:milk"],
+      "may_contain": [],
+      "printed_grade": null,
+      "notes": ""
+    },
+    {
+      "id": "p031",
+      "photos": {
+        "nutrition": "p031_back.jpg",
+        "ingredients": "p031_back.jpg",
+        "front": "p031_front.jpg"
+      },
+      "situations": ["hand-in-photo", "no-nutrition-table"],
+      "barcode": "6111246720844",
+      "name": "EDAM CHEESE RÂPÉ",
+      "brand": "Le Berger",
+      "type": "GENERAL",
+      "per_100g": {
+        "energy_kj": null,
+        "fat": null,
+        "saturated_fat": null,
+        "carbohydrates": null,
+        "sugars": null,
+        "fibre": null,
+        "protein": null,
+        "salt": null
+      },
+      "ingredients_text": "lait pasteurisé, ferments lactiques, sel.",
+      "ingredients_language": "fr",
+      "allergens": ["en:milk"],
+      "may_contain": [],
+      "printed_grade": null,
+      "notes": "No nutrition table printed on the pack."
     }
   ]
 }
