@@ -39,4 +39,6 @@ Answer with **only** this JSON object: no explanation, no markdown, no code fenc
   "ingredients_language": "fr | ar | en"
 }
 
+If the package has **no nutrition table at all**, set `basis`, `serving_size`, `energy`, `energy_unit` and every nutrition value to `null`. Never estimate values that aren't printed.
+
 `serving_size` is the size of one serving in g or ml, as a number (for example `5` for "5 ml"). It is required when `basis` is `"serving"`, otherwise `null`.

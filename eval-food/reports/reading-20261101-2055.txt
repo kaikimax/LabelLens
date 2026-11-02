@@ -1,0 +1,163 @@
+EVAL REPORT: reading
+================================================================================
+Started:        2026-11-01T20:55:42.538012Z (took 16 min 6 s)
+Cases:          31, 3 run(s) each
+model:          gpt-4.1-mini-2025-04-14
+prompt:         read-label.md, sha256 bfb11e26a742
+answer key:     labels.json, sha256 ae54152e2709
+skipped:        none
+est. cost:      $0.2202 total, $0.0024 per run (list price)
+
+Counting rule: a run with no usable answer counts as WRONG for every check.
+
+SCORES
+--------------------------------------------------------------------------------
+answered                   89 / 93   95.7%
+energy_kj                  83 / 93   89.2%
+fat                        86 / 93   92.5%
+saturated_fat              89 / 93   95.7%
+carbohydrates              83 / 93   89.2%
+sugars                     78 / 93   83.9%
+fibre                      89 / 93   95.7%
+protein                    81 / 93   87.1%
+salt                       86 / 93   92.5%
+type                       83 / 93   89.2%
+ingredients                47 / 93   50.5%
+grade                      46 / 60   76.7%
+
+Stability: 310 / 319 (case, check) pairs gave the same answer in every run (97.2%)
+
+BY SITUATION (percent; number of cases in brackets; few cases = unreliable)
+--------------------------------------------------------------------------------
+arabic (24)            energy_kj 90.3% | fat 94.4% | saturated_fat 98.6% | carbohydrates 90.3% | sugars 83.3% | fibre 98.6% | protein 91.7% | salt 94.4% | type 94.4% | ingredients 61.1% | grade 82.2%
+blurry (2)             energy_kj 100.0% | fat 50.0% | saturated_fat 100.0% | carbohydrates 100.0% | sugars 100.0% | fibre 100.0% | protein 100.0% | salt 100.0% | type 100.0% | ingredients 100.0% | grade 100.0%
+flat-packaging (5)     energy_kj 80.0% | fat 100.0% | saturated_fat 100.0% | carbohydrates 80.0% | sugars 80.0% | fibre 100.0% | protein 80.0% | salt 100.0% | type 100.0% | ingredients 60.0% | grade 100.0%
+glare (14)             energy_kj 92.9% | fat 100.0% | saturated_fat 100.0% | carbohydrates 92.9% | sugars 92.9% | fibre 100.0% | protein 92.9% | salt 100.0% | type 92.9% | ingredients 50.0% | grade 90.0%
+hand-in-photo (14)     energy_kj 85.7% | fat 92.9% | saturated_fat 92.9% | carbohydrates 85.7% | sugars 78.6% | fibre 92.9% | protein 78.6% | salt 85.7% | type 78.6% | ingredients 54.8% | grade 59.3%
+multi-languages (3)    energy_kj 100.0% | fat 100.0% | saturated_fat 100.0% | carbohydrates 100.0% | sugars 100.0% | fibre 100.0% | protein 100.0% | salt 100.0% | type 100.0% | ingredients 33.3% | grade 100.0%
+no-nutrition-table (1) energy_kj 0.0% | fat 0.0% | saturated_fat 0.0% | carbohydrates 0.0% | sugars 0.0% | fibre 0.0% | protein 0.0% | salt 0.0% | type 0.0% | ingredients 0.0% | grade 0.0%
+per-portion-converted (1) energy_kj 0.0% | fat 100.0% | saturated_fat 100.0% | carbohydrates 0.0% | sugars 0.0% | fibre 100.0% | protein 100.0% | salt 0.0% | type 100.0% | ingredients 100.0% | grade 33.3%
+printed-as-less-than (2) energy_kj 100.0% | fat 100.0% | saturated_fat 100.0% | carbohydrates 100.0% | sugars 100.0% | fibre 100.0% | protein 100.0% | salt 100.0% | type 100.0% | ingredients 100.0% | grade 100.0%
+round-packaging (18)   energy_kj 92.6% | fat 92.6% | saturated_fat 98.1% | carbohydrates 92.6% | sugars 83.3% | fibre 98.1% | protein 88.9% | salt 92.6% | type 92.6% | ingredients 53.7% | grade 77.8%
+shiny-packaging (6)    energy_kj 100.0% | fat 100.0% | saturated_fat 100.0% | carbohydrates 100.0% | sugars 100.0% | fibre 100.0% | protein 83.3% | salt 100.0% | type 83.3% | ingredients 66.7% | grade 66.7%
+small-text (4)         energy_kj 75.0% | fat 75.0% | saturated_fat 100.0% | carbohydrates 75.0% | sugars 75.0% | fibre 100.0% | protein 100.0% | salt 75.0% | type 100.0% | ingredients 50.0% | grade 77.8%
+
+COMPARED WITH THE BASELINE
+--------------------------------------------------------------------------------
+BLOCKS energy_kj                      94.4% -> 89.2% (-5.2 points)
+BLOCKS carbohydrates                  94.4% -> 89.2% (-5.2 points)
+BLOCKS sugars                         87.5% -> 83.9% (-3.6 points)
+BLOCKS protein                        91.7% -> 87.1% (-4.6 points)
+BLOCKS type                           95.8% -> 89.2% (-6.6 points)
+BLOCKS ingredients                    59.7% -> 50.5% (-9.2 points)
+BLOCKS grade                          81.0% -> 76.7% (-4.3 points)
+info   energy_kj[arabic]              93.7% -> 90.3% (-3.4 points)
+info   carbohydrates[arabic]          93.7% -> 90.3% (-3.4 points)
+info   ingredients[arabic]            68.3% -> 61.1% (-7.2 points)
+info   energy_kj[flat-packaging]      100.0% -> 80.0% (-20.0 points)
+info   carbohydrates[flat-packaging]  100.0% -> 80.0% (-20.0 points)
+info   sugars[flat-packaging]         100.0% -> 80.0% (-20.0 points)
+info   protein[flat-packaging]        100.0% -> 80.0% (-20.0 points)
+info   ingredients[flat-packaging]    100.0% -> 60.0% (-40.0 points)
+info   energy_kj[glare]               100.0% -> 92.9% (-7.1 points)
+info   carbohydrates[glare]           100.0% -> 92.9% (-7.1 points)
+info   sugars[glare]                  100.0% -> 92.9% (-7.1 points)
+info   protein[glare]                 100.0% -> 92.9% (-7.1 points)
+info   type[glare]                    100.0% -> 92.9% (-7.1 points)
+info   grade[glare]                   100.0% -> 90.0% (-10.0 points)
+info   energy_kj[hand-in-photo]       90.0% -> 85.7% (-4.3 points)
+info   fat[hand-in-photo]             100.0% -> 92.9% (-7.1 points)
+info   saturated_fat[hand-in-photo]   100.0% -> 92.9% (-7.1 points)
+info   carbohydrates[hand-in-photo]   90.0% -> 85.7% (-4.3 points)
+info   fibre[hand-in-photo]           100.0% -> 92.9% (-7.1 points)
+info   protein[hand-in-photo]         90.0% -> 78.6% (-11.4 points)
+info   type[hand-in-photo]            93.3% -> 78.6% (-14.7 points)
+info   ingredients[hand-in-photo]     73.3% -> 54.8% (-18.5 points)
+info   grade[hand-in-photo]           66.7% -> 59.3% (-7.4 points)
+info   protein[shiny-packaging]       100.0% -> 83.3% (-16.7 points)
+info   type[shiny-packaging]          100.0% -> 83.3% (-16.7 points)
+info   ingredients[shiny-packaging]   75.0% -> 66.7% (-8.3 points)
+info   grade[shiny-packaging]         100.0% -> 66.7% (-33.3 points)
+info   ingredients[small-text]        66.7% -> 50.0% (-16.7 points)
+
+DISAGREEMENTS (review each one: AI error, answer-key error, or comparison rule?)
+--------------------------------------------------------------------------------
+p002
+  ingredients    expected ARACHIDES grillées à sec (90%), sucre, huile végétale hydrogénée (colza, huile de coton), sel. | got Dry roasted PEANUTS (90%), sugar, hydrogenated vegetable oil (rapeseed, cottonseed), salt. (x3) | wrong in 3/3 runs
+p003
+  sugars         expected 0.41 | got null (x2) | wrong in 2/2 runs
+  protein        expected 0.95 | got 0.41 (x2) | wrong in 2/2 runs
+  ingredients    expected ماء, زيت الصوجا (35%), خل المائدة, اصفر البيض, مادة مثخنة: نشا معدل, خردل(ماء حبات الخردل, خل المائدة, ملح, زيت الصوجا, مثبت: صمغ الزنتان, مادة حافظة: ميتابيسلفيت البوتاسيوم و مضاد الأكسدة: حمض الستريك), ملح, مواد حافظة (بنزوات الصوديوم, سوربات البوتاسيوم), مثبت: صمغ الزنتان و مضاد الأكسدة: كالسيوم تنائي الصوديوم EDTA. | got Huile de soja (35%), jaune d'œuf, jaune d'œuf en poudre, jaune d'œuf déshydraté, jaune d'œuf en poudre, sel, stabilisant: gomme xanthane, épaississant: gomme guar, acidifiant: acide citrique, conservateur: sorbate de potassium, antioxydant: acide citrique. (x2) | wrong in 2/2 runs
+  grade          expected D (18) | got not scored: sugar is not on the label (x2) | wrong in 2/2 runs
+                 caused by: sugars 0.41 -> null, protein 0.95 -> 0.41
+p005
+  ingredients    expected Lait de vache pasteurisé, Protéines de lait de vache, Crème de lait de vache, Ferment lactique, Amidon, Épaississant, Sorbate de potassium | got Lait de vache pasteurisé, Protéines de lait de vache, Crème de lait de vache, Ferment lactique, Amidon, Epaississant, Sorbate de potassium (x3) | wrong in 3/3 runs
+p007
+  energy_kj      expected 418.4 | got 5.0 (x3) | wrong in 3/3 runs
+  carbohydrates  expected 40.0 | got 2.0 (x3) | wrong in 3/3 runs
+  sugars         expected 20.0 | got 0.0 (x3) | wrong in 3/3 runs
+  salt           expected 8.5 | got 0.17 (x1), 4.25 (x1), 1.7 (x1) | wrong in 3/3 runs
+  grade          expected E (26) | got A (0) (x1), E (20) (x1), C (8) (x1) | wrong in 2/3 runs
+                 caused by: energy_kj 418.4 -> 5.0, sugars 20.0 -> 0.0, salt 8.5 -> 0.17
+                 caused by: energy_kj 418.4 -> 5.0, sugars 20.0 -> 0.0, salt 8.5 -> 1.7
+p009
+  fat            expected 3.0 | got 0.0 (x2), 0.3 (x1) | wrong in 3/3 runs
+p010
+  ingredients    expected Vineger, Louisiana type Red Chili Pepper, Salt, Thickener (Xanthan Gum), Green Pepper Natural Identical Flavor, Natural Color (E120), Antioxidant (Ascorbic Acid). | got Vineger, Louisiana type Red Chili Pepper, Salt, Thickener (Xanthan Gum), Green Pepper Natural Identical Flavor, Natural Color (E120), Antioxidant (Ascorbic Acid). (x2), Vineger, Louisiana type Red Chili Pepper, Salt, Thickener (Xanthan Gum), Green Pepper Natural Identical Flavor, Natural Color (E120), Antioxidant (Ascorbic Acid). May Contain Celery. (x1) | wrong in 1/3 runs
+p016
+  sugars         expected 0.27 | got 1.1 (x3) | wrong in 3/3 runs
+  protein        expected 1.32 | got 0.27 (x3) | wrong in 3/3 runs
+  type           expected GENERAL | got OIL (x3) | wrong in 3/3 runs
+  ingredients    expected زيت الصوجا (63%), ماء, خل المائدة, أصفر البيض (6%), خردل (ماء, حبوب الخردل, خل المائدة, ملح, زيت الصوجا, مثبت: صمغ الزنتان, مادة حافظة: ميتابيسلفيت البوتاسيوم ومضاد الأكسدة: حامض الستريك), ملح, مثبت: صمغ الزنتان, مواد حافظة : (بنزوات الصوديوم, سوربات البوتاسيوم) ومضادات الأكسدة (كالسيوم ديصوديوم EDTA وحامض الستريك). | got زيت الصويا(63%), ماء, خل المادة, أصفر البيض (6%), كيرمل (ماء, دقيق الذرة), خل المادة, ماء, زيت الصويا, مثبت, صمغ الزانثان, مادة حافظة, ميثيل سيلليلات البوتاسيوم و حمض الستريك, ومضافات الاكسدة (كالسيوم ديجيدروبيوم EDTA وحامض الستريك). (x1), زيت الصويا(63%), ماء, خل المادة, أصفر البيض (6%), كدرل الزردل, ماء, ديات الزردل, خل المادة, زيت الصويا, مثبت, صمغ الزنتان, مادة حافظة, ميثيليسين البوتاسيوم و حمض الستريك و مضادات الاكسدة (كالسيوم ديجيدروبيوم EDTA) وحامض الستريك (x1), زيت الصويا(63%), ماء, خل المادة, أصفر البيض (6%), كيرمل (ماء, دقيق الذرة), ملح, مثبت, صمغ الزانثان, مادة حافظة, ميثيليسين البوتاسيوم وحمض الستريك ومضادات الأكسدة (كالسوم ديجيدروبيوم EDTA) وحامض الستريك (x1) | wrong in 3/3 runs
+  grade          expected E (25) | got not scored: Oils are not included in v1 (x3) | wrong in 3/3 runs
+                 caused by: sugars 0.27 -> 1.1, protein 1.32 -> 0.27, type GENERAL -> OIL
+p017
+  ingredients    expected ماء, بذور الخردل, خل الروح, السكر, الملح, التوابل. | got ماء، بذور الخردل، خل الروح، السكر، الملح، النشا. (x2), مكونات: ماء، بذور الخردل، خل الروح، السكر، الملح، النشا. (x1) | wrong in 3/3 runs
+p018
+  ingredients    expected Lait stérilisé u.h.t demi-écrémé | got Lait demi-écrémé stérilisé U.H.T. (x3) | wrong in 3/3 runs
+p020
+  ingredients    expected Sugar, Fat Reduced Cocoa powder (23%), Emulsifier from plant origin: SOYA lecithin, Salt, Vitamins (C and D), Natural Vanilla flavor, Cinnamon. Contains SOY. | got Sugar, Fat Reduced Cocoa powder (23%), Emulsifier from plant origin: SOYA Lecithin, Salt, Vitamins (C and D), Natural Vanilla flavor, Cinnamon. (x3) | wrong in 3/3 runs
+p021
+  ingredients    expected Abricots, sucre, pectine de fruits. | got Abricots, sucre, pectine de fruits. Préparée avec 60 g de fruits pour 100 g. (x3) | wrong in 3/3 runs
+p023
+  ingredients    expected Viande de dinde, eau, fécule de pomme de terre, antioxydants (E300, E325), sel nitrite (sel+0.6% nitrite de sodium E250), épices, stabilisants (E450, E451, E452), sucre, conservateur (E262), fibres, exhausteur de goût (E621), fumé. | got VIANDE DE DINDE, EAU, FÉCULE DE POMME DE TERRE, ANTIOXYDANTS (E300, E325), SEL NITRITE (SEL+0.6% NITRITE DE SODIUM E250), EPICES, STABILISANTS (E450, E451, E452), SUCRE, CONSERVATEUR (E262), FIBRES, EXHAUSTEUR DE GOUT (E621), FUMÉ. (x3) | wrong in 3/3 runs
+p026
+  energy_kj      expected 1766.0 | got 422.0 (x3) | wrong in 3/3 runs
+  carbohydrates  expected 68.0 | got 26.79 (x3) | wrong in 3/3 runs
+  sugars         expected 26.79 | got 15.0 (x3) | wrong in 3/3 runs
+  ingredients    expected دقيق القمح 55%، حليب بقري خالي من الدسم، سكروز، زيوت نباتية غير مهدرجة (زيت بذور اللفت منخفض الإيروسيك، زيت عباد الشمس عالي الأوليك، زيت دوار الشمس)، كراميل، شراب التمر 2.8%، نكهة (فانيلين)، مضادات الأكسدة (خليط توكوفيرول مركز، بالميتات الأسكوربيل)، فيتامينات (فيتامين C، نياسين، فيتامين E، فيتامين B6، فيتامين B1، فيتامين B5، فيتامين A، فيتامين B2، حمض الفوليك، فيتامين K، فيتامين D، بيوتين، فيتامين B12)، معادن (كربونات الكالسيوم، فوسفات الصوديوم، فومارات الحديد، كبريتات الزنك، كلوريد الصوديوم، يوديد البوتاسيوم). يحتوي على الجلوتين والحليب. | got دقيق القمح 55%، حليب بقري خالي من الدسم، سكروز، زيوت نباتية غير مهدرجة (زيت بذور القت، منخفض الإريوسيك، زيت عباد الشمس عالي الأوليك، زيت دوار الشمس)، كراميل، شراب التمر 2.8%، نكهة (فانيليا)، مضادات الأكسدة (خليط توكوفيرول مركز بالميتات الأسكوربيل)، فيتامينات (فيتامين C، نياسين، فيتامين أ، فيتامين ب6، فيتامين B1، فيتامين B5، فيتامين 8، فيتامين B2، حمض الفوليك، فيتامين K، فيتامين D، بيوتين، فيتامين B12)، معادن (كربونات الكالسيوم، فوسفات الحديد، الصوديوم، فومارات الحديد، كبريتات الزنك، كلوريد الصوديوم، يوديد البوتاسيوم). (x1), دقيق القمح 55%، حليب بقري خالي من الدسم، سكروز، زيوت نباتية غير مهدرجة (زيت بذور القت، منخفض الإريوسيك، زيت عباد الشمس عالي الأوليك، زيت دوار الشمس)، كراميل، شراب التمر 2.8%، نكهة (فانيليا)، مضادات الأكسدة (خليط توكوفيرول مركز بالميتات الأسكوربيل)، فيتامينات (فيتامين C، نياسين، فيتامين أ، فيتامين ب6، فيتامين B1، فيتامين B5، فيتامين 8، فيتامين B2، حمض الفوليك، فيتامين K، فيتامين D، بيوتين، فيتامين B12)، معادن (كربونات الكالسيوم، فوسفات الصوديوم، فومارات الحديد، كبريتات الزنك، كلوريد الصوديوم، يوديد البوتاسيوم). (x2) | wrong in 3/3 runs
+p027
+  ingredients    expected sucre, graisse végétale (palme), noisettes (13%), lait écrémé en poudre (8,7%), cacao maigre en poudre (7,4%), émulsifiant: lécithines (soja)(0,43%), arôme: vanilline (0,02%). | got sucre, poudre végétale (palme), noisettes (13%), lait écrémé en poudre (8,7%), cacao maigre en poudre (7,4%), émulsifiant: lécithines (soja)(0,43%), arôme: vanilline (0,02%). (x2), sucre, huile végétale (palme), noisettes (13%), lait écrémé en poudre (8,7%), cacao maigre en poudre (7,4%), émulsifiant: lécithines (soja)(0,43%), arôme: vanilline (0,02%). (x1) | wrong in 3/3 runs
+p028
+  ingredients    expected Farine de blé complet, édulcorant (maltitol), huile de tournesol raffinée à haute teneur en acide oléique 17%, fibre de pois 4%, inuline, oligofructose, poudres à lever (carbonate acide de sodium, carbonate acide d'ammonium), sel, arômes, émulsifiant (lécithines [soja]). | got Whole wheat flour, sweetener (maltitol), refined high oleic sunflower oil 17%, fibre 4%, inulin, oligofructose, raising agents (sodium hydrogen carbonate, ammonium hydrogen carbonate), salt, flavourings, emulsifier (lecithins (soya)). (x2), Whole wheat flour, sweetener (maltitol), refined high oleic sunflower oil 17%, fibre 4%, inulin, oligofructose, raising agents (sodium hydrogen carbonate, ammonium hydrogen carbonate), salt, flavourings, emulsifier (lecithins [soya]). (x1) | wrong in 3/3 runs
+p029
+  protein        expected 8.66 | got 3.66 (x3) | wrong in 3/3 runs
+  ingredients    expected Farine de blé, sucre 35%, oeufs 26%, agents de levage (hydrogénocarbonate d'ammonium, hydrogénocarbonate de sodium), arômes naturels (citron et vanille), sel. | got Farine de blé, sucre 35%, œufs 26%, agents de levage (hydrogénocarbonate d'ammonium, hydrogénocarbonate de sodium,), arômes naturels (citron et vanille), sel. (x3) | wrong in 3/3 runs
+p030
+  type           expected GENERAL | got CHEESE (x3) | wrong in 3/3 runs
+  ingredients    expected Huile végétale (palme), amidon modifié, FROMAGE, LAIT en poudre écrémé, sel, sels de fonte (E-452, E-331, E-330, E-339), arôme naturel (LAIT), conservateur (E-202) et colorant (E-160a). SANS GLUTEN | got Huile végétale (palme), amidon modifié, FROMAGE, LAIT en poudre écrémé, sel, sels de fonte (E-452, E-331, E-330, E-339), arôme naturel (LAIT), conservateur (E-202) et colorant (E-160a). (x3) | wrong in 3/3 runs
+  grade          expected E (22) | got not scored: Cheeses are not included in v1 (x3) | wrong in 3/3 runs
+                 caused by: type GENERAL -> CHEESE
+
+RUNS WITH NO USABLE ANSWER
+--------------------------------------------------------------------------------
+  p003 run 1: Model answer still unusable after 2 attempts: the answer is not valid JSON in the expected format (Unexpected end-of-input: was expecting closing quote for a string value) | answer ended with: ...d'œuf déshydraté, jaune d'œuf en poudre, jaune d'œuf déshydraté, jaune d'œuf en poudre, jaune d'œuf déshydraté, jaune d'œuf en poudre, jaune d'œuf déshydraté, jaune d'œuf en poudre, jaune d'œuf déshyd
+  p031 run 1: exception: java.lang.NullPointerException
+  p031 run 2: exception: java.lang.NullPointerException
+  p031 run 3: exception: java.lang.NullPointerException
+
+UNSTABLE (same input, different answers between runs)
+--------------------------------------------------------------------------------
+  p007   salt           expected 8.5 | got 0.17 (x1), 4.25 (x1), 1.7 (x1)
+  p007   grade          expected E (26) | got A (0) (x1), E (20) (x1), C (8) (x1)
+  p009   fat            expected 3.0 | got 0.0 (x2), 0.3 (x1)
+  p010   ingredients    expected Vineger, Louisiana type Red Chili Pepper, Salt, Thickener (Xanthan Gum), Green Pepper Natural Identical Flavor, Natural Color (E120), Antioxidant (Ascorbic Acid). | got Vineger, Louisiana type Red Chili Pepper, Salt, Thickener (Xanthan Gum), Green Pepper Natural Identical Flavor, Natural Color (E120), Antioxidant (Ascorbic Acid). (x2), Vineger, Louisiana type Red Chili Pepper, Salt, Thickener (Xanthan Gum), Green Pepper Natural Identical Flavor, Natural Color (E120), Antioxidant (Ascorbic Acid). May Contain Celery. (x1)
+  p016   ingredients    expected زيت الصوجا (63%), ماء, خل المائدة, أصفر البيض (6%), خردل (ماء, حبوب الخردل, خل المائدة, ملح, زيت الصوجا, مثبت: صمغ الزنتان, مادة حافظة: ميتابيسلفيت البوتاسيوم ومضاد الأكسدة: حامض الستريك), ملح, مثبت: صمغ الزنتان, مواد حافظة : (بنزوات الصوديوم, سوربات البوتاسيوم) ومضادات الأكسدة (كالسيوم ديصوديوم EDTA وحامض الستريك). | got زيت الصويا(63%), ماء, خل المادة, أصفر البيض (6%), كيرمل (ماء, دقيق الذرة), خل المادة, ماء, زيت الصويا, مثبت, صمغ الزانثان, مادة حافظة, ميثيل سيلليلات البوتاسيوم و حمض الستريك, ومضافات الاكسدة (كالسيوم ديجيدروبيوم EDTA وحامض الستريك). (x1), زيت الصويا(63%), ماء, خل المادة, أصفر البيض (6%), كدرل الزردل, ماء, ديات الزردل, خل المادة, زيت الصويا, مثبت, صمغ الزنتان, مادة حافظة, ميثيليسين البوتاسيوم و حمض الستريك و مضادات الاكسدة (كالسيوم ديجيدروبيوم EDTA) وحامض الستريك (x1), زيت الصويا(63%), ماء, خل المادة, أصفر البيض (6%), كيرمل (ماء, دقيق الذرة), ملح, مثبت, صمغ الزانثان, مادة حافظة, ميثيليسين البوتاسيوم وحمض الستريك ومضادات الأكسدة (كالسوم ديجيدروبيوم EDTA) وحامض الستريك (x1)
+  p017   ingredients    expected ماء, بذور الخردل, خل الروح, السكر, الملح, التوابل. | got ماء، بذور الخردل، خل الروح، السكر، الملح، النشا. (x2), مكونات: ماء، بذور الخردل، خل الروح، السكر، الملح، النشا. (x1)
+  p026   ingredients    expected دقيق القمح 55%، حليب بقري خالي من الدسم، سكروز، زيوت نباتية غير مهدرجة (زيت بذور اللفت منخفض الإيروسيك، زيت عباد الشمس عالي الأوليك، زيت دوار الشمس)، كراميل، شراب التمر 2.8%، نكهة (فانيلين)، مضادات الأكسدة (خليط توكوفيرول مركز، بالميتات الأسكوربيل)، فيتامينات (فيتامين C، نياسين، فيتامين E، فيتامين B6، فيتامين B1، فيتامين B5، فيتامين A، فيتامين B2، حمض الفوليك، فيتامين K، فيتامين D، بيوتين، فيتامين B12)، معادن (كربونات الكالسيوم، فوسفات الصوديوم، فومارات الحديد، كبريتات الزنك، كلوريد الصوديوم، يوديد البوتاسيوم). يحتوي على الجلوتين والحليب. | got دقيق القمح 55%، حليب بقري خالي من الدسم، سكروز، زيوت نباتية غير مهدرجة (زيت بذور القت، منخفض الإريوسيك، زيت عباد الشمس عالي الأوليك، زيت دوار الشمس)، كراميل، شراب التمر 2.8%، نكهة (فانيليا)، مضادات الأكسدة (خليط توكوفيرول مركز بالميتات الأسكوربيل)، فيتامينات (فيتامين C، نياسين، فيتامين أ، فيتامين ب6، فيتامين B1، فيتامين B5، فيتامين 8، فيتامين B2، حمض الفوليك، فيتامين K، فيتامين D، بيوتين، فيتامين B12)، معادن (كربونات الكالسيوم، فوسفات الحديد، الصوديوم، فومارات الحديد، كبريتات الزنك، كلوريد الصوديوم، يوديد البوتاسيوم). (x1), دقيق القمح 55%، حليب بقري خالي من الدسم، سكروز، زيوت نباتية غير مهدرجة (زيت بذور القت، منخفض الإريوسيك، زيت عباد الشمس عالي الأوليك، زيت دوار الشمس)، كراميل، شراب التمر 2.8%، نكهة (فانيليا)، مضادات الأكسدة (خليط توكوفيرول مركز بالميتات الأسكوربيل)، فيتامينات (فيتامين C، نياسين، فيتامين أ، فيتامين ب6، فيتامين B1، فيتامين B5، فيتامين 8، فيتامين B2، حمض الفوليك، فيتامين K، فيتامين D، بيوتين، فيتامين B12)، معادن (كربونات الكالسيوم، فوسفات الصوديوم، فومارات الحديد، كبريتات الزنك، كلوريد الصوديوم، يوديد البوتاسيوم). (x2)
+  p027   ingredients    expected sucre, graisse végétale (palme), noisettes (13%), lait écrémé en poudre (8,7%), cacao maigre en poudre (7,4%), émulsifiant: lécithines (soja)(0,43%), arôme: vanilline (0,02%). | got sucre, poudre végétale (palme), noisettes (13%), lait écrémé en poudre (8,7%), cacao maigre en poudre (7,4%), émulsifiant: lécithines (soja)(0,43%), arôme: vanilline (0,02%). (x2), sucre, huile végétale (palme), noisettes (13%), lait écrémé en poudre (8,7%), cacao maigre en poudre (7,4%), émulsifiant: lécithines (soja)(0,43%), arôme: vanilline (0,02%). (x1)
+  p028   ingredients    expected Farine de blé complet, édulcorant (maltitol), huile de tournesol raffinée à haute teneur en acide oléique 17%, fibre de pois 4%, inuline, oligofructose, poudres à lever (carbonate acide de sodium, carbonate acide d'ammonium), sel, arômes, émulsifiant (lécithines [soja]). | got Whole wheat flour, sweetener (maltitol), refined high oleic sunflower oil 17%, fibre 4%, inulin, oligofructose, raising agents (sodium hydrogen carbonate, ammonium hydrogen carbonate), salt, flavourings, emulsifier (lecithins (soya)). (x2), Whole wheat flour, sweetener (maltitol), refined high oleic sunflower oil 17%, fibre 4%, inulin, oligofructose, raising agents (sodium hydrogen carbonate, ammonium hydrogen carbonate), salt, flavourings, emulsifier (lecithins [soya]). (x1)
+
+COST
+--------------------------------------------------------------------------------
+Tokens: 453,261 in, 24,311 out | average 10.4 s per run | 0 infrastructure retries

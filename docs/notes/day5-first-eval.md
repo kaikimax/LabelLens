@@ -135,3 +135,46 @@ Rule for later: **one change per eval run**, so each score change can be attribu
 
 1. Save the baseline once the key is settled: `mvn -pl app test -Peval "-Deval.saveBaseline=true"`.
 2. More products, prioritising variety: non-Arabic labels, per-portion tables, gluten (allergen test set for day 6).
+
+## Run 3 (2026-11-02): 31 products, corrected answer key, saved as the baseline
+
+31 products x 3 runs, gpt-4.1-mini, prompt sha256 f4df5a3c0b00, labels.json sha256 a09a0f58163c.
+Cost $0.24, 18 minutes. Every run answered (the p031 crash is fixed).
+
+| Check | Score |
+|---|---|
+| energy | 92.5% |
+| fat / saturated fat | 96.8% / 100% |
+| carbohydrates / sugars | 96.8% / 90.3% |
+| fibre / protein / salt | 100% / 90.3% / 95.7% |
+| type | 96.8% |
+| ingredients | 73.1% |
+| grade (19 graded products) | 84.2% |
+| stability | 97.3% |
+
+What changed since run 2:
+- 7 new products (p025-p031), including p031 with no nutrition table: it found a real crash
+  (`Set.of(...).contains(null)` in `PrintedLabel`), fixed, and the reader now answers `null`
+  for every value instead of inventing a table.
+- Answer key: kcal typed as kJ (p020, p022, p025), wrong allergen (p027 hazelnuts as peanuts),
+  English lists where the pack has no French (p019, p020, p024), statements after the list removed
+  (p020, p026, p030), accents matched to what is printed.
+- Prompt: no-nutrition-table rule; ingredients stop at the last ingredient.
+
+Every remaining disagreement was checked against the photos: all are reader errors.
+
+| Reader weakness | Products |
+|---|---|
+| Ignores the language order (English chosen over the French list) | p002, p028 |
+| Arabic ingredient lists: rewritten, partly translated into French, or invented words | p003, p016, p026 |
+| Rows shifted in Arabic tables (sugars and protein swapped or moved) | p003, p016 |
+| kcal value returned as kJ | p026 |
+| Per-portion table not handled | p007 |
+| Single values misread | p009 fat, p022 energy (1 run in 3), p029 protein |
+| Text that isn't an ingredient added | p010 "May contain celery" (2 runs in 3), p021 "Préparée avec…" |
+| Word order or words changed | p017 (starch for spices), p018 |
+| Type: processed cheese slices read as CHEESE | p030 |
+
+These are the targets for prompt work. The two with the most weight: the language order (a rule
+the prompt states and the model ignores) and Arabic ingredient lists, the weakest situation for a
+Moroccan app.

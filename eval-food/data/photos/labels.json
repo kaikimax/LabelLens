@@ -140,7 +140,7 @@
         "protein": 5.0,
         "salt": null
       },
-      "ingredients_text": "Lait de vache pasteurisé, Protéines de lait de vache, Crème de lait de vache, Ferment lactique, Amidon, Épaississant, Sorbate de potassium",
+      "ingredients_text": "Lait de vache pasteurisé, Protéines de lait de vache, Crème de lait de vache, Ferment lactique, Amidon, Epaississant, Sorbate de potassium",
       "ingredients_language": "fr",
       "allergens": ["en:milk"],
       "may_contain": [],
@@ -573,7 +573,7 @@
         "protein": 5.1,
         "salt": 0.44
       },
-      "ingredients_text": "Sugar, Fat Reduced Cocoa powder (23%), Emulsifier from plant origin: SOYA lecithin, Salt, Vitamins (C and D), Natural Vanilla flavor, Cinnamon. Contains SOY.",
+      "ingredients_text": "Sugar, Fat Reduced Cocoa powder (23%), Emulsifier from plant origin: SOYA lecithin, Salt, Vitamins (C and D), Natural Vanilla flavor, Cinnamon.",
       "ingredients_language": "en",
       "allergens": ["en:soybeans"],
       "may_contain": [],
@@ -660,7 +660,7 @@
         "protein": 13.5,
         "salt": 1.48
       },
-      "ingredients_text": "Viande de dinde, eau, fécule de pomme de terre, antioxydants (E300, E325), sel nitrite (sel+0.6% nitrite de sodium E250), épices, stabilisants (E450, E451, E452), sucre, conservateur (E262), fibres, exhausteur de goût (E621), fumé.",
+      "ingredients_text": "Viande de dinde, eau, fécule de pomme de terre, antioxydants (E300, E325), sel nitrite (sel+0.6% nitrite de sodium E250), epices, stabilisants (E450, E451, E452), sucre, conservateur (E262), fibres, exhausteur de gout (E621), fumé.",
       "ingredients_language": "fr",
       "allergens": [],
       "may_contain": [],
@@ -747,7 +747,7 @@
         "protein": 15,
         "salt": 0.525
       },
-      "ingredients_text": "دقيق القمح 55%، حليب بقري خالي من الدسم، سكروز، زيوت نباتية غير مهدرجة (زيت بذور اللفت منخفض الإيروسيك، زيت عباد الشمس عالي الأوليك، زيت دوار الشمس)، كراميل، شراب التمر 2.8%، نكهة (فانيلين)، مضادات الأكسدة (خليط توكوفيرول مركز، بالميتات الأسكوربيل)، فيتامينات (فيتامين C، نياسين، فيتامين E، فيتامين B6، فيتامين B1، فيتامين B5، فيتامين A، فيتامين B2، حمض الفوليك، فيتامين K، فيتامين D، بيوتين، فيتامين B12)، معادن (كربونات الكالسيوم، فوسفات الصوديوم، فومارات الحديد، كبريتات الزنك، كلوريد الصوديوم، يوديد البوتاسيوم). يحتوي على الجلوتين والحليب.",
+      "ingredients_text": "دقيق القمح 55%، حليب بقري خالي من الدسم، سكروز، زيوت نباتية غير مهدرجة (زيت بذور اللفت منخفض الإيروسيك، زيت عباد الشمس عالي الأوليك، زيت دوار الشمس)، كراميل، شراب التمر 2.8%، نكهة (فانيلين)، مضادات الأكسدة (خليط توكوفيرول مركز، بالميتات الأسكوربيل)، فيتامينات (فيتامين C، نياسين، فيتامين E، فيتامين B6، فيتامين B1، فيتامين B5، فيتامين A، فيتامين B2، حمض الفوليك، فيتامين K، فيتامين D، بيوتين، فيتامين B12)، معادن (كربونات الكالسيوم، فوسفات الصوديوم، فومارات الحديد، كبريتات الزنك، كلوريد الصوديوم، يوديد البوتاسيوم).",
       "ingredients_language": "ar",
       "allergens": ["en:milk", "en:gluten"],
       "may_contain": [],
@@ -834,7 +834,7 @@
         "protein": 8.66,
         "salt": 0.4
       },
-      "ingredients_text": "Farine de blé, sucre 35%, oeufs 26%, agents de levage (hydrogénocarbonate d'ammonium, hydrogénocarbonate de sodium), arômes naturels (citron et vanille), sel.",
+      "ingredients_text": "Farine de blé, sucre 35%, œufs 26%, agents de levage (hydrogénocarbonate d'ammonium, hydrogénocarbonate de sodium,), arômes naturels (citron et vanille), sel.",
       "ingredients_language": "fr",
       "allergens": ["en:gluten", "en:eggs"],
       "may_contain": ["en:soybeans", "en:mustard", "en:peanuts", "en:milk"],
@@ -863,7 +863,7 @@
         "protein": 1.1,
         "salt": 2.2
       },
-      "ingredients_text": "Huile végétale (palme), amidon modifié, FROMAGE, LAIT en poudre écrémé, sel, sels de fonte (E-452, E-331, E-330, E-339), arôme naturel (LAIT), conservateur (E-202) et colorant (E-160a). SANS GLUTEN",
+      "ingredients_text": "Huile végétale (palme), amidon modifié, FROMAGE, LAIT en poudre écrémé, sel, sels de fonte (E-452, E-331, E-330, E-339), arôme naturel (LAIT), conservateur (E-202) et colorant (E-160a).",
       "ingredients_language": "fr",
       "allergens": ["en:milk"],
       "may_contain": [],
@@ -881,7 +881,7 @@
       "barcode": "6111246720844",
       "name": "EDAM CHEESE RÂPÉ",
       "brand": "Le Berger",
-      "type": "GENERAL",
+      "type": "CHEESE",
       "per_100g": {
         "energy_kj": null,
         "fat": null,

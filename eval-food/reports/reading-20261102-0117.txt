@@ -1,0 +1,116 @@
+EVAL REPORT: reading
+================================================================================
+Started:        2026-11-02T01:17:43.919395Z (took 17 min 49 s)
+Cases:          31, 3 run(s) each
+model:          gpt-4.1-mini-2025-04-14
+prompt:         read-label.md, sha256 f4df5a3c0b00
+answer key:     labels.json, sha256 a09a0f58163c
+skipped:        none
+est. cost:      $0.2397 total, $0.0026 per run (list price)
+
+Counting rule: a run with no usable answer counts as WRONG for every check.
+
+SCORES
+--------------------------------------------------------------------------------
+answered                   93 / 93   100.0%
+energy_kj                  86 / 93   92.5%
+fat                        90 / 93   96.8%
+saturated_fat              93 / 93   100.0%
+carbohydrates              90 / 93   96.8%
+sugars                     84 / 93   90.3%
+fibre                      93 / 93   100.0%
+protein                    84 / 93   90.3%
+salt                       89 / 93   95.7%
+type                       90 / 93   96.8%
+ingredients                68 / 93   73.1%
+grade                      48 / 57   84.2%
+
+Stability: 320 / 329 (case, check) pairs gave the same answer in every run (97.3%)
+
+BY SITUATION (percent; number of cases in brackets; few cases = unreliable)
+--------------------------------------------------------------------------------
+arabic (24)            energy_kj 90.3% | fat 95.8% | saturated_fat 100.0% | carbohydrates 95.8% | sugars 87.5% | fibre 100.0% | protein 91.7% | salt 94.4% | type 100.0% | ingredients 77.8% | grade 86.7%
+blurry (2)             energy_kj 100.0% | fat 50.0% | saturated_fat 100.0% | carbohydrates 100.0% | sugars 100.0% | fibre 100.0% | protein 100.0% | salt 100.0% | type 100.0% | ingredients 100.0% | grade 100.0%
+flat-packaging (5)     energy_kj 80.0% | fat 100.0% | saturated_fat 100.0% | carbohydrates 100.0% | sugars 100.0% | fibre 100.0% | protein 80.0% | salt 100.0% | type 100.0% | ingredients 80.0% | grade 100.0%
+glare (14)             energy_kj 90.5% | fat 100.0% | saturated_fat 100.0% | carbohydrates 100.0% | sugars 100.0% | fibre 100.0% | protein 92.9% | salt 100.0% | type 92.9% | ingredients 78.6% | grade 90.0%
+hand-in-photo (14)     energy_kj 92.9% | fat 100.0% | saturated_fat 100.0% | carbohydrates 92.9% | sugars 85.7% | fibre 100.0% | protein 85.7% | salt 92.9% | type 92.9% | ingredients 76.2% | grade 75.0%
+multi-languages (3)    energy_kj 100.0% | fat 100.0% | saturated_fat 100.0% | carbohydrates 100.0% | sugars 100.0% | fibre 100.0% | protein 100.0% | salt 100.0% | type 100.0% | ingredients 66.7% | grade 100.0%
+no-nutrition-table (1) energy_kj 100.0% | fat 100.0% | saturated_fat 100.0% | carbohydrates 100.0% | sugars 100.0% | fibre 100.0% | protein 100.0% | salt 100.0% | type 100.0% | ingredients 100.0% | grade -
+per-portion-converted (1) energy_kj 0.0% | fat 100.0% | saturated_fat 100.0% | carbohydrates 0.0% | sugars 0.0% | fibre 100.0% | protein 100.0% | salt 0.0% | type 100.0% | ingredients 100.0% | grade 0.0%
+printed-as-less-than (2) energy_kj 100.0% | fat 100.0% | saturated_fat 100.0% | carbohydrates 100.0% | sugars 100.0% | fibre 100.0% | protein 100.0% | salt 100.0% | type 100.0% | ingredients 100.0% | grade 100.0%
+round-packaging (18)   energy_kj 94.4% | fat 94.4% | saturated_fat 100.0% | carbohydrates 94.4% | sugars 83.3% | fibre 100.0% | protein 88.9% | salt 92.6% | type 100.0% | ingredients 70.4% | grade 83.3%
+shiny-packaging (6)    energy_kj 94.4% | fat 100.0% | saturated_fat 100.0% | carbohydrates 100.0% | sugars 100.0% | fibre 100.0% | protein 83.3% | salt 100.0% | type 83.3% | ingredients 100.0% | grade 66.7%
+small-text (4)         energy_kj 75.0% | fat 75.0% | saturated_fat 100.0% | carbohydrates 75.0% | sugars 75.0% | fibre 100.0% | protein 100.0% | salt 75.0% | type 100.0% | ingredients 50.0% | grade 66.7%
+
+COMPARED WITH THE BASELINE
+--------------------------------------------------------------------------------
+info   grade[per-portion-converted]   33.3% -> 0.0% (-33.3 points)
+info   energy_kj[shiny-packaging]     100.0% -> 94.4% (-5.6 points)
+info   grade[small-text]              77.8% -> 66.7% (-11.1 points)
+
+DISAGREEMENTS (review each one: AI error, answer-key error, or comparison rule?)
+--------------------------------------------------------------------------------
+p002
+  ingredients    expected ARACHIDES grillées à sec (90%), sucre, huile végétale hydrogénée (colza, huile de coton), sel. | got Dry roasted PEANUTS (90%), sugar, hydrogenated vegetable oil (rapeseed, cottonseed), salt. (x3) | wrong in 3/3 runs
+p003
+  sugars         expected 0.41 | got null (x3) | wrong in 3/3 runs
+  protein        expected 0.95 | got 0.41 (x3) | wrong in 3/3 runs
+  salt           expected 1.75 | got 1.75 (x2), 0.95 (x1) | wrong in 1/3 runs
+  ingredients    expected ماء, زيت الصوجا (35%), خل المائدة, اصفر البيض, مادة مثخنة: نشا معدل, خردل(ماء حبات الخردل, خل المائدة, ملح, زيت الصوجا, مثبت: صمغ الزنتان, مادة حافظة: ميتابيسلفيت البوتاسيوم و مضاد الأكسدة: حمض الستريك), ملح, مواد حافظة (بنزوات الصوديوم, سوربات البوتاسيوم), مثبت: صمغ الزنتان و مضاد الأكسدة: كالسيوم تنائي الصوديوم EDTA. | got huile de soja (35%), jaune d'œuf, jaune d'œuf en poudre, moutarde jaune, sel, stabilisant: gomme xanthane, acidifiant: acide lactique, conservateur: sorbate de potassium, antioxydant: EDTA disodique. (x1), زيت الصويا (65%)، خل المائدة، اصفر البيض، مادة مثبتة، نشا معدل، خل الصويا، مثبت، صمغ الزانثان، مادة حافظة ميتابيسلفيت الصوديوم ومضاد أكسدة ميتا سيلينيت الصوديوم، ملح، مواد حافظة (رزورسينول ثنائي الصوديوم، EDTA صمغ الزانثان ومضاد أكسدة: تاسيلوسيد ثنائي الصوديوم بيروفات (x1), زيت الصويا (65%)، خل المائدة، اصفر البيض، مادة مثبتة: الصمغ الصودي، مثبت: صمغ الزانثان، مادة حافظة: ميتا بيزلفيت الصوديوم، مثبت، مضاد أكسدة: حمض الستريك، ملح، مواد حافظة (زرازيم الصوديوم بيروفوسفات، ميتا بيزلفيت الصوديوم)، مثبت ومضاد أكسدة: كالسيدوني ثاني الصوديوم EDTA (x1) | wrong in 3/3 runs
+  grade          expected D (18) | got not scored: sugar is not on the label (x3) | wrong in 3/3 runs
+                 caused by: sugars 0.41 -> null, protein 0.95 -> 0.41
+                 caused by: sugars 0.41 -> null, protein 0.95 -> 0.41, salt 1.75 -> 0.95
+p007
+  energy_kj      expected 418.4 | got 20.92 (x3) | wrong in 3/3 runs
+  carbohydrates  expected 40.0 | got 1.0 (x3) | wrong in 3/3 runs
+  sugars         expected 20.0 | got 0.0 (x3) | wrong in 3/3 runs
+  salt           expected 8.5 | got 0.17 (x3) | wrong in 3/3 runs
+  grade          expected E (26) | got A (0) (x3) | wrong in 3/3 runs
+                 caused by: energy_kj 418.4 -> 20.92, sugars 20.0 -> 0.0, salt 8.5 -> 0.17
+p009
+  fat            expected 3.0 | got 0.0 (x3) | wrong in 3/3 runs
+p010
+  ingredients    expected Vineger, Louisiana type Red Chili Pepper, Salt, Thickener (Xanthan Gum), Green Pepper Natural Identical Flavor, Natural Color (E120), Antioxidant (Ascorbic Acid). | got Vineger, Louisiana type Red Chili Pepper, Salt, Thickener (Xanthan Gum), Green Pepper Natural Identical Flavor, Natural Color (E120), Antioxidant (Ascorbic Acid). May Contain Celery. (x2), Vineger, Louisiana type Red Chili Pepper, Salt, Thickener (Xanthan Gum), Green Pepper Natural Identical Flavor, Natural Color (E120), Antioxidant (Ascorbic Acid). (x1) | wrong in 2/3 runs
+p016
+  sugars         expected 0.27 | got 1.1 (x3) | wrong in 3/3 runs
+  protein        expected 1.32 | got 0.27 (x3) | wrong in 3/3 runs
+  ingredients    expected زيت الصوجا (63%), ماء, خل المائدة, أصفر البيض (6%), خردل (ماء, حبوب الخردل, خل المائدة, ملح, زيت الصوجا, مثبت: صمغ الزنتان, مادة حافظة: ميتابيسلفيت البوتاسيوم ومضاد الأكسدة: حامض الستريك), ملح, مثبت: صمغ الزنتان, مواد حافظة : (بنزوات الصوديوم, سوربات البوتاسيوم) ومضادات الأكسدة (كالسيوم ديصوديوم EDTA وحامض الستريك). | got huile de soja (63%), eau, jaune d'œuf (6%), moutarde, sel, épaississant: gomme xanthane, correcteur d'acidité: acide citrique, conservateur: sorbate de potassium. (x1), زيت الصويا(63%), ماء, خل المادة, أصفر البيض (6%), ماء, ديتا الصوديوم, و ملح, مثبت, صمغ الزانثان, مادة حافظة, ميثيل الساليسيلات البوتاسيوم, مضادات الأكسدة (كالسيوم ديجيدروبيوم EDTA وحامض الستريك). (x1), huile de soja (63%), eau, jaune d'œuf (6%), moutarde (eau, graines de moutarde, vinaigre, sel, stabilisant: gomme xanthane), sel, épaississant: gomme xanthane, conservateurs: benzoate de sodium et sorbate de potassium, antioxydants (calcium disodium EDTA) et acidifiant: acide citrique. (x1) | wrong in 3/3 runs
+p017
+  ingredients    expected ماء, بذور الخردل, خل الروح, السكر, الملح, التوابل. | got ماء، بذور الخردل، خل الروح، السكر، الملح، التوابل. (x1), ماء، بذور الخردل، خل الروح، السكر، الملح، النشا. (x2) | wrong in 2/3 runs
+p018
+  ingredients    expected Lait stérilisé u.h.t demi-écrémé | got Lait demi-écrémé stérilisé U.H.T (x1), Lait demi-écrémé stérilisé U.H.T. (x1), null (x1) | wrong in 3/3 runs
+p021
+  ingredients    expected Abricots, sucre, pectine de fruits. | got Abricots, sucre, pectine de fruits. Préparée avec 60 g de fruits pour 100 g. (x3) | wrong in 3/3 runs
+p022
+  energy_kj      expected 146.4 | got 146.44 (x2), 610.864 (x1) | wrong in 1/3 runs
+p026
+  energy_kj      expected 1766.0 | got 422.0 (x3) | wrong in 3/3 runs
+  ingredients    expected دقيق القمح 55%، حليب بقري خالي من الدسم، سكروز، زيوت نباتية غير مهدرجة (زيت بذور اللفت منخفض الإيروسيك، زيت عباد الشمس عالي الأوليك، زيت دوار الشمس)، كراميل، شراب التمر 2.8%، نكهة (فانيلين)، مضادات الأكسدة (خليط توكوفيرول مركز، بالميتات الأسكوربيل)، فيتامينات (فيتامين C، نياسين، فيتامين E، فيتامين B6، فيتامين B1، فيتامين B5، فيتامين A، فيتامين B2، حمض الفوليك، فيتامين K، فيتامين D، بيوتين، فيتامين B12)، معادن (كربونات الكالسيوم، فوسفات الصوديوم، فومارات الحديد، كبريتات الزنك، كلوريد الصوديوم، يوديد البوتاسيوم). | got دقيق القمح 55%، حليب بقري خالي من الدسم، سكر، زيوت نباتية غير مهدرةجة (زيت بذور القطن منخفض الإريوسيك، زيت عباد الشمس عالي الأوليك، زيت دوار الشمس)، كراميل، شراب التمر 2.8%، نكهة (فانيليين)، مضادات الأكسدة (خليط توكوفيرول مركز بالفيتامينات C، فيتامينات (فيتامين C، نياسين، فيتامين B1، فيتامين B6، فيتامين B2، حمض الفوليك، فيتامين B5، فيتامين A، فيتامين K، فيتامين D، فيتامين E، بيوتين، فيتامين B12)، معادن (كربونات الكالسيوم، فوسفات الصوديوم، فومارات الحديد، كبريتات الزنك، كلوريد الصوديوم، يوديد البوتاسيوم). (x1), دقيق القمح 55%، حليب بقري خالي من الدسم، سكر، زيوت نباتية غير مهدرةجة (زيت بذور القطن منخفض الإريوسيك، زيت عباد الشمس عالي الأوليك، زيت دوار الشمس)، كراميل، شراب التمر 2.8%، نكهة (فانيليا)، مضادات أكسدة (خليط توكوفيرول مركز بالفيتامينات C، فيتامين E، فيتامين B6، فيتامين B1، فيتامين B5، فيتامين A، فيتامين B2، حمض الفوليك، فيتامين K، فيتامين D، فيتامين B12)، معادن (كربونات الكالسيوم، فوسفات الصوديوم، فومارات الحديد، كبريتات الزنك، كلوريد الصوديوم، يوديد البوتاسيوم). (x1), دقيق القمح 55%، حليب بقري خالي من الدسم، سكر، زيوت نباتية غير مهدرةجة (زيت بذور القطن منخفض الإريوسيك، زيت عباد الشمس عالي الأوليك، زيت دوار الشمس)، كراميل، شراب التمر 2.8%، نكهة (فانيين)، مضادات الأكسدة (خليط توكوفيرول مركز بالفيتامينات (فيتامين C، نياسين، فيتامين E، فيتامين B6، فيتامين B1، فيتامين B5، فيتامين A، فيتامين B2، حمض الفوليك، فيتامين K، فيتامين D، فيتامين B12)، معادن (كربونات الكالسيوم، فوسفات الصوديوم، فومارات الحديد، كبريتات الزنك، كلوريد الصوديوم، يوديد البوتاسيوم). (x1) | wrong in 3/3 runs
+p028
+  ingredients    expected Farine de blé complet, édulcorant (maltitol), huile de tournesol raffinée à haute teneur en acide oléique 17%, fibre de pois 4%, inuline, oligofructose, poudres à lever (carbonate acide de sodium, carbonate acide d'ammonium), sel, arômes, émulsifiant (lécithines [soja]). | got Whole wheat flour, sweetener (maltitol), refined high oleic sunflower oil 17%, fibre 4%, inulin, oligofructose, raising agents (sodium hydrogen carbonate, ammonium hydrogen carbonate), salt, flavourings, emulsifier (lecithins (soya)). (x1), Whole wheat flour, sweetener (maltitol), refined high oleic sunflower oil 17%, rye fibre 4%, inulin, oligofructose, raising agents (sodium hydrogen carbonate, ammonium hydrogen carbonate), salt, flavourings, emulsifier (lecithins (soya)). (x1), Whole wheat flour, sweetener (maltitol), refined high oleic sunflower oil 17%, psyllium husk fibre 4%, inulin, oligofructose, raising agents (sodium hydrogen carbonate, ammonium hydrogen carbonate), salt, flavourings, emulsifier (lecithins (soya)). (x1) | wrong in 3/3 runs
+p029
+  protein        expected 8.66 | got 3.66 (x3) | wrong in 3/3 runs
+p030
+  type           expected GENERAL | got CHEESE (x3) | wrong in 3/3 runs
+  grade          expected E (22) | got not scored: Cheeses are not included in v1 (x3) | wrong in 3/3 runs
+                 caused by: type GENERAL -> CHEESE
+
+RUNS WITH NO USABLE ANSWER
+--------------------------------------------------------------------------------
+None.
+
+UNSTABLE (same input, different answers between runs)
+--------------------------------------------------------------------------------
+  p003   salt           expected 1.75 | got 1.75 (x2), 0.95 (x1)
+  p003   ingredients    expected ماء, زيت الصوجا (35%), خل المائدة, اصفر البيض, مادة مثخنة: نشا معدل, خردل(ماء حبات الخردل, خل المائدة, ملح, زيت الصوجا, مثبت: صمغ الزنتان, مادة حافظة: ميتابيسلفيت البوتاسيوم و مضاد الأكسدة: حمض الستريك), ملح, مواد حافظة (بنزوات الصوديوم, سوربات البوتاسيوم), مثبت: صمغ الزنتان و مضاد الأكسدة: كالسيوم تنائي الصوديوم EDTA. | got huile de soja (35%), jaune d'œuf, jaune d'œuf en poudre, moutarde jaune, sel, stabilisant: gomme xanthane, acidifiant: acide lactique, conservateur: sorbate de potassium, antioxydant: EDTA disodique. (x1), زيت الصويا (65%)، خل المائدة، اصفر البيض، مادة مثبتة، نشا معدل، خل الصويا، مثبت، صمغ الزانثان، مادة حافظة ميتابيسلفيت الصوديوم ومضاد أكسدة ميتا سيلينيت الصوديوم، ملح، مواد حافظة (رزورسينول ثنائي الصوديوم، EDTA صمغ الزانثان ومضاد أكسدة: تاسيلوسيد ثنائي الصوديوم بيروفات (x1), زيت الصويا (65%)، خل المائدة، اصفر البيض، مادة مثبتة: الصمغ الصودي، مثبت: صمغ الزانثان، مادة حافظة: ميتا بيزلفيت الصوديوم، مثبت، مضاد أكسدة: حمض الستريك، ملح، مواد حافظة (زرازيم الصوديوم بيروفوسفات، ميتا بيزلفيت الصوديوم)، مثبت ومضاد أكسدة: كالسيدوني ثاني الصوديوم EDTA (x1)
+  p010   ingredients    expected Vineger, Louisiana type Red Chili Pepper, Salt, Thickener (Xanthan Gum), Green Pepper Natural Identical Flavor, Natural Color (E120), Antioxidant (Ascorbic Acid). | got Vineger, Louisiana type Red Chili Pepper, Salt, Thickener (Xanthan Gum), Green Pepper Natural Identical Flavor, Natural Color (E120), Antioxidant (Ascorbic Acid). May Contain Celery. (x2), Vineger, Louisiana type Red Chili Pepper, Salt, Thickener (Xanthan Gum), Green Pepper Natural Identical Flavor, Natural Color (E120), Antioxidant (Ascorbic Acid). (x1)
+  p016   ingredients    expected زيت الصوجا (63%), ماء, خل المائدة, أصفر البيض (6%), خردل (ماء, حبوب الخردل, خل المائدة, ملح, زيت الصوجا, مثبت: صمغ الزنتان, مادة حافظة: ميتابيسلفيت البوتاسيوم ومضاد الأكسدة: حامض الستريك), ملح, مثبت: صمغ الزنتان, مواد حافظة : (بنزوات الصوديوم, سوربات البوتاسيوم) ومضادات الأكسدة (كالسيوم ديصوديوم EDTA وحامض الستريك). | got huile de soja (63%), eau, jaune d'œuf (6%), moutarde, sel, épaississant: gomme xanthane, correcteur d'acidité: acide citrique, conservateur: sorbate de potassium. (x1), زيت الصويا(63%), ماء, خل المادة, أصفر البيض (6%), ماء, ديتا الصوديوم, و ملح, مثبت, صمغ الزانثان, مادة حافظة, ميثيل الساليسيلات البوتاسيوم, مضادات الأكسدة (كالسيوم ديجيدروبيوم EDTA وحامض الستريك). (x1), huile de soja (63%), eau, jaune d'œuf (6%), moutarde (eau, graines de moutarde, vinaigre, sel, stabilisant: gomme xanthane), sel, épaississant: gomme xanthane, conservateurs: benzoate de sodium et sorbate de potassium, antioxydants (calcium disodium EDTA) et acidifiant: acide citrique. (x1)
+  p017   ingredients    expected ماء, بذور الخردل, خل الروح, السكر, الملح, التوابل. | got ماء، بذور الخردل، خل الروح، السكر، الملح، التوابل. (x1), ماء، بذور الخردل، خل الروح، السكر، الملح، النشا. (x2)
+  p018   ingredients    expected Lait stérilisé u.h.t demi-écrémé | got Lait demi-écrémé stérilisé U.H.T (x1), Lait demi-écrémé stérilisé U.H.T. (x1), null (x1)
+  p022   energy_kj      expected 146.4 | got 146.44 (x2), 610.864 (x1)
+  p026   ingredients    expected دقيق القمح 55%، حليب بقري خالي من الدسم، سكروز، زيوت نباتية غير مهدرجة (زيت بذور اللفت منخفض الإيروسيك، زيت عباد الشمس عالي الأوليك، زيت دوار الشمس)، كراميل، شراب التمر 2.8%، نكهة (فانيلين)، مضادات الأكسدة (خليط توكوفيرول مركز، بالميتات الأسكوربيل)، فيتامينات (فيتامين C، نياسين، فيتامين E، فيتامين B6، فيتامين B1، فيتامين B5، فيتامين A، فيتامين B2، حمض الفوليك، فيتامين K، فيتامين D، بيوتين، فيتامين B12)، معادن (كربونات الكالسيوم، فوسفات الصوديوم، فومارات الحديد، كبريتات الزنك، كلوريد الصوديوم، يوديد البوتاسيوم). | got دقيق القمح 55%، حليب بقري خالي من الدسم، سكر، زيوت نباتية غير مهدرةجة (زيت بذور القطن منخفض الإريوسيك، زيت عباد الشمس عالي الأوليك، زيت دوار الشمس)، كراميل، شراب التمر 2.8%، نكهة (فانيليين)، مضادات الأكسدة (خليط توكوفيرول مركز بالفيتامينات C، فيتامينات (فيتامين C، نياسين، فيتامين B1، فيتامين B6، فيتامين B2، حمض الفوليك، فيتامين B5، فيتامين A، فيتامين K، فيتامين D، فيتامين E، بيوتين، فيتامين B12)، معادن (كربونات الكالسيوم، فوسفات الصوديوم، فومارات الحديد، كبريتات الزنك، كلوريد الصوديوم، يوديد البوتاسيوم). (x1), دقيق القمح 55%، حليب بقري خالي من الدسم، سكر، زيوت نباتية غير مهدرةجة (زيت بذور القطن منخفض الإريوسيك، زيت عباد الشمس عالي الأوليك، زيت دوار الشمس)، كراميل، شراب التمر 2.8%، نكهة (فانيليا)، مضادات أكسدة (خليط توكوفيرول مركز بالفيتامينات C، فيتامين E، فيتامين B6، فيتامين B1، فيتامين B5، فيتامين A، فيتامين B2، حمض الفوليك، فيتامين K، فيتامين D، فيتامين B12)، معادن (كربونات الكالسيوم، فوسفات الصوديوم، فومارات الحديد، كبريتات الزنك، كلوريد الصوديوم، يوديد البوتاسيوم). (x1), دقيق القمح 55%، حليب بقري خالي من الدسم، سكر، زيوت نباتية غير مهدرةجة (زيت بذور القطن منخفض الإريوسيك، زيت عباد الشمس عالي الأوليك، زيت دوار الشمس)، كراميل، شراب التمر 2.8%، نكهة (فانيين)، مضادات الأكسدة (خليط توكوفيرول مركز بالفيتامينات (فيتامين C، نياسين، فيتامين E، فيتامين B6، فيتامين B1، فيتامين B5، فيتامين A، فيتامين B2، حمض الفوليك، فيتامين K، فيتامين D، فيتامين B12)، معادن (كربونات الكالسيوم، فوسفات الصوديوم، فومارات الحديد، كبريتات الزنك، كلوريد الصوديوم، يوديد البوتاسيوم). (x1)
+  p028   ingredients    expected Farine de blé complet, édulcorant (maltitol), huile de tournesol raffinée à haute teneur en acide oléique 17%, fibre de pois 4%, inuline, oligofructose, poudres à lever (carbonate acide de sodium, carbonate acide d'ammonium), sel, arômes, émulsifiant (lécithines [soja]). | got Whole wheat flour, sweetener (maltitol), refined high oleic sunflower oil 17%, fibre 4%, inulin, oligofructose, raising agents (sodium hydrogen carbonate, ammonium hydrogen carbonate), salt, flavourings, emulsifier (lecithins (soya)). (x1), Whole wheat flour, sweetener (maltitol), refined high oleic sunflower oil 17%, rye fibre 4%, inulin, oligofructose, raising agents (sodium hydrogen carbonate, ammonium hydrogen carbonate), salt, flavourings, emulsifier (lecithins (soya)). (x1), Whole wheat flour, sweetener (maltitol), refined high oleic sunflower oil 17%, psyllium husk fibre 4%, inulin, oligofructose, raising agents (sodium hydrogen carbonate, ammonium hydrogen carbonate), salt, flavourings, emulsifier (lecithins (soya)). (x1)
+
+COST
+--------------------------------------------------------------------------------
+Tokens: 509,760 in, 22,379 out | average 11.5 s per run | 0 infrastructure retries

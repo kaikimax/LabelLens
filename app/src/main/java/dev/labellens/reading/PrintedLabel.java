@@ -49,25 +49,42 @@ public record PrintedLabel(
      */
     public List<String> problems() {
         List<String> problems = new ArrayList<>();
-        if (!TYPES.contains(type)) {
+        if (!isOneOf(TYPES, type)) {
             problems.add("\"type\" must be one of " + TYPES + ", got " + quote(type));
         }
-        if (!BASES.contains(basis)) {
-            problems.add("\"basis\" must be one of " + BASES + ", got " + quote(basis));
+        // A label with no nutrition table at all (p031, an Edam) has no basis either: that's an
+        // honest answer, not a broken one. Any nutrition value printed needs a basis.
+        if (!(basis == null && noNutritionTable()) && !isOneOf(BASES, basis)) {
+            problems.add("\"basis\" must be one of " + BASES + ", got " + quote(basis)
+                    + " (null only when no nutrition table is printed)");
         }
         if ("serving".equals(basis) && (servingSize == null || servingSize <= 0)) {
             problems.add("\"basis\" is \"serving\" but \"serving_size\" is missing or not positive");
         }
-        if (energy != null && !ENERGY_UNITS.contains(energyUnit)) {
+        if (energy != null && !isOneOf(ENERGY_UNITS, energyUnit)) {
             problems.add("\"energy_unit\" must be one of " + ENERGY_UNITS + " when energy is given, got " + quote(energyUnit));
         }
-        if (sodium != null && !SODIUM_UNITS.contains(sodiumUnit)) {
+        if (sodium != null && !isOneOf(SODIUM_UNITS, sodiumUnit)) {
             problems.add("\"sodium_unit\" must be one of " + SODIUM_UNITS + " when sodium is given, got " + quote(sodiumUnit));
         }
-        if (ingredientsLanguage != null && !LANGUAGES.contains(ingredientsLanguage)) {
+        if (ingredientsLanguage != null && !isOneOf(LANGUAGES, ingredientsLanguage)) {
             problems.add("\"ingredients_language\" must be one of " + LANGUAGES + " or null, got " + quote(ingredientsLanguage));
         }
         return problems;
+    }
+
+    /** True when the label prints no nutrition value at all. */
+    public boolean noNutritionTable() {
+        return energy == null && fat == null && saturatedFat == null && carbohydrates == null
+                && sugars == null && fibre == null && protein == null && salt == null && sodium == null;
+    }
+
+    /**
+     * Set.of(...).contains(null) THROWS a NullPointerException instead of returning false.
+     * Found on p031 (no nutrition table): the model answered "basis": null and the reader crashed.
+     */
+    private static boolean isOneOf(Set<String> allowed, String value) {
+        return value != null && allowed.contains(value);
     }
 
     private static String quote(String value) {
