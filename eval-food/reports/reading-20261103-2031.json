@@ -1,0 +1,26 @@
+{
+  "suite" : "reading",
+  "startedAt" : "2026-11-03T20:31:40.200558200Z",
+  "runsPerCase" : 1,
+  "info" : {
+    "model" : "(no successful call)",
+    "prompt" : "read-label.md, sha256 37d168257632",
+    "answer key" : "labels.json, sha256 a09a0f58163c",
+    "skipped" : "none",
+    "est. cost" : "$0.0000 total, $0.0000 per run (list price)"
+  },
+  "metrics" : {
+    "answered" : 0.0
+  },
+  "runs" : [ {
+    "caseId" : "p003",
+    "tags" : [ "arabic", "round-packaging" ],
+    "run" : 1,
+    "failure" : "AI call failed: Request failed <- InterruptedIOException: timeout <- IOException: Canceled",
+    "durationMs" : 121829,
+    "inputTokens" : 0,
+    "outputTokens" : 0,
+    "infraRetries" : 0,
+    "checks" : [ ]
+  } ]
+}

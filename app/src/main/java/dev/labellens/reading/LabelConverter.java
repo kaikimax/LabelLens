@@ -45,7 +45,8 @@ public final class LabelConverter {
                 salt,
                 printed.ingredientsText(),
                 printed.ingredientsLanguage(),
-                printed.basis());
+                printed.basis(),
+                printed.mayContainText());
     }
 
     /** Multiplies and rounds to 3 decimals, keeping null as null. */

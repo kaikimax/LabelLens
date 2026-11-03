@@ -17,7 +17,7 @@ class SaltSodiumCheckTest {
     static PrintedLabel printed(Double salt, Double sodium, String sodiumUnit) {
         return new PrintedLabel("Sauce", "Brand", "GENERAL", "100g", null,
                 5.0, "kcal", 0.0, 0.0, 1.0, 0.0, 0.0, 0.0,
-                salt, sodium, sodiumUnit, "water, salt", "en");
+                salt, sodium, sodiumUnit, "water, salt", "en", null);
     }
 
     static List<String> warnings(PrintedLabel p) {
@@ -65,7 +65,7 @@ class SaltSodiumCheckTest {
         // Sugars above carbohydrates (rule b) AND salt/sodium mismatch (rule f): both reported.
         PrintedLabel p = new PrintedLabel("Sauce", "Brand", "GENERAL", "100g", null,
                 5.0, "kcal", 0.0, 0.0, 1.0, 5.0, 0.0, 0.0,
-                0.0, 170.0, "mg", "water, salt", "en");
+                0.0, 170.0, "mg", "water, salt", "en", null);
 
         assertThat(warnings(p)).hasSize(2);
     }

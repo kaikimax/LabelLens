@@ -21,6 +21,8 @@ public record LabelReading(
         String ingredientsText,
         String ingredientsLanguage,
         /* What the printed values referred to before conversion: "100g", "100ml" or "serving". */
-        String printedBasis
+        String printedBasis,
+        /* The "may contain" / traces sentence exactly as printed, or null. Kept out of ingredientsText. */
+        String mayContainText
 ) {
 }

@@ -106,6 +106,15 @@ class AllergenWordListEvalFindingsTest {
         assertThat(find("PRESENCE POSSIBLE DE FRUIT A COQUE")).containsExactly("en:nuts");
     }
 
+    @Test
+    void englishNut_alone_isANut_butNotInsideOtherWords() {
+        // Found by AllergenDetectorTest: "May contain nuts." found nothing.
+        assertThat(find("may contain nuts")).containsExactly("en:nuts");
+        assertThat(find("traces of tree nuts and peanuts")).containsExactlyInAnyOrder("en:nuts", "en:peanuts");
+        assertThat(find("peanut, coconut, nutmeg, butternut squash, nutrition")).containsExactly("en:peanuts");
+        assertThat(find("nut-free, gluten free")).isEmpty();
+    }
+
     // ---- The list itself ---------------------------------------------------------------
 
     @Test

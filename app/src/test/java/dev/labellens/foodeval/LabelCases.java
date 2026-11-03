@@ -64,8 +64,14 @@ public final class LabelCases {
             if (!wanted.isEmpty() && !wanted.contains(id)) {
                 continue;
             }
+            // A template (like p016-p024) has its photos listed but nothing typed yet:
+            // evaluating it would score the AI against an empty answer key.
             if (text(p, "type") == null) {
                 skipped.add(id + ": no type (template not filled in yet)");
+                continue;
+            }
+            if (nothingTyped(p)) {
+                skipped.add(id + ": no values and no ingredients typed yet");
                 continue;
             }
             // Distinct files, in a fixed order: nutrition table, ingredients, front.
@@ -121,10 +127,27 @@ public final class LabelCases {
                 number(v, "salt"),
                 text(p, "ingredients_text"),
                 text(p, "ingredients_language"),
+                null,
+                // labels.json types the "may contain" allergens as tags (may_contain), not the
+                // printed sentence: the reading eval doesn't compare this field.
                 null);
     }
 
-    /** null for a missing field, JSON null, or an empty string. */
+    /** True when all 8 values are null AND the ingredients are empty. */
+    static boolean nothingTyped(JsonNode p) {
+        JsonNode v = p.get("per_100g");
+        boolean noValue = true;
+        if (v != null) {
+            for (String field : LabelScorer.NUMBERS.keySet()) {
+                if (number(v, field) != null) {
+                    noValue = false;
+                }
+            }
+        }
+        return noValue && text(p, "ingredients_text") == null;
+    }
+
+    /** null for a missing field, JSON null, or an empty string ("" counts as not filled in). */
     private static String text(JsonNode node, String field) {
         JsonNode v = node == null ? null : node.get(field);
         if (v == null || v.isNull()) {

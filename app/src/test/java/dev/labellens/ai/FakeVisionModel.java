@@ -31,7 +31,8 @@ public class FakeVisionModel implements VisionModel {
               "sodium": null,
               "sodium_unit": null,
               "ingredients_text": "Fraises, Sucre, gélifiant: Pectine de fruits et correcteur d'acidité: acide citrique.",
-              "ingredients_language": "fr"
+              "ingredients_language": "fr",
+              "may_contain_text": null
             }
             """;
 

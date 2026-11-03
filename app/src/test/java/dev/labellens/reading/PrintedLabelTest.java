@@ -8,7 +8,7 @@ class PrintedLabelTest {
 
     static PrintedLabel label(String type, String basis, Double energy, String energyUnit, Double fat) {
         return new PrintedLabel("Edam", "Le Berger", type, basis, null, energy, energyUnit, fat,
-                null, null, null, null, null, null, null, null, "lait pasteurisé, ferments lactiques, sel.", "fr");
+                null, null, null, null, null, null, null, null, "lait pasteurisé, ferments lactiques, sel.", "fr", null);
     }
 
     @Test

@@ -1,6 +1,5 @@
 package dev.labellens.reading;
 
-// import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -10,20 +9,19 @@ import static org.assertj.core.api.Assertions.assertThatCode;
 
 /**
  * The specification for SanityChecks, written as tests.
- * Your job (Oussama): remove @Disabled, then implement SanityChecks.check() until all pass.
+ * Written before the implementation (test-driven): SanityChecks.check() was built until these passed.
  *
  *     mvn -pl app test -Dtest=SanityChecksTest
  *
  * Real products from labels.json are used where possible.
  */
-// @Disabled("Implement SanityChecks.check(), then remove this line")
 class SanityChecksTest {
 
     /** Helper: a reading with only the nutrition values set. */
     private static LabelReading reading(Double energyKj, Double fat, Double saturatedFat, Double carbohydrates,
                                         Double sugars, Double fibre, Double protein, Double salt) {
         return new LabelReading("test", "test", "GENERAL", energyKj, fat, saturatedFat, carbohydrates,
-                sugars, fibre, protein, salt, "ingredients", "fr", "100g");
+                sugars, fibre, protein, salt, "ingredients", "fr", "100g", null);
     }
 
     // ---- Real products that are fine: no warnings ----

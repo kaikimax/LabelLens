@@ -5,8 +5,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 
 /**
- * Replaces the real model with FakeVisionModel in Spring tests.
- * @Primary: when both the real and the fake VisionModel exist, Spring injects the fake.
+ * Replaces the real models with FakeVisionModel (reading) and FakeTextModel (allergens) in Spring tests.
+ * @Primary: when both the real and the fake model exist, Spring injects the fake.
  */
 @TestConfiguration(proxyBeanMethods = false)
 public class FakeAiConfiguration {
@@ -15,5 +15,11 @@ public class FakeAiConfiguration {
     @Primary
     FakeVisionModel fakeVisionModel() {
         return new FakeVisionModel();
+    }
+
+    @Bean
+    @Primary
+    FakeTextModel fakeTextModel() {
+        return new FakeTextModel();
     }
 }

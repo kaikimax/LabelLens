@@ -1,5 +1,7 @@
 package dev.labellens.product;
 
+import dev.labellens.allergens.AllergenOutcome;
+import dev.labellens.allergens.AllergenResultEntity;
 import dev.labellens.nutriscore.NutriScoreEntity;
 import dev.labellens.nutriscore.NutriScorePoints;
 import dev.labellens.nutriscore.NutriScoreResult;
@@ -23,7 +25,8 @@ public record ProductResponse(
         LabelReading reading,
         List<String> warnings,
         String model,
-        NutriScore nutriScore
+        NutriScore nutriScore,
+        Allergens allergens
 ) {
 
     public record Photo(int position, String contentType, long sizeBytes) {
@@ -49,8 +52,38 @@ public record ProductResponse(
         }
     }
 
-    /** reading and nutriScore may be null (not read yet, or reading failed). */
-    static ProductResponse from(Product product, LabelReadingEntity reading, NutriScoreEntity nutriScore) {
+    /**
+     * @param ingredientsRead false: no ingredients list was read, so an empty {@code contains} means
+     *                        "not checked", never "no allergens". A UI must say so.
+     * @param contains        allergens in the ingredients: word list + AI (EU-14 tags, sorted)
+     * @param mayContain      from the printed "may contain" sentence only
+     * @param aiChecked       false: only the word list looked (AI failed, see aiProblem); it misses more
+     * @param foundByAi       null when the AI gave no usable answer
+     */
+    public record Allergens(
+            boolean ingredientsRead,
+            List<String> contains,
+            List<String> mayContain,
+            boolean aiChecked,
+            List<String> foundByWordList,
+            List<String> foundByAi,
+            String aiModel,
+            String aiProblem
+    ) {
+        static Allergens from(AllergenResultEntity entity) {
+            AllergenOutcome o = entity.toOutcome();
+            return new Allergens(o.ingredientsRead(), List.copyOf(o.contains()), List.copyOf(o.mayContain()),
+                    o.aiChecked(), List.copyOf(o.foundByWordList()),
+                    o.foundByAi() == null ? null : List.copyOf(o.foundByAi()), o.aiModel(), o.aiProblem());
+        }
+    }
+
+    /**
+     * reading, nutriScore and allergens may be null (not read yet, reading failed, or a product
+     * processed before allergens were added to the app).
+     */
+    static ProductResponse from(Product product, LabelReadingEntity reading, NutriScoreEntity nutriScore,
+                                AllergenResultEntity allergens) {
         List<Photo> photos = product.getPhotos().stream()
                 .map(p -> new Photo(p.getPosition(), p.getContentType(), p.getSizeBytes()))
                 .toList();
@@ -63,6 +96,7 @@ public record ProductResponse(
                 reading == null ? null : reading.toReading(),
                 reading == null ? List.of() : reading.getWarnings(),
                 reading == null ? null : reading.getModel(),
-                nutriScore == null ? null : NutriScore.from(nutriScore));
+                nutriScore == null ? null : NutriScore.from(nutriScore),
+                allergens == null ? null : Allergens.from(allergens));
     }
 }

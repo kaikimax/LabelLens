@@ -1,6 +1,10 @@
 package dev.labellens.product;
 
 import dev.labellens.ai.ImageInput;
+import dev.labellens.allergens.AllergenDetector;
+import dev.labellens.allergens.AllergenOutcome;
+import dev.labellens.allergens.AllergenResultEntity;
+import dev.labellens.allergens.AllergenResultRepository;
 import dev.labellens.nutriscore.NutriScoreCalculator;
 import dev.labellens.nutriscore.NutriScoreEntity;
 import dev.labellens.nutriscore.NutriScoreFromReading;
@@ -33,33 +37,40 @@ public class ProductService {
     private final ProductRepository repository;
     private final LabelReadingRepository readingRepository;
     private final NutriScoreRepository nutriScoreRepository;
+    private final AllergenResultRepository allergenRepository;
     private final PhotoStorage storage;
     private final LabelReader reader;
+    private final AllergenDetector allergenDetector;
     private final TransactionTemplate transaction;
 
     public ProductService(ProductRepository repository,
                           LabelReadingRepository readingRepository,
                           NutriScoreRepository nutriScoreRepository,
+                          AllergenResultRepository allergenRepository,
                           PhotoStorage storage,
                           LabelReader reader,
+                          AllergenDetector allergenDetector,
                           TransactionTemplate transaction) {
         this.repository = repository;
         this.readingRepository = readingRepository;
         this.nutriScoreRepository = nutriScoreRepository;
+        this.allergenRepository = allergenRepository;
         this.storage = storage;
         this.reader = reader;
+        this.allergenDetector = allergenDetector;
         this.transaction = transaction;
     }
 
     /**
-     * Saves the photos, asks the AI to read the label, computes the Nutri-Score, saves everything.
+     * Saves the photos, asks the AI to read the label, computes the Nutri-Score, finds the
+     * allergens, saves everything.
      *
      * Separate steps on purpose, NOT one big transaction: the AI call takes several
      * seconds, and a transaction would hold a database connection open the whole time.
      *   1. transaction: save the product as PENDING (so it exists even if step 2 crashes)
      *   2. no transaction: call the AI
-     *   3. no transaction: compute the Nutri-Score (plain Java)
-     *   4. transaction: save the reading and the score, mark the product DONE or FAILED
+     *   3. no transaction: compute the Nutri-Score (plain Java), find the allergens (word list + AI)
+     *   4. transaction: save the reading, the score and the allergens, mark the product DONE or FAILED
      */
     public ProductResponse create(List<MultipartFile> photos) {
         validate(photos);
@@ -90,6 +101,13 @@ public class ProductService {
                 ? NutriScoreCalculator.score(NutriScoreFromReading.toInput(outcome.reading()))
                 : null;
 
+        // Step 3b. Allergens: never fails the product. If the AI fails, the word list result is
+        // kept and flagged (AllergenDetector).
+        AllergenOutcome allergens = outcome.success()
+                ? allergenDetector.detect(created.id(), outcome.reading().ingredientsText(),
+                        outcome.reading().mayContainText())
+                : null;
+
         // Step 4.
         transaction.executeWithoutResult(status -> {
             Product p = repository.findById(created.id()).orElseThrow();
@@ -97,6 +115,7 @@ public class ProductService {
                 readingRepository.save(LabelReadingEntity.from(p.getId(), outcome));
                 nutriScoreRepository.save(NutriScoreEntity.from(
                         p.getId(), nutriScore, NutriScoreFromReading.fruitVegAssumedZero()));
+                allergenRepository.save(AllergenResultEntity.from(p.getId(), allergens));
                 // DONE even when "not scored" (drinks, oils...): processing is complete either way.
                 p.markDone();
             } else {
@@ -123,7 +142,8 @@ public class ProductService {
     private ProductResponse toResponse(Product product) {
         return ProductResponse.from(product,
                 readingRepository.findById(product.getId()).orElse(null),
-                nutriScoreRepository.findById(product.getId()).orElse(null));
+                nutriScoreRepository.findById(product.getId()).orElse(null),
+                allergenRepository.findById(product.getId()).orElse(null));
     }
 
     @Transactional(readOnly = true)

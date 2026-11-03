@@ -10,9 +10,10 @@ Labels may be in French, Arabic, English or several languages at once. Photos ma
 4. **"Less than" values.** If a value is printed as "<0.5 g", write `0.5`.
 5. **Energy.** If both kJ and kcal are printed, give the kJ value with `"energy_unit": "kJ"`. If only kcal is printed, give it with `"energy_unit": "kcal"`.
 6. **Salt or sodium.** If salt is printed, give `salt` and set `sodium` to `null`. If only sodium is printed, give `sodium` with its unit (`"g"` or `"mg"`) and set `salt` to `null`.
-7. **Ingredients.** Copy the ingredients list exactly, with its punctuation and percentages. Start at the first ingredient: leave out the heading ("Ingrédients :", "Ingredients:", "المكونات"). If the list is printed in several languages, copy the French version; if there is no French, the English one; otherwise the Arabic one. Do not include "may contain" sentences.
-8. **Type.** `DRINK` for anything you drink (milk included). `CHEESE` for ripened cheeses only; fromage blanc, fromage frais and other fresh dairy desserts are `GENERAL`. `OIL` for oils, butter, margarine, nuts, seeds and nut or seed butters (peanut butter included). `GENERAL` for everything else.
-9. Use decimal points, not commas: write `4.7`, not `4,7`.
+7. **Ingredients.** Copy the ingredients list exactly, with its punctuation and percentages. Start at the first ingredient: leave out the heading ("Ingrédients :", "Ingredients:", "المكونات"). If the list is printed in several languages, copy the French version; if there is no French, the English one; otherwise the Arabic one. **Never translate**: copy a language only where it is printed. If the list is printed only in Arabic, copy the Arabic text. A list with no heading, or a single ingredient (for example on a bag of flour or a bottle of water), is still the ingredients list. Stop at the last ingredient: leave out "may contain" sentences and statements printed after the list, such as "Contains: …", "Sans gluten" or "يحتوي على …".
+8. **May contain.** Copy the "may contain" / traces sentence into `may_contain_text`, exactly as printed ("Peut contenir des traces de fruits à coque."). If it is printed in several languages, copy the one in the language you chose for the ingredients. If there is none, use `null`.
+9. **Type.** `DRINK` for anything you drink (milk included). `CHEESE` for ripened cheeses only; fromage blanc, fromage frais and other fresh dairy desserts are `GENERAL`. `OIL` for oils, butter, margarine, nuts, seeds and nut or seed butters (peanut butter included). `GENERAL` for everything else.
+10. Use decimal points, not commas: write `4.7`, not `4,7`.
 
 # Answer format
 
@@ -36,7 +37,8 @@ Answer with **only** this JSON object: no explanation, no markdown, no code fenc
   "sodium": null,
   "sodium_unit": null,
   "ingredients_text": "Fraises, Sucre, gélifiant: Pectine de fruits et correcteur d'acidité: acide citrique.",
-  "ingredients_language": "fr | ar | en"
+  "ingredients_language": "fr | ar | en",
+  "may_contain_text": null
 }
 
 If the package has **no nutrition table at all**, set `basis`, `serving_size`, `energy`, `energy_unit` and every nutrition value to `null`. Never estimate values that aren't printed.

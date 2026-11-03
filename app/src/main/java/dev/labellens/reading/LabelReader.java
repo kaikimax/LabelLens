@@ -124,7 +124,7 @@ public class LabelReader {
      * The exception's message plus its causes: "Request failed" alone says nothing,
      * the cause underneath usually does (HTTP status, timeout, content filter...).
      */
-    static String describe(Throwable e) {
+    public static String describe(Throwable e) {
         StringBuilder sb = new StringBuilder(firstLine(e.getMessage()));
         Throwable cause = e.getCause();
         for (int depth = 0; cause != null && cause != e && depth < 5; depth++) {

@@ -71,6 +71,8 @@ public final class AllergenWordList {
             // English
             "cocoa butter", "shea butter", "coconut milk", "coconut cream",
             "soybean oil", "soya oil", "soy oil", "gluten-free", "gluten free",
+            // "nut" alone (below) would match these: a claim, and a tuber that isn't a tree nut.
+            "nut-free", "nut free", "tiger nut",
             // Arabic
             "زبدة الكاكاو", "حليب جوز الهند", "جوز الهند", "زيت الصويا", "خالي من الغلوتين", "بدون غلوتين"
     };
@@ -97,7 +99,7 @@ public final class AllergenWordList {
                 "peanut", "groundnut",
                 "فول سوداني", "فول السوداني", "فستق سوداني", "فستق السوداني"));
         words.put("en:nuts", Set.of("amande", "noisette", "noix", "pistache", "cajou", "fruits à coque", "fruit à coque", "fruits a coque", "fruit a coque",
-                "almond", "hazelnut", "walnut", "cashew", "pistachio", "pistachios", "pecan", "macadamia",
+                "almond", "hazelnut", "walnut", "cashew", "pistachio", "pistachios", "pecan", "macadamia", "nut",
                 "لوز", "بندق", "جوز", "كاجو", "فستق حلبي", "مكسرات"));
         words.put("en:sesame-seeds", Set.of("sésame",
                 "sesame",

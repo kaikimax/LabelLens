@@ -33,7 +33,8 @@ public record PrintedLabel(
         Double sodium,
         @JsonProperty("sodium_unit") String sodiumUnit,
         @JsonProperty("ingredients_text") String ingredientsText,
-        @JsonProperty("ingredients_language") String ingredientsLanguage
+        @JsonProperty("ingredients_language") String ingredientsLanguage,
+        @JsonProperty("may_contain_text") String mayContainText
 ) {
 
     static final Set<String> TYPES = Set.of("GENERAL", "DRINK", "CHEESE", "OIL");

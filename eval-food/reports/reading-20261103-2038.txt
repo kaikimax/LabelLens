@@ -1,0 +1,42 @@
+EVAL REPORT: reading
+================================================================================
+Started:        2026-11-03T20:38:28.611852600Z (took 0 min 38 s)
+Cases:          1, 1 run(s) each
+model:          (no successful call)
+prompt:         read-label.md, sha256 37d168257632
+answer key:     labels.json, sha256 a09a0f58163c
+skipped:        none
+est. cost:      $0.0099 total, $0.0099 per run (list price)
+
+Counting rule: a run with no usable answer counts as WRONG for every check.
+
+SCORES
+--------------------------------------------------------------------------------
+answered                    0 / 1    0.0%   (too few to measure)
+
+Stability: not measured (needs 2 or more runs per case)
+
+BY SITUATION (percent; number of cases in brackets; few cases = unreliable)
+--------------------------------------------------------------------------------
+arabic (1)             
+round-packaging (1)    
+
+COMPARED WITH THE BASELINE
+--------------------------------------------------------------------------------
+BLOCKS answered                       100.0% -> 0.0% (-100.0 points)
+
+DISAGREEMENTS (review each one: AI error, answer-key error, or comparison rule?)
+--------------------------------------------------------------------------------
+None.
+
+RUNS WITH NO USABLE ANSWER
+--------------------------------------------------------------------------------
+  p003 run 1: Model answer still unusable after 2 attempts: the answer is not valid JSON in the expected format (Unexpected end-of-input: was expecting closing quote for a string value) | answer ended with: ...f en poudre, jaune d'œuf déshydraté, jaune d'œuf en poudre, jaune d'œuf déshydraté, jaune d'œuf en poudre, jaune d'œuf déshydraté, jaune d'œuf en poudre, jaune d'œuf déshydraté, jaune d'œuf en poudre,
+
+UNSTABLE (same input, different answers between runs)
+--------------------------------------------------------------------------------
+None.
+
+COST
+--------------------------------------------------------------------------------
+Tokens: 8,690 in, 4,000 out | average 38.7 s per run | 0 infrastructure retries

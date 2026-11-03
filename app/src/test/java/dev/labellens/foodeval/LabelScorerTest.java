@@ -32,7 +32,7 @@ class LabelScorerTest {
     /** Product p004, the strawberry jam: D (18) from the typed values. */
     static LabelReading jam(String type, Double salt, Double fat) {
         return new LabelReading("Fantaisie", "Al Baraka", type, 1088.4, fat, 0.0, 62.9, 60.0, null, 0.47, salt,
-                "Fraises, Sucre", "fr", "100g");
+                "Fraises, Sucre", "fr", "100g", null);
     }
 
     static Check check(List<Check> checks, String name) {

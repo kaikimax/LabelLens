@@ -4,6 +4,7 @@ import com.jayway.jsonpath.JsonPath;
 import dev.labellens.TestcontainersConfiguration;
 import dev.labellens.ai.AiCallRepository;
 import dev.labellens.ai.FakeAiConfiguration;
+import dev.labellens.ai.FakeTextModel;
 import dev.labellens.ai.FakeVisionModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,11 +41,15 @@ class ProductApiTest {
     FakeVisionModel fakeModel;
 
     @Autowired
+    FakeTextModel fakeTextModel;
+
+    @Autowired
     AiCallRepository aiCalls;
 
     @BeforeEach
     void resetFakeModel() {
         fakeModel.reset();
+        fakeTextModel.reset();
     }
 
     // A few bytes are enough: the fake model doesn't look at the image.
@@ -73,6 +78,11 @@ class ProductApiTest {
                 .andExpect(jsonPath("$.nutriScore.points.sugars").value(15))
                 .andExpect(jsonPath("$.nutriScore.points.proteinCounted").value(false))
                 .andExpect(jsonPath("$.nutriScore.fruitVegAssumedZero").value(true))
+                // Jam: no allergens, checked by the word list AND the AI.
+                .andExpect(jsonPath("$.allergens.ingredientsRead").value(true))
+                .andExpect(jsonPath("$.allergens.contains.length()").value(0))
+                .andExpect(jsonPath("$.allergens.aiChecked").value(true))
+                .andExpect(jsonPath("$.allergens.aiModel").value("fake-text-model"))
                 .andReturn().getResponse().getContentAsString();
 
         String id = JsonPath.read(body, "$.id");
@@ -86,11 +96,61 @@ class ProductApiTest {
                 .andExpect(jsonPath("$.photos[0].position").value(1))
                 .andExpect(jsonPath("$.photos[1].position").value(2));
 
-        // Every AI call is recorded, with its token counts.
+        // Every AI call is recorded, with its token counts: one to read, one for the allergens.
         var calls = aiCalls.findByProductId(UUID.fromString(id));
-        assertThat(calls).hasSize(1);
-        assertThat(calls.getFirst().isSuccess()).isTrue();
-        assertThat(calls.getFirst().getInputTokens()).isEqualTo(1200);
+        assertThat(calls).hasSize(2);
+        assertThat(calls).allMatch(c -> c.isSuccess());
+        assertThat(calls).extracting(c -> c.getInputTokens()).containsExactlyInAnyOrder(1200, 200);
+    }
+
+    @Test
+    void allergens_containsAndMayContain_areFoundAndStored() throws Exception {
+        fakeModel.reply(FakeVisionModel.JAM_JSON
+                .replace("Fraises, Sucre,", "Lait entier, Fraises, Sucre,")
+                .replace("\"may_contain_text\": null", "\"may_contain_text\": \"Peut contenir des traces de noisettes.\""));
+        fakeTextModel.reply("{\"allergens\": [\"en:gluten\", \"en:milk\"]}");
+
+        String body = mvc.perform(multipart("/api/products").file(jpeg("a.jpg")))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.status").value("DONE"))
+                .andExpect(jsonPath("$.allergens.contains[0]").value("en:gluten"))   // sorted
+                .andExpect(jsonPath("$.allergens.contains[1]").value("en:milk"))
+                .andExpect(jsonPath("$.allergens.foundByWordList[0]").value("en:milk"))
+                .andExpect(jsonPath("$.allergens.mayContain[0]").value("en:nuts"))
+                .andExpect(jsonPath("$.reading.mayContainText").value("Peut contenir des traces de noisettes."))
+                .andReturn().getResponse().getContentAsString();
+
+        // Read back from the database, not just the in-memory result.
+        mvc.perform(get("/api/products/{id}", (String) JsonPath.read(body, "$.id")))
+                .andExpect(jsonPath("$.allergens.contains.length()").value(2))
+                .andExpect(jsonPath("$.allergens.mayContain[0]").value("en:nuts"));
+    }
+
+    @Test
+    void allergenAiDown_productIsStillDone_withTheWordListResult() throws Exception {
+        fakeModel.reply(FakeVisionModel.JAM_JSON.replace("Fraises, Sucre,", "Lait entier, Fraises, Sucre,"));
+        fakeTextModel.failWith(new IllegalStateException("Connection refused"));
+
+        mvc.perform(multipart("/api/products").file(jpeg("a.jpg")))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.status").value("DONE"))
+                .andExpect(jsonPath("$.nutriScore.grade").value("D"))
+                .andExpect(jsonPath("$.allergens.contains[0]").value("en:milk"))
+                .andExpect(jsonPath("$.allergens.aiChecked").value(false))
+                .andExpect(jsonPath("$.allergens.foundByAi").doesNotExist())
+                .andExpect(jsonPath("$.allergens.aiProblem").value(org.hamcrest.Matchers.containsString("Connection refused")));
+    }
+
+    @Test
+    void noIngredientsRead_isNotReportedAsNoAllergens() throws Exception {
+        fakeModel.reply(FakeVisionModel.JAM_JSON.replace(
+                "\"Fraises, Sucre, gélifiant: Pectine de fruits et correcteur d'acidité: acide citrique.\"", "null"));
+
+        mvc.perform(multipart("/api/products").file(jpeg("a.jpg")))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.allergens.ingredientsRead").value(false))
+                .andExpect(jsonPath("$.allergens.aiChecked").value(false));
+        assertThat(fakeTextModel.receivedTexts()).isEmpty();
     }
 
     @Test
@@ -115,6 +175,7 @@ class ProductApiTest {
                 .andExpect(jsonPath("$.failureReason").exists())
                 .andExpect(jsonPath("$.reading").doesNotExist())
                 .andExpect(jsonPath("$.nutriScore").doesNotExist())
+                .andExpect(jsonPath("$.allergens").doesNotExist())
                 .andReturn().getResponse().getContentAsString();
 
         String id = JsonPath.read(body, "$.id");

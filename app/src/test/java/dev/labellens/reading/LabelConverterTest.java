@@ -10,7 +10,7 @@ class LabelConverterTest {
     private static PrintedLabel printed(String basis, Double servingSize, Double energy, String energyUnit,
                                         Double carbohydrates, Double salt, Double sodium, String sodiumUnit) {
         return new PrintedLabel("name", "brand", "GENERAL", basis, servingSize, energy, energyUnit,
-                0.0, 0.0, carbohydrates, 1.0, null, 0.0, salt, sodium, sodiumUnit, "ingredients", "fr");
+                0.0, 0.0, carbohydrates, 1.0, null, 0.0, salt, sodium, sodiumUnit, "ingredients", "fr", null);
     }
 
     @Test

@@ -46,6 +46,8 @@ public class LabelReadingEntity {
     private String ingredientsLanguage;
     @Column(name = "printed_basis", length = 10)
     private String printedBasis;
+    @Column(name = "may_contain_text", columnDefinition = "text")
+    private String mayContainText;
 
     /** Warnings joined with newlines (a warning never contains a newline). */
     @Column(nullable = false, columnDefinition = "text")
@@ -82,6 +84,7 @@ public class LabelReadingEntity {
         e.ingredientsText = r.ingredientsText();
         e.ingredientsLanguage = r.ingredientsLanguage();
         e.printedBasis = r.printedBasis();
+        e.mayContainText = r.mayContainText();
         e.warnings = String.join("\n", outcome.warnings());
         e.model = outcome.model();
         e.rawResponse = outcome.rawResponse();
@@ -91,7 +94,8 @@ public class LabelReadingEntity {
 
     public LabelReading toReading() {
         return new LabelReading(name, brand, type, energyKj, fat, saturatedFat, carbohydrates,
-                sugars, fibre, protein, salt, ingredientsText, ingredientsLanguage, printedBasis);
+                sugars, fibre, protein, salt, ingredientsText, ingredientsLanguage, printedBasis,
+                mayContainText);
     }
 
     public List<String> getWarnings() {

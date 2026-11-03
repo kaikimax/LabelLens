@@ -12,7 +12,8 @@ spring:
   # with a clear error mentioning the missing variable.
   ai:
     openai:
-      # base-url: ${AZURE_OPENAI_ENDPOINT:https://set-AZURE_OPENAI_ENDPOINT.invalid}
+      # Default host without underscores: "_" is not allowed in host names, and the OpenAI SDK
+      # rejects such a URL at startup ("host must not be null").
       base-url: ${AZURE_OPENAI_ENDPOINT:https://azure-endpoint-not-set.invalid}
       api-key: ${AZURE_OPENAI_API_KEY:missing-AZURE_OPENAI_API_KEY}
       max-retries: 1
@@ -22,7 +23,6 @@ spring:
         model: ${LABELLENS_READER_DEPLOYMENT:gpt-4.1-mini}
         # 0 = as repeatable as possible: we want the same photo read the same way every time.
         temperature: 0.0
-        max-tokens: 1500
 
   # Values like ${DB_URL:...} read an environment variable, or use the default after ":".
   # The defaults match compose.yaml, so locally you don't set anything.
@@ -53,3 +53,6 @@ spring:
 labellens:
   storage:
     local-dir: ${PHOTO_DIR:./uploads}
+  allergens:
+    # The deployment the app asks for allergens, with the word list (decisions log, 2026-10-31).
+    deployment: ${LABELLENS_ALLERGEN_DEPLOYMENT:gpt-4.1}
