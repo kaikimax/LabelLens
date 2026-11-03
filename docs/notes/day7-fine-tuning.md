@@ -62,7 +62,7 @@ What the 3-run report adds:
 | gpt-4.1-nano | 88.3% | 54.0% | 58.1% |
 | **gpt-4.1-nano fine-tuned** | **93.2%** | 53.0% | 57.7% |
 | gpt-4.1 | 95.1% | 54.2% | 59.9% |
-| word list + nano | rerun needed (31 calls failed) | | |
+| word list + nano | 93.2% | 51.0% | 55.9% |
 | word list + nano fine-tuned | 95.1% | 51.0% | 56.4% |
 | word list + gpt-4.1 | **96.3%** | 52.0% | 58.1% |
 
@@ -111,6 +111,5 @@ model is the better one only at scale, or where latency matters.
 
 ## Next
 
-- Rerun word list + nano on the Arabic set (doesn't need the fine-tuned deployment).
 - Review a sample of the Arabic "false alarms" before quoting any Arabic precision.
 - README: the tables, the caveats above, and the cost argument.
