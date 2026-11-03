@@ -4,7 +4,7 @@ The project uses two sources of data:
 
 | Source | How many | Used for |
 |---|---|---|
-| **My own photos** | 40 products | Testing the AI on real photos. **Never used for training.** I trust these most, because I check every value myself. |
+| **My own photos** | 31 products | Testing the AI on real photos. **Never used for training.** I trust these most, because I check every value myself. |
 | **Open Food Facts** | ~5,000 + ~3,500 products | Checking the Nutri-Score formula, training the allergen model, and testing it. |
 
 ---
@@ -12,7 +12,7 @@ The project uses two sources of data:
 ## Part 1 — Photographing products
 
 ### Which products
-40 products, mixed so the results say something useful:
+31 products, mixed so the results say something useful:
 
 | Mix | Target |
 |---|---|
@@ -26,7 +26,7 @@ Where to find them: your kitchen, family, one supermarket trip.
 ### How to photograph
 - 2 photos per product: the nutrition table, and the ingredients list. A third photo of the front is optional.
 - Take them like a normal person would, with your phone, no special effort.
-- For 10 of the 40, **keep the bad photos** (a bit blurry, some glare, at an angle). The test should include real-life photos, not only perfect ones.
+- For 10 of the 31, **keep the bad photos** (a bit blurry, some glare, at an angle). The test should include real-life photos, not only perfect ones.
 - File names: `p001_nutrition.jpg`, `p001_ingredients.jpg`, `p002_nutrition.jpg`…
 - Before putting photos on GitHub, remove the hidden location data from them: `exiftool -all= *.jpg`.
 

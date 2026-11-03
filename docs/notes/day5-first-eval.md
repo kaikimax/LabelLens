@@ -131,11 +131,6 @@ Rule for later: **one change per eval run**, so each score change can be attribu
 
 ---
 
-## Next steps
-
-1. Save the baseline once the key is settled: `mvn -pl app test -Peval "-Deval.saveBaseline=true"`.
-2. More products, prioritising variety: non-Arabic labels, per-portion tables, gluten (allergen test set for day 6).
-
 ## Run 3 (2026-11-02): 31 products, corrected answer key, saved as the baseline
 
 31 products x 3 runs, gpt-4.1-mini, prompt sha256 f4df5a3c0b00, labels.json sha256 a09a0f58163c.
@@ -178,3 +173,9 @@ Every remaining disagreement was checked against the photos: all are reader erro
 These are the targets for prompt work. The two with the most weight: the language order (a rule
 the prompt states and the model ignores) and Arabic ingredient lists, the weakest situation for a
 Moroccan app.
+ 
+## Next steps
+ 
+- Prompt work on the reader, measured against this baseline. The two targets: the language order
+  (p002, p028) and Arabic ingredient lists (p003, p016, p026).
+- The photo set stays at 31 products (decisions log, 2026-11-03).

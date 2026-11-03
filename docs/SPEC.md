@@ -127,7 +127,7 @@ It doesn't know what a nutrition table is. That makes it reusable: to test an AI
 ### 8.2 What gets tested
 
 **Test 1: Reading the photo**
-- Test cases: 40 products I photograph myself, where I typed the correct values from the package by hand.
+- Test cases: 31 products I photograph myself, where I typed the correct values from the package by hand.
 - Score: for each value (sugar, salt…), the percentage of products where the AI read it correctly, allowing for rounding.
 - Split by situation: French vs Arabic labels, clear vs blurry photos. A finding like "accuracy drops from 94% to 71% on curved bottles" is exactly what makes the project interesting.
 
@@ -137,11 +137,11 @@ It doesn't know what a nutrition table is. That makes it reusable: to test an AI
 - This is a normal unit test, just a big one, and it's free because no AI is involved.
 
 **Test 2b: The full chain, photo to grade**
-- Test cases: the same 40 photographed products.
+- Test cases: the same 31 photographed products.
 - Score: how often the final grade is right, and **how often a small reading mistake changes the grade**. For example, misreading salt as 0.3 g instead of 0.8 g can turn a C into a B. This shows how errors travel through the system.
 
 **Test 3: Finding allergens**
-- Test cases: 500 products from Open Food Facts (not used for training, see section 9) plus my 40.
+- Test cases: 500 products from Open Food Facts (not used for training, see section 9) plus my 31.
 - Two numbers per allergen:
   - **Missed allergens:** the product contains milk, and the AI didn't say so. This is the dangerous mistake.
   - **False alarms:** the AI says milk, and there's none. Annoying, but not dangerous.
