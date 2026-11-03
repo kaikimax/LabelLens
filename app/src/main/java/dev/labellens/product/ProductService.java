@@ -15,6 +15,8 @@ import dev.labellens.reading.LabelReadingEntity;
 import dev.labellens.reading.LabelReadingRepository;
 import dev.labellens.reading.ReadOutcome;
 import dev.labellens.storage.PhotoStorage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -30,6 +32,8 @@ import java.util.UUID;
 
 @Service
 public class ProductService {
+
+    private static final Logger log = LoggerFactory.getLogger(ProductService.class);
 
     static final int MAX_PHOTOS = 3;
     static final Set<String> ALLOWED_TYPES = Set.of("image/jpeg", "image/png");
@@ -71,6 +75,9 @@ public class ProductService {
      *   2. no transaction: call the AI
      *   3. no transaction: compute the Nutri-Score (plain Java), find the allergens (word list + AI)
      *   4. transaction: save the reading, the score and the allergens, mark the product DONE or FAILED
+     *
+     * Any unexpected error in steps 2–4 marks the product FAILED (never stuck in PENDING) and
+     * is logged with its stack trace; the user only sees a short reason.
      */
     public ProductResponse create(List<MultipartFile> photos) {
         validate(photos);
@@ -93,6 +100,22 @@ public class ProductService {
             return new Created(p.getId(), images);
         });
 
+        try {
+            process(created);
+        } catch (RuntimeException e) {
+            log.error("Processing product {} failed unexpectedly", created.id(), e);
+            transaction.executeWithoutResult(status -> repository.findById(created.id()).orElseThrow()
+                    .markFailed("Unexpected error while processing the photos (" + e.getClass().getSimpleName()
+                            + "). Details are in the server log."));
+        }
+
+        // Not "return get(...)" directly: a call from inside the same class skips @Transactional
+        // (Spring's proxy is bypassed), so get() would run without a database session.
+        return transaction.execute(status -> get(created.id()));
+    }
+
+    /** Steps 2–4. */
+    private void process(Created created) {
         // Step 2.
         ReadOutcome outcome = reader.read(created.id(), created.images());
 
@@ -123,9 +146,11 @@ public class ProductService {
             }
         });
 
-        // Not "return get(...)" directly: a call from inside the same class skips @Transactional
-        // (Spring's proxy is bypassed), so get() would run without a database session.
-        return transaction.execute(status -> get(created.id()));
+        if (!outcome.success()) {
+            log.warn("Product {}: reading failed: {}", created.id(), outcome.failureReason());
+        } else if (!allergens.aiChecked() && allergens.ingredientsRead()) {
+            log.warn("Product {}: allergens from the word list only: {}", created.id(), allergens.aiProblem());
+        }
     }
 
     private record Created(UUID id, List<ImageInput> images) {

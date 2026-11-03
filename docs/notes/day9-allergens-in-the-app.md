@@ -1,4 +1,4 @@
-# Day 9: allergens in the app
+# Day 9: allergens in the app, AI costs, error handling
 
 ## What the app does now (2026-11-03)
 
@@ -69,6 +69,46 @@ Still wrong with both prompts (reader errors, key checked against the photos): p
 (English list chosen over French), p007 (per-portion table), p017 and p016 (Arabic lists
 rewritten), p018 (`null`: a single ingredient without a heading), p021 (text added after the
 list), p029 (protein), p030 (processed cheese read as CHEESE).
+
+## AI costs: `GET /api/ai-costs` (2026-11-03)
+
+Built from the `ai_call` table: one row per step and model (calls, failures, tokens, estimated
+cost, average and longest time), then a cost and time **per product for each step**, added up.
+
+- **Prices** are list prices per million tokens (`ModelPrices`), matched by the longest model-name
+  prefix: Azure answers "gpt-4.1-mini-2025-04-14", which also starts with "gpt-4.1" (5x the price).
+  A model with no known price is listed in `unpricedModels`, never counted as free.
+- **Per product = sum of the steps**, each step's cost divided by the products that went through
+  it. The first version divided the total by all products: day 3 uploads have no allergen call,
+  so it said $1.65 per 1,000 instead of $2.01.
+
+First real numbers (9 uploads, only 2 with the allergen step, so a small sample):
+
+| Step | Model | Cost per product | Time per product |
+|---|---|---|---|
+| Reading | gpt-4.1-mini | $0.0015 | 6.3 s |
+| Allergens | gpt-4.1 | $0.0005 | 1.1 s |
+| **Total** | | **$0.0020 → about $2 per 1,000 products** | **7.5 s** |
+
+The reading eval measures $0.0025 per reading with today's prompt (more photos per product than
+the day 3 uploads), so expect about $2.50–3.00 per 1,000 in practice. The allergen step is about
+a fifth of the cost; base nano would save ~$0.47 per 1,000 for 5x the false alarms (decisions log,
+2026-10-31).
+
+## Error handling
+
+- **An unexpected error after the reading** (a bug, a database error in the last step) used to
+  leave the product in `PENDING` forever, with nothing logged. It now marks it `FAILED` with a
+  short reason ("Unexpected error while processing the photos (IllegalStateException)…"); the
+  stack trace goes to the server log, the internal message never to the API.
+- **Logging** (there was none): failed readings and allergen checks done without the AI are
+  logged as warnings, unexpected errors as errors with the stack trace.
+- **A reader that loops** fails in seconds (2,000-token cap) instead of after the 60 s timeout.
+- Tested: `ProductApiTest` makes the allergen step throw and checks the product ends `FAILED`
+  with nothing half-saved.
+
+Known limit: if the app process itself dies in the middle of an upload, that product stays
+`PENDING`. Rare for a single-instance app; not handled.
 
 ## Not measured yet
 

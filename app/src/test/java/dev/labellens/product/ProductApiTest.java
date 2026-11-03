@@ -6,6 +6,7 @@ import dev.labellens.ai.AiCallRepository;
 import dev.labellens.ai.FakeAiConfiguration;
 import dev.labellens.ai.FakeTextModel;
 import dev.labellens.ai.FakeVisionModel;
+import dev.labellens.allergens.AllergenDetector;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.context.annotation.Import;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
@@ -45,6 +49,10 @@ class ProductApiTest {
 
     @Autowired
     AiCallRepository aiCalls;
+
+    /** A spy: the real detector, except in the test that makes it throw (reset after each test). */
+    @MockitoSpyBean
+    AllergenDetector allergenDetector;
 
     @BeforeEach
     void resetFakeModel() {
@@ -190,6 +198,39 @@ class ProductApiTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.status").value("FAILED"))
                 .andExpect(jsonPath("$.failureReason").value(org.hamcrest.Matchers.containsString("Connection refused")));
+    }
+
+    @Test
+    void unexpectedErrorAfterTheReading_marksProductFailed_neverLeavesItPending() throws Exception {
+        doThrow(new IllegalStateException("bug in the allergen step")).when(allergenDetector).detect(any(), any(), any());
+
+        String body = mvc.perform(multipart("/api/products").file(jpeg("a.jpg")))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.status").value("FAILED"))
+                .andExpect(jsonPath("$.failureReason").value(org.hamcrest.Matchers.containsString("IllegalStateException")))
+                // The internal message stays in the server log, not in the API.
+                .andExpect(jsonPath("$.failureReason").value(org.hamcrest.Matchers.not(
+                        org.hamcrest.Matchers.containsString("bug in the allergen step"))))
+                .andExpect(jsonPath("$.reading").doesNotExist())
+                .andReturn().getResponse().getContentAsString();
+
+        // Nothing half-saved: step 4 never ran, so no reading row either.
+        mvc.perform(get("/api/products/{id}", (String) JsonPath.read(body, "$.id")))
+                .andExpect(jsonPath("$.status").value("FAILED"))
+                .andExpect(jsonPath("$.nutriScore").doesNotExist());
+    }
+
+    @Test
+    void aiCosts_reportsTheCallsOfUploads() throws Exception {
+        mvc.perform(multipart("/api/products").file(jpeg("a.jpg"))).andExpect(status().isCreated());
+
+        // The fake models have no price: they are listed, not counted as free.
+        mvc.perform(get("/api/ai-costs"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.byStepAndModel[?(@.purpose == 'READ_LABEL' && @.model == 'fake-model')]").exists())
+                .andExpect(jsonPath("$.byStepAndModel[?(@.purpose == 'FIND_ALLERGENS' && @.model == 'fake-text-model')]").exists())
+                .andExpect(jsonPath("$.unpricedModels").value(org.hamcrest.Matchers.hasItems("fake-model", "fake-text-model")))
+                .andExpect(jsonPath("$.totals.products").value(org.hamcrest.Matchers.greaterThanOrEqualTo(1)));
     }
 
     @Test
