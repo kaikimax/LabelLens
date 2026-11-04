@@ -1,0 +1,64 @@
+# Runs on every push and pull request: the normal tests (no AI calls, no cost) and the
+# Nutri-Score formula check against 5,000 Open Food Facts products (Test 2a).
+# The AI evals stay manual: they cost money and need the photos and the Azure key
+# (decisions log, 2026-11-04).
+name: CI
+
+on:
+  push:
+  pull_request:
+
+# A newer push to the same branch cancels the run still going for the older one.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Tests + formula check
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: maven
+
+      # verify = compile + all tests of eval-core and app. Tests tagged "eval" (real AI calls)
+      # are excluded by the pom. Testcontainers uses the Docker that GitHub's runners include.
+      - name: Build and test
+        run: mvn -B verify
+
+      # The formula check and the expected grades SKIP (they don't fail) when their data file is
+      # missing. Here a skip would mean Test 2a silently stopped running, so it fails the build.
+      - name: Check that Test 2a really ran
+        run: |
+          test -f app/target/formula-check-report.txt || { echo "FormulaCheckTest was skipped: eval-food/data/off/formula_check.jsonl is missing from the repo"; exit 1; }
+          test -f app/target/expected-grades.txt || { echo "LabelsExpectedGradesTest was skipped: eval-food/data/photos/labels.json is missing from the repo"; exit 1; }
+          sed -n '1,6p' app/target/formula-check-report.txt
+
+      - name: Keep the test reports when something fails
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: |
+            **/target/surefire-reports/
+            app/target/formula-check-report.txt
+          retention-days: 7
+
+  docker:
+    name: Docker image builds
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      # Only checks that the image builds; pushing it to Azure comes with the deployment.
+      - name: Build the image
+        run: docker build -t labellens:ci .
