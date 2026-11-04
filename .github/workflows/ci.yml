@@ -1,5 +1,6 @@
 # Runs on every push and pull request: the normal tests (no AI calls, no cost) and the
 # Nutri-Score formula check against 5,000 Open Food Facts products (Test 2a).
+# On main, once the tests pass: the image goes to Azure and the live site switches to it.
 # The AI evals stay manual: they cost money and need the photos and the Azure key
 # (decisions log, 2026-11-04).
 name: CI
@@ -57,8 +58,60 @@ jobs:
     name: Docker image builds
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    permissions:
+      contents: read
+      id-token: write      # lets GitHub prove to Azure who it is (OIDC): no password stored
     steps:
       - uses: actions/checkout@v4
-      # Only checks that the image builds; pushing it to Azure comes with the deployment.
       - name: Build the image
         run: docker build -t labellens:ci .
+
+      # On main only, and only once Azure is set up (infra/setup-azure.ps1 + the repo variables).
+      # Pushing an image doesn't deploy it: the deploy job does that, after the tests pass.
+      - name: Log in to Azure
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push' && vars.AZURE_CLIENT_ID != ''
+        uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      - name: Push the image to the registry
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push' && vars.AZURE_CLIENT_ID != ''
+        run: |
+          az acr login --name "${{ vars.AZURE_ACR_NAME }}"
+          IMAGE="${{ vars.AZURE_ACR_NAME }}.azurecr.io/labellens:${{ github.sha }}"
+          docker tag labellens:ci "$IMAGE"
+          docker push "$IMAGE"
+
+  deploy:
+    name: Deploy to Azure
+    needs: [test, docker]      # never deploy a version whose tests failed
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push' && vars.AZURE_CLIENT_ID != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      - name: Switch the app to the new image
+        run: |
+          az extension add --name containerapp --upgrade --only-show-errors
+          az containerapp update \
+            --resource-group "${{ vars.AZURE_RESOURCE_GROUP }}" \
+            --name "${{ vars.AZURE_CONTAINER_APP }}" \
+            --image "${{ vars.AZURE_ACR_NAME }}.azurecr.io/labellens:${{ github.sha }}" \
+            --query properties.latestRevisionName -o tsv
+      - name: Check the live site answers
+        run: |
+          URL="https://$(az containerapp show -g "${{ vars.AZURE_RESOURCE_GROUP }}" -n "${{ vars.AZURE_CONTAINER_APP }}" --query properties.configuration.ingress.fqdn -o tsv)"
+          # Up to ~2 minutes: the new revision starts from zero (JVM + database migrations).
+          for i in $(seq 1 24); do
+            if curl -fsS "$URL/actuator/health" | grep -q '"UP"'; then echo "UP: $URL"; exit 0; fi
+            sleep 5
+          done
+          echo "The site didn't report UP: $URL"; exit 1

@@ -18,9 +18,8 @@ COPY app/src app/src
 
 # -am also builds eval-core (the app depends on it). maven.test.skip: the tests run in CI and
 # need Docker themselves (Testcontainers); they don't belong in an image build.
-# The cache mount keeps downloaded dependencies between builds (BuildKit, on by default).
-RUN --mount=type=cache,target=/root/.m2 \
-    mvn -B -q -pl app -am package -Dmaven.test.skip=true
+# No BuildKit cache mount: Azure's "az acr build" must be able to build this file too.
+RUN mvn -B -q -pl app -am package -Dmaven.test.skip=true
 
 # ---- 2. Run --------------------------------------------------------------------------------
 FROM eclipse-temurin:21-jre
