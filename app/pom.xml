@@ -20,6 +20,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webmvc</artifactId>
         </dependency>
+        <!-- Web pages (day 10): server-rendered HTML; htmx is a static file, no JavaScript build -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
         <!-- Database access with JPA/Hibernate -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

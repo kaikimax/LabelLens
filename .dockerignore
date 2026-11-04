@@ -1,0 +1,14 @@
+# Everything Docker doesn't need to build the app. Keeps the build fast and,
+# above all, keeps secrets and big data out of the image.
+.env
+.git
+.idea
+.vscode
+*.iml
+**/target
+.venv
+training
+eval-food
+uploads
+*.parquet
+docs

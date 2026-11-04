@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<!-- Pieces shared by every page. -->
+
+<head th:fragment="head(title)">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${title}">LabelLens</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+    <script th:src="@{/js/htmx-2.0.4.min.js}" defer></script>
+</head>
+
+<body>
+
+<header th:fragment="header" class="site-header">
+    <a th:href="@{/}" class="brand">LabelLens</a>
+    <span class="tagline">Photo of a food label → Nutri-Score and allergens</span>
+</header>
+
+<div th:fragment="error" class="box box-error" role="alert">
+    <strong>Can't read that upload.</strong>
+    <span th:text="${error}">Send at least 1 photo.</span>
+</div>
+
+<footer th:fragment="footer" class="site-footer">
+    <p>
+        Values and allergens are read by AI from your photo and can be wrong:
+        <strong>check the package</strong> if an allergy or a diet matters.
+    </p>
+    <p>
+        Formula checks and allergen test data:
+        <a href="https://world.openfoodfacts.org">Open Food Facts</a>
+        (Open Database License).
+        · <a th:href="@{/api/ai-costs}">AI costs</a>
+    </p>
+</footer>
+
+</body>
+</html>

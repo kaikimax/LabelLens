@@ -1,0 +1,108 @@
+/* LabelLens: one small stylesheet, no framework. Works on a phone (the photos come from one). */
+
+:root {
+    --text: #1d2125;
+    --muted: #5f6b76;
+    --bg: #f4f5f2;
+    --card: #ffffff;
+    --line: #dde1dc;
+    --accent: #2f6d4f;
+    --warning-bg: #fff6e0;
+    --warning-line: #e7b84a;
+    --error-bg: #fdecea;
+    --error-line: #d9534f;
+    /* Nutri-Score colours */
+    --grade-a: #038141;
+    --grade-b: #85bb2f;
+    --grade-c: #fecb02;
+    --grade-d: #ee8100;
+    --grade-e: #e63e11;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Noto Sans Arabic", sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--text);
+    background: var(--bg);
+}
+
+a { color: var(--accent); }
+
+main { max-width: 760px; margin: 0 auto; padding: 16px; }
+
+.site-header {
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px;
+    padding: 12px 16px; background: var(--accent); color: #fff;
+}
+.site-header .brand { color: #fff; font-weight: 700; font-size: 1.25rem; text-decoration: none; }
+.site-header .tagline { opacity: .85; font-size: .9rem; }
+
+.site-footer { max-width: 760px; margin: 24px auto; padding: 0 16px; color: var(--muted); font-size: .85rem; }
+
+.card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 16px; margin: 0 0 16px;
+}
+h1 { font-size: 1.4rem; margin: 0 0 8px; }
+h1 small { color: var(--muted); font-weight: 400; font-size: 1rem; margin-left: 6px; }
+h2 { font-size: 1.15rem; margin: 0 0 10px; }
+h2 small, h3 small { color: var(--muted); font-weight: 400; font-size: .85rem; }
+h3 { font-size: 1rem; margin: 14px 0 4px; }
+
+form { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+input[type=file] { max-width: 100%; }
+button {
+    background: var(--accent); color: #fff; border: 0; border-radius: 8px;
+    padding: 10px 18px; font-size: 1rem; cursor: pointer;
+}
+button[disabled] { opacity: .6; cursor: wait; }
+
+/* htmx shows this while the request runs */
+.htmx-indicator { display: none; width: 100%; margin: 0; color: var(--muted); }
+.htmx-request.htmx-indicator, .htmx-request .htmx-indicator { display: block; }
+
+.box { border-radius: 8px; padding: 10px 12px; margin: 0 0 16px; }
+.box-warning { background: var(--warning-bg); border: 1px solid var(--warning-line); }
+.box-error { background: var(--error-bg); border: 1px solid var(--error-line); }
+section.box-warning { border-radius: 10px; }
+
+.grade-row { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
+.grade, .grade-mini {
+    display: inline-flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 800; border-radius: 50%;
+}
+.grade { width: 56px; height: 56px; font-size: 1.8rem; flex: none; }
+.grade-mini { width: 28px; height: 28px; font-size: .95rem; }
+.grade-a { background: var(--grade-a); }
+.grade-b { background: var(--grade-b); }
+.grade-c { background: var(--grade-c); color: var(--text); }
+.grade-d { background: var(--grade-d); }
+.grade-e { background: var(--grade-e); }
+
+table { border-collapse: collapse; width: 100%; }
+td, th { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; color: var(--muted); font-size: .9rem; }
+.points td:nth-child(2), .points td:nth-child(4), .nutrition td:nth-child(2) { text-align: right; white-space: nowrap; }
+.recent { font-size: .95rem; }
+
+.tag {
+    display: inline-block; border-radius: 999px; padding: 2px 10px; margin: 2px 4px 2px 0;
+    font-size: .9rem; font-weight: 600;
+}
+.tag-contains { background: #fde2dc; color: #8a1f05; }
+.tag-may { background: var(--warning-bg); color: #6b4a00; border: 1px solid var(--warning-line); }
+
+.note { color: var(--muted); font-size: .9rem; }
+.muted { color: var(--muted); font-size: .9rem; }
+
+/* Small phones: the points table becomes two short lines per row instead of scrolling sideways. */
+@media (max-width: 480px) {
+    .points thead { display: none; }
+    .points td { display: inline-block; border: 0; padding: 2px 6px; }
+    .points tr { display: block; border-bottom: 1px solid var(--line); padding: 4px 0; }
+    .recent th:nth-child(4), .recent td:nth-child(4) { display: none; }
+}

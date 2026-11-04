@@ -5,6 +5,7 @@ import dev.labellens.product.ProductNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
@@ -12,8 +13,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * { "type": ..., "title": "Bad Request", "status": 400, "detail": "Send at least 1 photo." }
  * Spring's own errors (missing field, file too large...) use the same format,
  * thanks to spring.mvc.problemdetails.enabled in application.yml.
+ *
+ * JSON API only (annotations = RestController.class): the web pages handle their own errors
+ * with a message on the page (WebController).
  */
-@RestControllerAdvice
+@RestControllerAdvice(annotations = RestController.class)
 public class ApiExceptionHandler {
 
     @ExceptionHandler(InvalidUploadException.class)

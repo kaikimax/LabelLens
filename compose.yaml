@@ -1,5 +1,12 @@
-# Local PostgreSQL for development. Start it with:  docker compose up -d
-# Stop it with:  docker compose down   (add -v to also delete the data)
+# Runs everything: the database and the app.
+#   docker compose up --build      → http://localhost:8080   (Ctrl+C to stop)
+#   docker compose down            → stop and remove the containers (add -v to also delete the data)
+#
+# For development with "mvn -pl app spring-boot:run", start only the database:
+#   docker compose up -d postgres
+#
+# The Azure endpoint and key are read from .env (never committed; see .env.example).
+# Without .env the app still starts; reading a photo then fails with a clear message.
 services:
   postgres:
     image: postgres:17
@@ -13,6 +20,30 @@ services:
       - "5433:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U labellens -d labellens"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      # Inside Docker the database is reached by its service name, on its own port.
+      DB_URL: jdbc:postgresql://postgres:5432/labellens
+      DB_USER: labellens
+      DB_PASSWORD: labellens
+    env_file:
+      - path: .env
+        required: false
+    depends_on:
+      postgres:
+        condition: service_healthy   # wait until it accepts connections, not just until it started
+    volumes:
+      - uploads:/app/uploads
 
 volumes:
   pgdata:
+  uploads:

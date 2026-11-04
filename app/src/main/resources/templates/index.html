@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head('LabelLens')}"></head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+
+<main>
+    <section class="card">
+        <h1>Read a food label</h1>
+        <p>
+            Upload 1 to 3 photos: the <strong>nutrition table</strong>, the <strong>ingredients list</strong>,
+            and the front of the package if you like. French, Arabic and English labels.
+        </p>
+
+        <!-- Works without JavaScript (normal POST + redirect). With htmx: background POST,
+             the result replaces #result, and the button is disabled while the AI reads. -->
+        <form method="post" th:action="@{/products}" enctype="multipart/form-data"
+              hx-post="/products" hx-encoding="multipart/form-data" hx-target="#result"
+              hx-indicator="#working" hx-disabled-elt="find button">
+            <input type="file" name="photos" accept="image/jpeg,image/png" multiple required
+                   aria-label="Label photos (JPEG or PNG, up to 3)">
+            <button type="submit">Read the label</button>
+            <p id="working" class="htmx-indicator">
+                Reading the label… this takes about 10 to 15 seconds.
+            </p>
+        </form>
+    </section>
+
+    <div id="result">
+        <th:block th:if="${error}"><div th:replace="~{fragments :: error}"></div></th:block>
+    </div>
+
+    <section class="card" th:unless="${#lists.isEmpty(recent)}">
+        <h2>Recent products</h2>
+        <table class="recent">
+            <thead>
+            <tr><th>Product</th><th>Grade</th><th>Allergens</th><th>When</th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="r : ${recent}">
+                <td>
+                    <a th:href="@{/products/{id}(id=${r.id})}"
+                       th:text="${r.reading != null and r.reading.name != null ? r.reading.name : (r.status.name() == 'FAILED' ? 'Not read' : 'Unnamed')}">Nutella</a>
+                </td>
+                <td>
+                    <span th:if="${r.nutriScore != null and r.nutriScore.scored}"
+                          th:class="'grade-mini ' + ${@display.gradeClass(r.nutriScore.grade)}"
+                          th:text="${r.nutriScore.grade}">E</span>
+                    <span th:if="${r.nutriScore != null and !r.nutriScore.scored}" class="muted">not scored</span>
+                    <span th:if="${r.status.name() == 'FAILED'}" class="muted">failed</span>
+                </td>
+                <td>
+                    <span th:if="${r.allergens != null and r.allergens.ingredientsRead}"
+                          th:text="${@display.allergens(r.allergens.contains)}">Milk</span>
+                </td>
+                <td th:text="${@display.date(r.createdAt)}">2026-11-04 18:55 UTC</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

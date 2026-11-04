@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head(${p.reading != null and p.reading.name != null ? p.reading.name + ' · LabelLens' : 'Result · LabelLens'})}"></head>
+<body>
+<header th:replace="~{fragments :: header}"></header>
+
+<main>
+    <p><a th:href="@{/}">← Read another label</a></p>
+
+    <!-- The result: a full page here, and the fragment htmx swaps into the home page. -->
+    <div th:fragment="result">
+
+        <!-- Reading failed -->
+        <section class="card" th:if="${p.status.name() == 'FAILED'}">
+            <h1>Couldn't read this label</h1>
+            <p th:text="${p.failureReason}">AI call failed.</p>
+            <p>Try again with sharper photos of the nutrition table and the ingredients list, taken straight on.</p>
+        </section>
+
+        <!-- Still processing (only if the app stopped in the middle of an upload) -->
+        <section class="card" th:if="${p.status.name() == 'PENDING'}">
+            <h1>Not finished</h1>
+            <p>This upload was never fully processed. Upload the photos again.</p>
+        </section>
+
+        <th:block th:if="${p.reading != null}" th:with="r=${p.reading}, n=${p.nutriScore}, a=${p.allergens}">
+
+            <section class="card">
+                <h1 dir="auto">
+                    <span th:text="${r.name != null ? r.name : 'Unnamed product'}">Nutella</span>
+                    <small th:if="${r.brand != null}" th:text="${r.brand}">Ferrero</small>
+                </h1>
+                <p><a th:href="@{/products/{id}(id=${p.id})}">Link to this result</a></p>
+            </section>
+
+            <!-- Nutri-Score: the grade, then every point so the user sees WHY -->
+            <section class="card" th:if="${n != null}">
+                <h2>Nutri-Score</h2>
+                <th:block th:if="${n.scored}">
+                    <div class="grade-row">
+                        <span th:class="'grade ' + ${@display.gradeClass(n.grade)}" th:text="${n.grade}">E</span>
+                        <span>Score <strong th:text="${n.score}">31</strong>
+                            (bad points minus good points; lower is better)</span>
+                    </div>
+                    <table class="points">
+                        <thead><tr><th>Bad points</th><th></th><th>Good points</th><th></th></tr></thead>
+                        <tbody>
+                        <tr><td>Energy</td><td th:text="${n.points.energy}">6</td>
+                            <td>Protein</td><td th:text="${n.points.proteinCounted ? n.points.protein : '0 (not counted)'}">2</td></tr>
+                        <tr><td>Sugars</td><td th:text="${n.points.sugars}">15</td>
+                            <td>Fibre</td><td th:text="${n.points.fibre}">0</td></tr>
+                        <tr><td>Saturated fat</td><td th:text="${n.points.saturatedFat}">10</td>
+                            <td>Fruit, vegetables, legumes</td><td th:text="${n.points.fruitVegLegumes}">0</td></tr>
+                        <tr><td>Salt</td><td th:text="${n.points.salt}">0</td><td></td><td></td></tr>
+                        </tbody>
+                    </table>
+                    <p class="note" th:if="${!n.points.proteinCounted}">
+                        Protein isn't counted: with this many bad points, the 2023 formula ignores it.
+                    </p>
+                    <p class="note" th:if="${n.fruitVegAssumedZero}">
+                        Labels rarely print the fruit and vegetable percentage, so 0% was assumed.
+                        The real grade can be better.
+                    </p>
+                </th:block>
+                <p th:unless="${n.scored}">
+                    Not scored: <span th:text="${n.notScoredReason}">Drinks are not included in v1</span>.
+                </p>
+            </section>
+
+            <!-- Allergens -->
+            <section class="card" th:if="${a != null}">
+                <h2>Allergens</h2>
+                <div class="box box-warning" th:unless="${a.ingredientsRead}">
+                    No ingredients list was read, so <strong>allergens were not checked</strong>.
+                    Add a photo of the ingredients.
+                </div>
+                <th:block th:if="${a.ingredientsRead}">
+                    <p>Contains:
+                        <span th:if="${#lists.isEmpty(a.contains)}">none of the 14 EU allergens found</span>
+                        <span th:each="t : ${a.contains}" class="tag tag-contains" th:text="${@display.allergen(t)}">Milk</span>
+                    </p>
+                    <div class="box box-warning" th:unless="${a.aiChecked}">
+                        Only the word list checked these ingredients (the AI check failed).
+                        It misses more allergens than the word list and the AI together.
+                    </div>
+                </th:block>
+                <p th:unless="${#lists.isEmpty(a.mayContain)}">May contain:
+                    <span th:each="t : ${a.mayContain}" class="tag tag-may" th:text="${@display.allergen(t)}">Celery</span>
+                </p>
+            </section>
+
+            <!-- What was read -->
+            <section class="card">
+                <h2>Read from the label <small>per 100 <span th:text="${r.printedBasis == '100ml' ? 'ml' : 'g'}">g</span></small></h2>
+                <p class="note" th:if="${r.printedBasis == 'serving'}">
+                    The label gives values per serving; they were converted to per 100 g.
+                </p>
+                <table class="nutrition">
+                    <tbody>
+                    <tr><td>Energy</td><td th:text="${r.energyKj == null ? 'not printed' : @display.number(r.energyKj) + ' kJ'}">2252 kJ</td></tr>
+                    <tr><td>Fat</td><td th:text="${@display.number(r.fat)}">30.9</td></tr>
+                    <tr><td>· of which saturated</td><td th:text="${@display.number(r.saturatedFat)}">10.6</td></tr>
+                    <tr><td>Carbohydrates</td><td th:text="${@display.number(r.carbohydrates)}">57.5</td></tr>
+                    <tr><td>· of which sugars</td><td th:text="${@display.number(r.sugars)}">56.3</td></tr>
+                    <tr><td>Fibre</td><td th:text="${@display.number(r.fibre)}">3</td></tr>
+                    <tr><td>Protein</td><td th:text="${@display.number(r.protein)}">6.3</td></tr>
+                    <tr><td>Salt</td><td th:text="${@display.number(r.salt)}">0.11</td></tr>
+                    </tbody>
+                </table>
+                <h3>Ingredients</h3>
+                <p dir="auto" th:text="${r.ingredientsText != null ? r.ingredientsText : 'Not read.'}">sucre, …</p>
+                <p dir="auto" th:if="${r.mayContainText != null}" class="note" th:text="${r.mayContainText}">May contain celery.</p>
+            </section>
+
+            <section class="card box-warning" th:unless="${#lists.isEmpty(p.warnings)}">
+                <h2>Check these values</h2>
+                <ul><li th:each="w : ${p.warnings}" th:text="${w}">Sugars are higher than carbohydrates.</li></ul>
+            </section>
+
+            <p class="muted">
+                Read by <span th:text="${p.model}">gpt-4.1-mini</span>
+                <th:block th:if="${a != null and a.aiModel != null}">· allergens checked by the word list and <span th:text="${a.aiModel}">gpt-4.1</span></th:block>
+                · <span th:text="${@display.date(p.createdAt)}">2026-11-04</span>
+            </p>
+        </th:block>
+    </div>
+</main>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>
