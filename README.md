@@ -169,7 +169,9 @@ A real upload: sweet corn, water and salt. The values were read correctly.
 | sugars 6.7 g | 1 | fibre (not printed) | 0 |
 | saturated fat 0.4 g | 0 | fruit, vegetables, legumes | **0 (assumed)** |
 | salt 0.8 g | 3 | | |
-| **5** | | **1** | → score 4 → **C** |
+| **Total** | **5** | **Total** | **1** |
+
+Score: 5 − 1 = **4 → C**.
 
 The producer counts the can as mostly vegetable (≥ 80%): **+5 good points**, score −1 or lower,
 **A**. Labels almost never print that percentage, and the app never invents a value that isn't
