@@ -2,6 +2,7 @@ package dev.labellens.web;
 
 import dev.labellens.product.InvalidUploadException;
 import dev.labellens.product.ProductNotFoundException;
+import dev.labellens.product.UploadLimitException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -23,6 +24,11 @@ public class ApiExceptionHandler {
     @ExceptionHandler(InvalidUploadException.class)
     public ProblemDetail invalidUpload(InvalidUploadException e) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
+    }
+
+    @ExceptionHandler(UploadLimitException.class)
+    public ProblemDetail uploadLimit(UploadLimitException e) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.TOO_MANY_REQUESTS, e.getMessage());
     }
 
     @ExceptionHandler(ProductNotFoundException.class)

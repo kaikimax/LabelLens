@@ -17,6 +17,7 @@ import dev.labellens.reading.ReadOutcome;
 import dev.labellens.storage.PhotoStorage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -27,6 +28,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Set;
 import java.util.UUID;
 
@@ -46,6 +49,7 @@ public class ProductService {
     private final LabelReader reader;
     private final AllergenDetector allergenDetector;
     private final TransactionTemplate transaction;
+    private final int dailyUploadLimit;
 
     public ProductService(ProductRepository repository,
                           LabelReadingRepository readingRepository,
@@ -54,7 +58,8 @@ public class ProductService {
                           PhotoStorage storage,
                           LabelReader reader,
                           AllergenDetector allergenDetector,
-                          TransactionTemplate transaction) {
+                          TransactionTemplate transaction,
+                          @Value("${labellens.uploads.daily-limit}") int dailyUploadLimit) {
         this.repository = repository;
         this.readingRepository = readingRepository;
         this.nutriScoreRepository = nutriScoreRepository;
@@ -63,6 +68,7 @@ public class ProductService {
         this.reader = reader;
         this.allergenDetector = allergenDetector;
         this.transaction = transaction;
+        this.dailyUploadLimit = dailyUploadLimit;
     }
 
     /**
@@ -81,6 +87,7 @@ public class ProductService {
      */
     public ProductResponse create(List<MultipartFile> photos) {
         validate(photos);
+        checkDailyLimit();
 
         // Step 1. The images are collected here, inside the transaction: after it ends,
         // the product's photo list can no longer be loaded from the database (lazy loading).
@@ -184,6 +191,17 @@ public class ProductService {
                 result.getSize(),
                 result.getTotalElements(),
                 result.getTotalPages());
+    }
+
+    /**
+     * Counted over the last 24 hours, before any AI call. With one app copy (max-replicas 1),
+     * two uploads at the same moment can go 1 over the limit: acceptable for a cost cap.
+     */
+    private void checkDailyLimit() {
+        if (repository.countByCreatedAtAfter(Instant.now().minus(Duration.ofHours(24))) >= dailyUploadLimit) {
+            log.warn("Daily upload limit of {} reached", dailyUploadLimit);
+            throw new UploadLimitException(dailyUploadLimit);
+        }
     }
 
     private void validate(List<MultipartFile> photos) {

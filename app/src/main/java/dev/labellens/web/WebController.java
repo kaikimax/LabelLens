@@ -4,6 +4,7 @@ import dev.labellens.product.InvalidUploadException;
 import dev.labellens.product.ProductNotFoundException;
 import dev.labellens.product.ProductResponse;
 import dev.labellens.product.ProductService;
+import dev.labellens.product.UploadLimitException;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -56,13 +57,14 @@ public class WebController {
         ProductResponse product;
         try {
             product = service.create(chosen);
-        } catch (InvalidUploadException e) {
+        } catch (InvalidUploadException | UploadLimitException e) {
             model.addAttribute("error", e.getMessage());
             if (htmx != null) {
                 // htmx doesn't swap 4xx answers by default: the message is sent as a normal fragment.
                 return "fragments :: error";
             }
-            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            response.setStatus(e instanceof UploadLimitException
+                    ? HttpStatus.TOO_MANY_REQUESTS.value() : HttpStatus.BAD_REQUEST.value());
             model.addAttribute("recent", service.list(0, RECENT).items());
             return "index";
         }

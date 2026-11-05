@@ -102,8 +102,10 @@ Tables are created and updated with Flyway, so the database structure is version
 | `GET` | `/api/products/{id}` | See one product's results. |
 | `GET` | `/api/products` | List products, page by page. |
 | `GET` | `/api/ai-costs` | Total cost and average time of AI calls, by step and model. |
-| `GET` | `/api/eval/latest` | The latest test scores, shown on a page in the app. |
 | `GET` | `/actuator/health` | Lets Azure check the app is running. |
+
+`GET /api/eval/latest` (the latest eval scores on a page) was dropped: the README and the committed
+reports in `eval-food/reports/` show them (decisions log, 2026-11-05).
 
 ## 8. Testing the AI (the core of the project)
 
@@ -147,17 +149,19 @@ It doesn't know what a nutrition table is. That makes it reusable: to test an AI
   - **False alarms:** the AI says milk, and there's none. Annoying, but not dangerous.
 - Since a missed allergen is worse, **the main score is "how many real allergens did the AI catch"** (in AI terms, **recall**). Choosing the score based on which mistake is worse is a good interview point.
 
-### 8.3 What a report looks like
+### 8.3 The real results (filled in 2026-11-05)
 
 ```
-Test 1 – Reading            sugar 95%   salt 88%   energy 97%   (Arabic labels: salt 79%)
-Test 2a – Formula           4,987 / 5,000 grades match (99.7%)
-Test 2b – Photo to grade    34 / 40 correct; 4 grade changes caused by salt misreads
-Test 3 – Allergens          caught 96% of real allergens; 7% false alarms
-Cost                        $0.004 per product, 6.2 s on average
+Test 1 – Reading            31 products x 3 runs: energy 96.8%  sugars 87.1%  salt 96.8%  fibre 100%
+                            Arabic labels: sugars 83.3%, carbohydrates 91.7%   stability 96.4%
+Test 2a – Formula           4,956 / 5,000 grades match (99.12%); 99.82% once OFF's fruit/vegetable data is set aside
+Test 2b – Photo to grade    77.2% (19 gradable products x 3 runs); 3 products (p003, p009, p026) misread enough to change the grade
+Test 3 – Allergens          word list + gpt-4.1: caught 99.5% of real allergens; 97.7% of alarms correct (500 French texts)
+Cost                        about $2 per 1,000 products, 7.5 s of AI time per product
 ```
 
-(Numbers here are invented examples. The real ones get filled in after running the tests.)
+The photo set ended at 31 products, not 40 (decisions log, 2026-11-03). Details and caveats:
+`docs/notes/` and the README.
 
 ## 9. The fine-tuning experiment
 
@@ -173,11 +177,15 @@ Cost                        $0.004 per product, 6.2 s on average
 
 | Setup | Allergens caught | False alarms | Cost per 1,000 products | Time per product |
 |---|---|---|---|---|
-| Big model, instructions only | | | | |
-| Small model, instructions only | | | | |
-| Small model, fine-tuned | | | | |
+| Big model (gpt-4.1), instructions only | 97.0% | 16 | ≈ $0.50 | 2.3 s |
+| Small model (gpt-4.1-nano), instructions only | 91.8% | 80 | ≈ $0.03 | |
+| Small model, fine-tuned | 97.5% | 13 | ≈ $0.03 + ≈ $1,200/month hosting | 0.5 s |
 
-**The most important rule:** the 500 test products must **never** be used for training. Otherwise it's like giving a student the exam answers before the exam: the score looks great and means nothing. Products are split using their barcode, so a product is either in the training group or the test group, never both. My 40 photographed products are never used for training.
+Real results, 500 French test products, 1 run each (day 7 notes). Verdict: fine-tuning works, but
+the hosting fee only pays off above ≈ 2.7 million calls a month; the app uses the Java word list
++ gpt-4.1 (99.5% caught).
+
+**The most important rule:** the 500 test products must **never** be used for training. Otherwise it's like giving a student the exam answers before the exam: the score looks great and means nothing. Products are split using their barcode, so a product is either in the training group or the test group, never both. My 31 photographed products are never used for training.
 
 **Whatever the result, it goes in the README.** If fine-tuning doesn't help, "I measured it, and here's why it wasn't worth it" is still a strong result.
 
@@ -229,7 +237,7 @@ Java 21 · Spring Boot 3 · Spring AI (to call Azure OpenAI from Java) · Postgr
 |---|---|
 | The AI model I need isn't available in my Azure region | Check on day 2. Spring AI lets me switch provider with configuration only. |
 | Spending the $100 credit | Alert at $25. Stop the database when not working. App costs nothing when nobody uses it. Small tests in CI, full tests only at night. |
-| Open Food Facts data has mistakes | That's why my 40 hand-checked products are scored separately. I trust that number most. |
+| Open Food Facts data has mistakes | That's why my 31 hand-checked products are scored separately. I trust that number most. |
 | My Nutri-Score uses a different version of the formula than Open Food Facts | Check which version their data uses before Test 2a. |
 | Adding features instead of finishing | Section 2 lists what's out. New ideas go in `docs/v2-ideas.md`. |
 

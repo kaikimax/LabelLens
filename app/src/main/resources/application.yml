@@ -53,6 +53,9 @@ spring:
 labellens:
   storage:
     local-dir: ${PHOTO_DIR:./uploads}
+  uploads:
+    # Uploads accepted per 24 hours, for the whole site: each one costs AI calls (decisions log, 2026-11-05).
+    daily-limit: ${LABELLENS_DAILY_UPLOAD_LIMIT:200}
   allergens:
     # The deployment the app asks for allergens, with the word list (decisions log, 2026-10-31).
     deployment: ${LABELLENS_ALLERGEN_DEPLOYMENT:gpt-4.1}

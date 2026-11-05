@@ -95,9 +95,13 @@ $Url = "https://" + (az containerapp show --resource-group $Rg --name $App --que
 
 # ---- 5. GitHub Actions login without a password (OIDC) ------------------------------------------------
 az identity create --resource-group $Rg --name $Identity --location $Location -o table
+# The subject must match EXACTLY what GitHub sends. This repo's tokens use the newer format with
+# the owner's and the repo's numeric IDs: "repo:OWNER@OWNER_ID/REPO@REPO_ID:ref:refs/heads/main".
+# Copy it from the "subject claim" line of a failed "Log in to Azure" step if it differs.
+$Subject = "repo:kaikimax@96614722/LabelLens@1413715125:ref:refs/heads/$Branch"
 az identity federated-credential create --resource-group $Rg --identity-name $Identity `
-  --name github-main --issuer "https://token.actions.githubusercontent.com" `
-  --subject "repo:${GitHubRepo}:ref:refs/heads/$Branch" --audiences "api://AzureADTokenExchange" -o table
+  --name github-main-ids --issuer "https://token.actions.githubusercontent.com" `
+  --subject $Subject --audiences "api://AzureADTokenExchange" -o table
 $PrincipalId = az identity show --resource-group $Rg --name $Identity --query principalId -o tsv
 $RgId        = az group show --name $Rg --query id -o tsv
 # Contributor on THIS resource group only: it can push images and update the app, nothing else.
