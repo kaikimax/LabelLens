@@ -10,6 +10,8 @@ measure how often the AI is right**, and what each AI step costs.
 (the first visit after a pause takes about 30 s: the app scales to zero when nobody uses it;
 it accepts 200 uploads a day, because each one is paid from my Azure credit)
 
+**Demo video (1:55):** https://youtube.com/shorts/sboEEKSa1qo
+
 Java 21 · Spring Boot 4 · Spring AI · PostgreSQL · Azure OpenAI · Thymeleaf + htmx · Docker ·
 GitHub Actions · Azure Container Apps
 
